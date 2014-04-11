@@ -1,5 +1,0 @@
-D:\CINECA\profili\dmengoli\Documenti\Visual Studio 2008\Projects\MavlinkBridge\Mavlink\bin\Debug\MAVLink.dll
-D:\CINECA\profili\dmengoli\Documenti\Visual Studio 2008\Projects\MavlinkBridge\Mavlink\bin\Debug\MAVLink.pdb
-D:\CINECA\profili\dmengoli\Documenti\Visual Studio 2008\Projects\MavlinkBridge\Mavlink\obj\Debug\ResolveAssemblyReference.cache
-D:\CINECA\profili\dmengoli\Documenti\Visual Studio 2008\Projects\MavlinkBridge\Mavlink\obj\Debug\MAVLink.dll
-D:\CINECA\profili\dmengoli\Documenti\Visual Studio 2008\Projects\MavlinkBridge\Mavlink\obj\Debug\MAVLink.pdb

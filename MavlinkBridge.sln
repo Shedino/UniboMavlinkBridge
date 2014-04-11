@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MavlinkBridge", "MavlinkBridge\MavlinkBridge.csproj", "{2BD5C4E0-47B4-48C1-9DBD-02EEEB0B5047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAVLink", "Mavlink\MAVLink.csproj", "{20296734-5F3C-4593-A0D5-DD20B440B13A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BD5C4E0-47B4-48C1-9DBD-02EEEB0B5047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD5C4E0-47B4-48C1-9DBD-02EEEB0B5047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD5C4E0-47B4-48C1-9DBD-02EEEB0B5047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD5C4E0-47B4-48C1-9DBD-02EEEB0B5047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20296734-5F3C-4593-A0D5-DD20B440B13A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20296734-5F3C-4593-A0D5-DD20B440B13A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20296734-5F3C-4593-A0D5-DD20B440B13A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20296734-5F3C-4593-A0D5-DD20B440B13A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

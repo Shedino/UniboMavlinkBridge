@@ -33,9 +33,11 @@ namespace MavlinkBridge
         private int _rcvOpti = 0;
         private int _rcvPars = 0;
         private int _rcvRefs = 0;
+        private int _rcvJoy = 0;
         byte seqOpti = 0;
         byte seqPars = 0;
         byte seqRefs = 0;
+        byte seqJoy = 0;
 
         public Form1()
         {
@@ -264,6 +266,28 @@ namespace MavlinkBridge
                                 mp.TimeStamp = DateTime.Now;
                                 toSend = mav.Send(mp);
                                 //refs.s
+                                break;
+                            case 10:
+                                //Joypad RAW
+                                Msg_rc_channels_scaled rc = new Msg_rc_channels_scaled();
+                                //MAVLink.mavlink_vicon_position_estimate_t opti = new MAVLink.mavlink_vicon_position_estimate_t();
+                                _rcvJoy++;
+                                rc.chan1_scaled = (short)((short.Parse(pspl[2])-500) * 20); //-500/+500 --> -10000/+10000
+                                rc.chan2_scaled = (short)((short.Parse(pspl[3])-500) * 20); //-500/+500 --> -10000/+10000
+                                rc.chan3_scaled = (short)((short.Parse(pspl[4])-500) * 20); //-500/+500 --> -10000/+10000
+                                rc.chan4_scaled = (short)((short.Parse(pspl[5])-500) * 20); //-500/+500 --> -10000/+10000
+                                rc.chan5_scaled = unchecked((short)ushort.MaxValue);
+                                rc.chan6_scaled = unchecked((short)ushort.MaxValue);
+                                rc.chan7_scaled = unchecked((short)ushort.MaxValue);
+                                rc.chan8_scaled = (short)(int.Parse(pspl[6]) * 30); //255*3*10 --> 0/7650 max value
+
+                                MavlinkPacket mprc = new MavlinkPacket();
+                                mprc.Message = rc;
+                                mprc.ComponentId = 0;
+                                mprc.SequenceNumber = ++seqJoy;
+                                mprc.SystemId = 0;
+                                mprc.TimeStamp = DateTime.Now;
+                                toSend = mav.Send(mprc);
                                 break;
                         }
 

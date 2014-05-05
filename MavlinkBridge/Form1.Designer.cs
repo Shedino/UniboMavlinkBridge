@@ -74,7 +74,7 @@
             this.tbSourceUdp.Name = "tbSourceUdp";
             this.tbSourceUdp.Size = new System.Drawing.Size(196, 20);
             this.tbSourceUdp.TabIndex = 2;
-            this.tbSourceUdp.Text = "127.0.0.1:5555";
+            this.tbSourceUdp.Text = "127.0.0.1:6655";
             // 
             // rbSourceSerial
             // 
@@ -118,7 +118,7 @@
             this.tbDestSerial.Name = "tbDestSerial";
             this.tbDestSerial.Size = new System.Drawing.Size(138, 20);
             this.tbDestSerial.TabIndex = 5;
-            this.tbDestSerial.Text = "COM75:115200";
+            this.tbDestSerial.Text = "COM21:115200";
             // 
             // tbDestUdp
             // 

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO.Ports;
 using System.Net.Sockets;
 using System.Net;
+using MavLink;
 
 namespace MavlinkBridge
 {
@@ -25,11 +26,16 @@ namespace MavlinkBridge
         private bool _commActive = false;
         IPEndPoint sep = null;
 
-        MAVLink.MavlinkParse mav = null;
+        //MAVLink.MavlinkParse mav = null;
+        Mavlink mav = null;
+
 
         private int _rcvOpti = 0;
         private int _rcvPars = 0;
         private int _rcvRefs = 0;
+        byte seqOpti = 0;
+        byte seqPars = 0;
+        byte seqRefs = 0;
 
         public Form1()
         {
@@ -44,7 +50,8 @@ namespace MavlinkBridge
             tbDebug.Text = "Trying to connect..."+EOL;
             _commActive = true;
 
-            mav = new MAVLink.MavlinkParse();
+            //mav = new MAVLink.MavlinkParse();
+            mav = new Mavlink();
 
             try
             {
@@ -162,70 +169,101 @@ namespace MavlinkBridge
                         int type = 0;
                         int.TryParse(pspl[1], out type);
                         //switch in base al tipo!
-                        byte[] toSend = new byte[0];
+                        byte[] toSend = new byte[255];
+                        int offset = 0;
+                        int size = 0;
                         switch (type)
                         {
                             case 1:
                                 //Optitrack
-                                MAVLink.mavlink_vicon_position_estimate_t opti = new MAVLink.mavlink_vicon_position_estimate_t();
+                                Msg_vicon_position_estimate opti = new Msg_vicon_position_estimate();
+                                //MAVLink.mavlink_vicon_position_estimate_t opti = new MAVLink.mavlink_vicon_position_estimate_t();
                                 _rcvOpti++;
                                 opti.x = int.Parse(pspl[2]) / 1000.0f;
                                 opti.y = int.Parse(pspl[3]) / 1000.0f;
                                 opti.z = int.Parse(pspl[4]) / 1000.0f;
-                                opti.roll = 0;
-                                opti.pitch = 0;
-                                opti.yaw = 0;
+                                opti.roll = 0f;
+                                opti.pitch = 0f;
+                                opti.yaw = 0f;
+                                opti.usec = ulong.Parse(pspl[10]) * 100;          //from matlab is sent 1e+4, we convert to usec which is 1e+6
                                 //toSend = .
-                                toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.VICON_POSITION_ESTIMATE, opti);
+                                //toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.VICON_POSITION_ESTIMATE, opti);
+                                //size = MavLinkSerializer.Serialize_VICON_POSITION_ESTIMATE(opti, toSend, ref offset);
+                                MavlinkPacket mpopt = new MavlinkPacket();
+                                mpopt.Message = opti;
+                                mpopt.ComponentId = 0;
+                                mpopt.SequenceNumber = ++seqOpti;
+                                mpopt.SystemId = 0;
+                                mpopt.TimeStamp = DateTime.Now;
+                                toSend = mav.Send(mpopt);
                                 break;
                             case 5:
-                                MAVLink.mavlink_unibo_parameters_t pars = new MAVLink.mavlink_unibo_parameters_t();
+                                Msg_unibo_parameters pars = new Msg_unibo_parameters();
+                                //AVLink.mavlink_unibo_parameters_t pars = new MAVLink.mavlink_unibo_parameters_t();
                                 _rcvPars++;
-                                pars.offset_T = float.Parse(pspl[2]);
-                                pars.lat_mode = float.Parse(pspl[3]);
-                                pars.delta = float.Parse(pspl[4]);
-                                pars.K1 = float.Parse(pspl[5]);
-                                pars.L1 = float.Parse(pspl[6]);
-                                pars.Ixy = float.Parse(pspl[7]);
-                                pars.K2 = float.Parse(pspl[8]);
-                                pars.L2 = float.Parse(pspl[9]);
-                                pars.Iz = float.Parse(pspl[10]);
-                                pars.KpAttX = float.Parse(pspl[11]);
-                                pars.KpAttY = float.Parse(pspl[12]);
-                                pars.KpAttZ = float.Parse(pspl[13]);
-                                pars.KdAttX = float.Parse(pspl[14]);
-                                pars.KdAttY = float.Parse(pspl[15]);
-                                pars.KdAttZ = float.Parse(pspl[16]);
-                                pars.KiAttX = float.Parse(pspl[17]);
-                                pars.KiAttY = float.Parse(pspl[18]);
-                                pars.KiAttZ = float.Parse(pspl[19]);
-                                pars.GE = float.Parse(pspl[20]);
-                                pars.epsilon = float.Parse(pspl[21]);
-                                pars.XY_Multiplier = float.Parse(pspl[22]);
-                                pars.offset_x = float.Parse(pspl[23]);
-                                pars.offset_y = float.Parse(pspl[24]);
-                                pars.offset_z = float.Parse(pspl[25]);
-                                toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.UNIBO_PARAMETERS, pars);
+                                pars.Offset_T = float.Parse(pspl[2]) / 1000.0f;
+                                pars.lat_mode = float.Parse(pspl[3]) / 1000.0f;
+                                pars.delta = float.Parse(pspl[4]) / 1000.0f;
+                                pars.K1 = float.Parse(pspl[5]) / 1000.0f;
+                                pars.L1 = float.Parse(pspl[6]) / 1000.0f;
+                                pars.Ixy = float.Parse(pspl[7]) / 1000.0f;
+                                pars.K2 = float.Parse(pspl[8]) / 1000.0f;
+                                pars.L2 = float.Parse(pspl[9]) / 1000.0f;
+                                pars.Iz = float.Parse(pspl[10]) / 1000.0f;
+                                pars.KpAttX = float.Parse(pspl[11]) / 1000.0f;
+                                pars.KpAttY = float.Parse(pspl[12]) / 1000.0f;
+                                pars.KpAttZ = float.Parse(pspl[13]) / 1000.0f;
+                                pars.KdAttX = float.Parse(pspl[14]) / 1000.0f;
+                                pars.KdAttY = float.Parse(pspl[15]) / 1000.0f;
+                                pars.KdAttZ = float.Parse(pspl[16]) / 1000.0f;
+                                pars.KiAttX = float.Parse(pspl[17]) / 1000.0f;
+                                pars.KiAttY = float.Parse(pspl[18]) / 1000.0f;
+                                pars.KiAttZ = float.Parse(pspl[19]) / 1000.0f;
+                                pars.GE = float.Parse(pspl[20]) / 1000.0f;
+                                pars.epsilon = float.Parse(pspl[21]) / 1000.0f;
+                                pars.XY_Multiplier = float.Parse(pspl[22]) / 1000.0f;
+                                pars.offset_x = float.Parse(pspl[23]) / 1000.0f;
+                                pars.offset_y = float.Parse(pspl[24]) / 1000.0f;
+                                pars.offset_z = float.Parse(pspl[25]) / 1000.0f;
+                                //toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.UNIBO_PARAMETERS, pars);
+                                //size = MavLinkSerializer.Serialize_UNIBO_PARAMETERS(pars, toSend, ref offset);
+                                MavlinkPacket mppar = new MavlinkPacket();
+                                mppar.Message = pars;
+                                mppar.ComponentId = 0;
+                                mppar.SequenceNumber = ++seqPars;
+                                mppar.SystemId = 0;
+                                mppar.TimeStamp = DateTime.Now;
+                                toSend = mav.Send(mppar);
                                 break;
                             case 7:
-                                MAVLink.mavlink_unibo_references_t refs = new MAVLink.mavlink_unibo_references_t();
+                                Msg_unibo_references refs = new Msg_unibo_references();
+                                //MAVLink.mavlink_unibo_references_t refs = new MAVLink.mavlink_unibo_references_t();
                                 _rcvRefs++;
-                                refs.p_refX = float.Parse(pspl[2]);
-                                refs.p_refY = float.Parse(pspl[3]);
-                                refs.p_refZ = float.Parse(pspl[4]);
-                                refs.dot_p_refX = float.Parse(pspl[5]);
-                                refs.dot_p_refY = float.Parse(pspl[6]);
-                                refs.dot_p_refZ = float.Parse(pspl[7]);
-                                refs.dot2_p_refX = float.Parse(pspl[8]);
-                                refs.dot2_p_refY = float.Parse(pspl[9]);
-                                refs.dot2_p_refZ = float.Parse(pspl[10]);
-                                refs.psi_ref = float.Parse(pspl[11]);
-                                refs.dot_psi_ref = float.Parse(pspl[12]);
-                                refs.dot2_psi_ref = float.Parse(pspl[13]);
-                                refs.q = float.Parse(pspl[14]);
+                                refs.p_refX = float.Parse(pspl[2]) / 1000.0f;
+                                refs.p_refY = float.Parse(pspl[3]) / 1000.0f;
+                                refs.p_refZ = float.Parse(pspl[4]) / 1000.0f;
+                                refs.dot_p_refX = float.Parse(pspl[5]) / 1000.0f;
+                                refs.dot_p_refY = float.Parse(pspl[6]) / 1000.0f;
+                                refs.dot_p_refZ = float.Parse(pspl[7]) / 1000.0f;
+                                refs.dot2_p_refX = float.Parse(pspl[8]) / 1000.0f;
+                                refs.dot2_p_refY = float.Parse(pspl[9]) / 1000.0f;
+                                refs.dot2_p_refZ = float.Parse(pspl[10]) / 1000.0f;
+                                refs.psi_ref = float.Parse(pspl[11]) / 1000.0f;
+                                refs.dot_psi_ref = float.Parse(pspl[12]) / 1000.0f;
+                                refs.dot2_psi_ref = float.Parse(pspl[13]) / 1000.0f;
+                                refs.q = float.Parse(pspl[14]) / 1000.0f;
                                 refs.buttons = UInt32.Parse(pspl[15]);
                                 refs.Tstamp = Int32.Parse(pspl[16]);
-                                toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.UNIBO_REFERENCES, refs);
+                                //toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.UNIBO_REFERENCES, refs);
+                                //size = MavLinkSerializer.Serialize_UNIBO_REFERENCES(refs, toSend, ref offset);
+                                MavlinkPacket mp = new MavlinkPacket();
+                                mp.Message = refs;
+                                mp.ComponentId = 0;
+                                mp.SequenceNumber = ++seqRefs;
+                                mp.SystemId = 0;
+                                mp.TimeStamp = DateTime.Now;
+                                toSend = mav.Send(mp);
+                                //refs.s
                                 break;
                         }
 

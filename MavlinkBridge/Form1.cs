@@ -272,10 +272,10 @@ namespace MavlinkBridge
                                 Msg_rc_channels_scaled rc = new Msg_rc_channels_scaled();
                                 //MAVLink.mavlink_vicon_position_estimate_t opti = new MAVLink.mavlink_vicon_position_estimate_t();
                                 _rcvJoy++;
-                                rc.chan1_scaled = (short)((short.Parse(pspl[2])-500) * 20); //-500/+500 --> -10000/+10000
-                                rc.chan2_scaled = (short)((short.Parse(pspl[3])-500) * 20); //-500/+500 --> -10000/+10000
-                                rc.chan3_scaled = (short)((short.Parse(pspl[4])-500) * 20); //-500/+500 --> -10000/+10000
-                                rc.chan4_scaled = (short)((short.Parse(pspl[5])-500) * 20); //-500/+500 --> -10000/+10000
+                                rc.chan1_scaled = (short)((short.Parse(pspl[2])-512) * 19.5); //-512/+512 --> -10000/+10000
+                                rc.chan2_scaled = (short)((short.Parse(pspl[3])-512) * 19.5); //-512/+512 --> -10000/+10000
+                                rc.chan3_scaled = (short)((short.Parse(pspl[4])-512) * 19.5); //-512/+512 --> -10000/+10000
+                                rc.chan4_scaled = (short)((short.Parse(pspl[5])-512) * 19.5); //-512/+512 --> -10000/+10000
                                 rc.chan5_scaled = unchecked((short)ushort.MaxValue);
                                 rc.chan6_scaled = unchecked((short)ushort.MaxValue);
                                 rc.chan7_scaled = unchecked((short)ushort.MaxValue);

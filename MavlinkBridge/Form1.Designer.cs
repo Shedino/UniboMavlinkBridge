@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tbSourceSerial = new System.Windows.Forms.TextBox();
             this.tbSourceUdp = new System.Windows.Forms.TextBox();
@@ -43,6 +44,7 @@
             this.tbPackets = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbDebug = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -197,6 +199,11 @@
             this.tbDebug.Size = new System.Drawing.Size(765, 117);
             this.tbDebug.TabIndex = 6;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 5000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -237,6 +244,7 @@
         private System.Windows.Forms.TextBox tbPackets;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbDebug;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

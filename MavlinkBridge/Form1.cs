@@ -39,6 +39,8 @@ namespace MavlinkBridge
         byte seqRefs = 0;
         byte seqJoy = 0;
 
+        bool paramsRcv = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -94,6 +96,8 @@ namespace MavlinkBridge
                     _destinationSerial = new SerialPort(spl[0], int.Parse(spl[1]));
                     _destinationSerial.Open();
                 }
+                //Timer
+                timer1.Enabled = true;
                 tbDebug.Text = "Done." + EOL;
             }
             catch (Exception ex)
@@ -102,6 +106,7 @@ namespace MavlinkBridge
                 tbDebug.Text += ex.Message + EOL + ex.StackTrace;
                 _disconnetcBtn.Enabled = false;
                 _connectBtn.Enabled = true;
+                timer1.Enabled = false;
             }
 
         }
@@ -143,6 +148,8 @@ namespace MavlinkBridge
                 _destinationSerial.Close();
             }
 
+            timer1.Enabled = false;
+
             tbDebug.Text = "Disconnected.";
         }
 
@@ -172,8 +179,8 @@ namespace MavlinkBridge
                         int.TryParse(pspl[1], out type);
                         //switch in base al tipo!
                         byte[] toSend = new byte[255];
-                        int offset = 0;
-                        int size = 0;
+                        //int offset = 0;
+                        //int size = 0;
                         switch (type)
                         {
                             case 1:
@@ -181,12 +188,12 @@ namespace MavlinkBridge
                                 Msg_vicon_position_estimate opti = new Msg_vicon_position_estimate();
                                 //MAVLink.mavlink_vicon_position_estimate_t opti = new MAVLink.mavlink_vicon_position_estimate_t();
                                 _rcvOpti++;
-                                opti.x = int.Parse(pspl[2]) / 1000.0f;
+                                opti.x = int.Parse(pspl[2]) / 1000.0f;               //optitrack position
                                 opti.y = int.Parse(pspl[3]) / 1000.0f;
                                 opti.z = int.Parse(pspl[4]) / 1000.0f;
-                                opti.roll = 0f;
-                                opti.pitch = 0f;
-                                opti.yaw = 0f;
+                                opti.roll = int.Parse(pspl[5]) * 100.0f;            //optitrack velocity
+                                opti.pitch = int.Parse(pspl[6]) * 100.0f;
+                                opti.yaw = int.Parse(pspl[7]) * 100.0f;
                                 opti.usec = ulong.Parse(pspl[10]) * 100;          //from matlab is sent 1e+4, we convert to usec which is 1e+6
                                 //toSend = .
                                 //toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.VICON_POSITION_ESTIMATE, opti);
@@ -227,6 +234,31 @@ namespace MavlinkBridge
                                 pars.offset_x = float.Parse(pspl[23]) / 1000.0f;
                                 pars.offset_y = float.Parse(pspl[24]) / 1000.0f;
                                 pars.offset_z = float.Parse(pspl[25]) / 1000.0f;
+
+                                //pars.Offset_T = 0.0f;
+                                //pars.lat_mode = 0.0f;;
+                                //pars.delta = 0.1f;;
+                                //pars.K1 = 9.0f;
+                                //pars.L1 = 18.0f;
+                                //pars.Ixy = 0.0f;;
+                                //pars.K2 = 65.0f;
+                                //pars.L2 = 200.0f;
+                                //pars.Iz = 0.03f;
+                                //pars.KpAttX = 2.5f;
+                                //pars.KpAttY = 2.5f;
+                                //pars.KpAttZ = 3.0f;
+                                //pars.KdAttX = 0.15f;
+                                //pars.KdAttY = 0.15f;
+                                //pars.KdAttZ = 0.15f;
+                                //pars.KiAttX = 0.0f;
+                                //pars.KiAttY = 0.0f;
+                                //pars.KiAttZ = 0.0f;
+                                //pars.GE = 0.0f;
+                                //pars.epsilon = 0.06f;
+                                //pars.XY_Multiplier = 1.0f;
+                                //pars.offset_x = 0.0f;
+                                //pars.offset_y = 0.0f;
+                                //pars.offset_z = 0.0f;
                                 //toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.UNIBO_PARAMETERS, pars);
                                 //size = MavLinkSerializer.Serialize_UNIBO_PARAMETERS(pars, toSend, ref offset);
                                 MavlinkPacket mppar = new MavlinkPacket();
@@ -236,6 +268,7 @@ namespace MavlinkBridge
                                 mppar.SystemId = 0;
                                 mppar.TimeStamp = DateTime.Now;
                                 toSend = mav.Send(mppar);
+                                paramsRcv = true;
                                 break;
                             case 7:
                                 Msg_unibo_references refs = new Msg_unibo_references();
@@ -310,6 +343,61 @@ namespace MavlinkBridge
                 }
             }
 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!paramsRcv)
+            {
+                byte[] toSend = new byte[255];
+                Msg_unibo_parameters pars = new Msg_unibo_parameters();
+                pars.Offset_T = 0.0f; //1
+                pars.lat_mode = 1.0f;
+                pars.delta = 0.1f;
+                pars.K1 = 7.0f;
+                pars.L1 = 18.0f; //5
+                pars.Ixy = 0.02f;
+                pars.K2 = 70.0f;
+                pars.L2 = 200.0f;
+                pars.Iz = 0.06f;
+                pars.KpAttX = 2.4f; //10
+                pars.KpAttY = 2.4f;
+                pars.KpAttZ = 1.5f;
+                pars.KdAttX = 0.14f;
+                pars.KdAttY = 0.14f;
+                pars.KdAttZ = 0.14f; //15
+                pars.KiAttX = 0.0f;
+                pars.KiAttY = 0.0f;
+                pars.KiAttZ = 0.01f;
+                pars.GE = 0.0f;
+                pars.epsilon = 0.06f; //20
+                pars.XY_Multiplier = 1.0f;
+                pars.offset_x = 0.0f;
+                pars.offset_y = 0.0f;
+                pars.offset_z = 87.0f; //24
+                MavlinkPacket mppar = new MavlinkPacket();
+                mppar.Message = pars;
+                mppar.ComponentId = 0;
+                mppar.SequenceNumber = ++seqPars;
+                mppar.SystemId = 0;
+                mppar.TimeStamp = DateTime.Now;
+                toSend = mav.Send(mppar);
+
+                //Invio dati correnti
+                if (_destinationUDP != null)
+                {
+                    _destinationUDP.Send(toSend, toSend.Length);
+                }
+                if (_destinationSerial != null && _destinationSerial.IsOpen)
+                {
+                    _destinationSerial.Write(toSend, 0, toSend.Length);
+                }
+
+            }
+            else
+            {
+                paramsRcv = false;
+            }
         }
 
     }

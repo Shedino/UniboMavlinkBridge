@@ -45,6 +45,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbDebug = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.rbAtech = new System.Windows.Forms.RadioButton();
+            this.rbIris = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -204,11 +206,35 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // rbAtech
+            // 
+            this.rbAtech.AutoSize = true;
+            this.rbAtech.Checked = true;
+            this.rbAtech.Location = new System.Drawing.Point(451, 181);
+            this.rbAtech.Name = "rbAtech";
+            this.rbAtech.Size = new System.Drawing.Size(61, 17);
+            this.rbAtech.TabIndex = 7;
+            this.rbAtech.TabStop = true;
+            this.rbAtech.Text = "ATECH";
+            this.rbAtech.UseVisualStyleBackColor = true;
+            // 
+            // rbIris
+            // 
+            this.rbIris.AutoSize = true;
+            this.rbIris.Location = new System.Drawing.Point(451, 204);
+            this.rbIris.Name = "rbIris";
+            this.rbIris.Size = new System.Drawing.Size(46, 17);
+            this.rbIris.TabIndex = 8;
+            this.rbIris.Text = "IRIS";
+            this.rbIris.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 373);
+            this.Controls.Add(this.rbIris);
+            this.Controls.Add(this.rbAtech);
             this.Controls.Add(this.tbDebug);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbPackets);
@@ -245,6 +271,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbDebug;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.RadioButton rbAtech;
+        private System.Windows.Forms.RadioButton rbIris;
     }
 }
 

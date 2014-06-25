@@ -235,30 +235,7 @@ namespace MavlinkBridge
                                 pars.offset_y = float.Parse(pspl[24]) / 1000.0f;
                                 pars.offset_z = float.Parse(pspl[25]) / 1000.0f;
 
-                                //pars.Offset_T = 0.0f;
-                                //pars.lat_mode = 0.0f;;
-                                //pars.delta = 0.1f;;
-                                //pars.K1 = 9.0f;
-                                //pars.L1 = 18.0f;
-                                //pars.Ixy = 0.0f;;
-                                //pars.K2 = 65.0f;
-                                //pars.L2 = 200.0f;
-                                //pars.Iz = 0.03f;
-                                //pars.KpAttX = 2.5f;
-                                //pars.KpAttY = 2.5f;
-                                //pars.KpAttZ = 3.0f;
-                                //pars.KdAttX = 0.15f;
-                                //pars.KdAttY = 0.15f;
-                                //pars.KdAttZ = 0.15f;
-                                //pars.KiAttX = 0.0f;
-                                //pars.KiAttY = 0.0f;
-                                //pars.KiAttZ = 0.0f;
-                                //pars.GE = 0.0f;
-                                //pars.epsilon = 0.06f;
-                                //pars.XY_Multiplier = 1.0f;
-                                //pars.offset_x = 0.0f;
-                                //pars.offset_y = 0.0f;
-                                //pars.offset_z = 0.0f;
+                                
                                 //toSend = mav.GenerateMAVLinkPacket(MAVLink.MAVLINK_MSG_ID.UNIBO_PARAMETERS, pars);
                                 //size = MavLinkSerializer.Serialize_UNIBO_PARAMETERS(pars, toSend, ref offset);
                                 MavlinkPacket mppar = new MavlinkPacket();
@@ -351,30 +328,60 @@ namespace MavlinkBridge
             {
                 byte[] toSend = new byte[255];
                 Msg_unibo_parameters pars = new Msg_unibo_parameters();
-                pars.Offset_T = 0.0f; //1
-                pars.lat_mode = 1.0f;
-                pars.delta = 0.1f;
-                pars.K1 = 7.0f;
-                pars.L1 = 18.0f; //5
-                pars.Ixy = 0.02f;
-                pars.K2 = 70.0f;
-                pars.L2 = 200.0f;
-                pars.Iz = 0.06f;
-                pars.KpAttX = 2.4f; //10
-                pars.KpAttY = 2.4f;
-                pars.KpAttZ = 1.5f;
-                pars.KdAttX = 0.14f;
-                pars.KdAttY = 0.14f;
-                pars.KdAttZ = 0.14f; //15
-                pars.KiAttX = 0.0f;
-                pars.KiAttY = 0.0f;
-                pars.KiAttZ = 0.01f;
-                pars.GE = 0.0f;
-                pars.epsilon = 0.06f; //20
-                pars.XY_Multiplier = 1.0f;
-                pars.offset_x = 0.0f;
-                pars.offset_y = 0.0f;
-                pars.offset_z = 87.0f; //24
+                if (rbAtech.Checked)
+                {
+                    pars.Offset_T = 0.0f; //1
+                    pars.lat_mode = 1.0f;            //Mass
+                    pars.delta = 0.1f;
+                    pars.K1 = 7.0f;
+                    pars.L1 = 18.0f; //5
+                    pars.Ixy = 0.02f;
+                    pars.K2 = 70.0f;
+                    pars.L2 = 200.0f;
+                    pars.Iz = 0.04f;
+                    pars.KpAttX = 2.4f; //10
+                    pars.KpAttY = 2.4f;
+                    pars.KpAttZ = 1.5f;
+                    pars.KdAttX = 0.14f;
+                    pars.KdAttY = 0.14f;
+                    pars.KdAttZ = 0.14f; //15
+                    pars.KiAttX = 0.0f;
+                    pars.KiAttY = 0.0f;
+                    pars.KiAttZ = 0.01f;
+                    pars.GE = 0.0f;
+                    pars.epsilon = 0.06f; //20
+                    pars.XY_Multiplier = 1.0f;
+                    pars.offset_x = 0.0088f;             //J_xy
+                    pars.offset_y = 0.0176f;             //J_z
+                    pars.offset_z = 87.0f; //24
+                }
+                if (rbIris.Checked)
+                {
+                    pars.Offset_T = 0.1f; //1
+                    pars.lat_mode = 1.35f;            //Mass
+                    pars.delta = 0.1f;
+                    pars.K1 = 7.0f;               //was7
+                    pars.L1 = 18.0f; //5
+                    pars.Ixy = 0.02f;
+                    pars.K2 = 70.0f;              //was 70
+                    pars.L2 = 200.0f;
+                    pars.Iz = 0.03f;            //was 0.06
+                    pars.KpAttX = 2.5f; //10   was 2.5
+                    pars.KpAttY = 2.4f;     // was 2.4
+                    pars.KpAttZ = 2.0f;
+                    pars.KdAttX = 0.19f;
+                    pars.KdAttY = 0.19f;
+                    pars.KdAttZ = 0.19f; //15
+                    pars.KiAttX = 0.0f;
+                    pars.KiAttY = 0.0f;
+                    pars.KiAttZ = 0.0f;
+                    pars.GE = 0.0f;
+                    pars.epsilon = 0.06f; //20
+                    pars.XY_Multiplier = 1.0f;
+                    pars.offset_x = 0.0088f;             //J_xy
+                    pars.offset_y = 0.0176f;             //J_z
+                    pars.offset_z = 80.0f; //24          //was 80
+                }
                 MavlinkPacket mppar = new MavlinkPacket();
                 mppar.Message = pars;
                 mppar.ComponentId = 0;

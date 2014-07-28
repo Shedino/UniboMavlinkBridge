@@ -39,30 +39,7 @@ namespace MavlinkBridge
         byte seqRefs = 0;
         byte seqJoy = 0;
         //parameters
-        float offset = 0;
-        float mass = 0;
-        float delta = 0;
-        float K1 = 0;
-        float L1 = 0;
-        float Ixy = 0;
-        float K2 = 0;
-        float L2 = 0;
-        float Iz = 0;
-        float KpAttX = 0;
-        float KpAttY = 0;
-        float KpAttZ = 0;
-        float KdAttX = 0;
-        float KdAttY = 0;
-        float KdAttZ = 0;
-        float KiAttX = 0;
-        float KiAttY = 0;
-        float KiAttZ = 0;
-        float GE = 0;
-        float epsilon = 0;
-        float XY_mult = 0;
-        float Jxy = 0;
-        float Jz = 0;
-        float offset_yaw = 0;
+        SendParams parsObj = new SendParams();
 
         bool paramsRcv = false;
 
@@ -355,6 +332,8 @@ namespace MavlinkBridge
                 Msg_unibo_parameters pars = new Msg_unibo_parameters();
                 if (rbAtech.Checked)
                 {
+                    parsObj.SendType = UAVType.ATECH;
+                    /*
                     pars.Offset_T = 0.0f; //1
                     pars.lat_mode = 1.0f;            //Mass
                     pars.delta = 0.1f;
@@ -379,9 +358,11 @@ namespace MavlinkBridge
                     pars.offset_x = 0.0088f;             //J_xy
                     pars.offset_y = 0.0176f;             //J_z
                     pars.offset_z = 87.0f; //24
+                    */
                 }
                 if (rbIris.Checked)
                 {
+                    parsObj.SendType = UAVType.IRIS;
                     //pars.Offset_T = 0.1f; //1
                     //pars.lat_mode = 1.35f;            //Mass
                     //pars.delta = 0.1f;
@@ -407,31 +388,36 @@ namespace MavlinkBridge
                     //pars.offset_y = 0.0176f;             //J_z
                     //pars.offset_z = 80.0f; //24          //was 80
 
-                    pars.Offset_T = offset;
-                    pars.lat_mode = mass;
-                    pars.delta = delta;
-                    pars.K1 = K1;
-                    pars.L1 = L1;
-                    pars.Ixy = Ixy;
-                    pars.K2 = K2;
-                    pars.L2 = L2;
-                    pars.Iz = Iz;
-                    pars.KpAttX = KpAttX;
-                    pars.KpAttY = KpAttY;
-                    pars.KpAttZ = KpAttZ;
-                    pars.KdAttX = KdAttX;
-                    pars.KdAttY = KdAttY;
-                    pars.KdAttZ = KdAttZ;
-                    pars.KiAttX = KiAttX;
-                    pars.KiAttY = KiAttY;
-                    pars.KiAttZ = KiAttZ;
-                    pars.GE = GE;
-                    pars.epsilon = epsilon;
-                    pars.XY_Multiplier = XY_mult;
-                    pars.offset_x = Jxy;
-                    pars.offset_y = Jz;
-                    pars.offset_z = offset_yaw; 
                 }
+                if (rbOverride.Checked)
+                {
+                    parsObj.SendType = UAVType.OVERRIDE;
+                }
+                pars.Offset_T = parsObj.Offset;
+                pars.lat_mode = parsObj.Mass;
+                pars.delta = parsObj.Delta;
+                pars.K1 = parsObj.K1;
+                pars.L1 = parsObj.L1;
+                pars.Ixy = parsObj.Ixy;
+                pars.K2 = parsObj.K2;
+                pars.L2 = parsObj.L2;
+                pars.Iz = parsObj.Iz;
+                pars.KpAttX = parsObj.KpAttX;
+                pars.KpAttY = parsObj.KpAttY;
+                pars.KpAttZ = parsObj.KpAttZ;
+                pars.KdAttX = parsObj.KdAttX;
+                pars.KdAttY = parsObj.KdAttY;
+                pars.KdAttZ = parsObj.KdAttZ;
+                pars.KiAttX = parsObj.KiAttX;
+                pars.KiAttY = parsObj.KiAttY;
+                pars.KiAttZ = parsObj.KiAttZ;
+                pars.GE = parsObj.GE;
+                pars.epsilon = parsObj.Epsilon;
+                pars.XY_Multiplier = parsObj.XY_mult;
+                pars.offset_x = parsObj.Jxy;
+                pars.offset_y = parsObj.Jz;
+                pars.offset_z = parsObj.Offset_yaw;
+
                 MavlinkPacket mppar = new MavlinkPacket();
                 mppar.Message = pars;
                 mppar.ComponentId = 0;
@@ -460,30 +446,41 @@ namespace MavlinkBridge
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            offset = float.Parse(textBox1.Text);
-            mass = float.Parse(textBox2.Text);
-            delta = float.Parse(textBox3.Text);
-            K1 = float.Parse(textBox4.Text);
-            K1 = float.Parse(textBox5.Text);
-            Ixy = float.Parse(textBox6.Text);
-            K2 = float.Parse(textBox7.Text);
-            L2 = float.Parse(textBox8.Text);
-            Iz = float.Parse(textBox9.Text);
-            KpAttX = float.Parse(textBox10.Text);
-            KpAttY = float.Parse(textBox11.Text);
-            KpAttZ = float.Parse(textBox12.Text);
-            KdAttX = float.Parse(textBox13.Text);
-            KdAttY = float.Parse(textBox14.Text);
-            KdAttZ = float.Parse(textBox15.Text);
-            KiAttX = float.Parse(textBox16.Text);
-            KiAttY = float.Parse(textBox17.Text);
-            KiAttZ = float.Parse(textBox18.Text);
-            GE = float.Parse(textBox19.Text);
-            epsilon = float.Parse(textBox20.Text);
-            XY_mult = float.Parse(textBox21.Text);
-            Jxy = float.Parse(textBox22.Text);
-            Jz = float.Parse(textBox23.Text);
-            offset_yaw = float.Parse(textBox24.Text);
+            LoadCustomParameters();
+        }
+
+        private void rbOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            //button1_Click_1(sender, e);
+            LoadCustomParameters();
+        }
+
+        private void LoadCustomParameters()
+        {
+            parsObj.Offset = float.Parse(textBox1.Text);
+            parsObj.Mass = float.Parse(textBox2.Text);
+            parsObj.Delta = float.Parse(textBox3.Text);
+            parsObj.K1 = float.Parse(textBox4.Text);
+            parsObj.K1 = float.Parse(textBox5.Text);
+            parsObj.Ixy = float.Parse(textBox6.Text);
+            parsObj.K2 = float.Parse(textBox7.Text);
+            parsObj.L2 = float.Parse(textBox8.Text);
+            parsObj.Iz = float.Parse(textBox9.Text);
+            parsObj.KpAttX = float.Parse(textBox10.Text);
+            parsObj.KpAttY = float.Parse(textBox11.Text);
+            parsObj.KpAttZ = float.Parse(textBox12.Text);
+            parsObj.KdAttX = float.Parse(textBox13.Text);
+            parsObj.KdAttY = float.Parse(textBox14.Text);
+            parsObj.KdAttZ = float.Parse(textBox15.Text);
+            parsObj.KiAttX = float.Parse(textBox16.Text);
+            parsObj.KiAttY = float.Parse(textBox17.Text);
+            parsObj.KiAttZ = float.Parse(textBox18.Text);
+            parsObj.GE = float.Parse(textBox19.Text);
+            parsObj.Epsilon = float.Parse(textBox20.Text);
+            parsObj.XY_mult = float.Parse(textBox21.Text);
+            parsObj.Jxy = float.Parse(textBox22.Text);
+            parsObj.Jz = float.Parse(textBox23.Text);
+            parsObj.Offset_yaw = float.Parse(textBox24.Text);
         }
 
 

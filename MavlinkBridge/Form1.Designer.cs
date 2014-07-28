@@ -86,6 +86,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
+            this.rbOverride = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -249,7 +250,7 @@
             // 
             this.rbAtech.AutoSize = true;
             this.rbAtech.Checked = true;
-            this.rbAtech.Location = new System.Drawing.Point(451, 181);
+            this.rbAtech.Location = new System.Drawing.Point(451, 168);
             this.rbAtech.Name = "rbAtech";
             this.rbAtech.Size = new System.Drawing.Size(61, 17);
             this.rbAtech.TabIndex = 7;
@@ -260,7 +261,7 @@
             // rbIris
             // 
             this.rbIris.AutoSize = true;
-            this.rbIris.Location = new System.Drawing.Point(451, 204);
+            this.rbIris.Location = new System.Drawing.Point(451, 189);
             this.rbIris.Name = "rbIris";
             this.rbIris.Size = new System.Drawing.Size(46, 17);
             this.rbIris.TabIndex = 8;
@@ -273,7 +274,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(66, 20);
             this.textBox1.TabIndex = 9;
-            this.textBox1.Text = "-2,2";
+            this.textBox1.Text = "-2.2";
             // 
             // button1
             // 
@@ -291,7 +292,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(66, 20);
             this.textBox2.TabIndex = 11;
-            this.textBox2.Text = "1,35";
+            this.textBox2.Text = "1.35";
             // 
             // label2
             // 
@@ -335,7 +336,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(66, 20);
             this.textBox3.TabIndex = 16;
-            this.textBox3.Text = "0,1";
+            this.textBox3.Text = "0.1";
             // 
             // textBox4
             // 
@@ -359,7 +360,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(41, 20);
             this.textBox6.TabIndex = 19;
-            this.textBox6.Text = "0,02";
+            this.textBox6.Text = "0.02";
             // 
             // textBox7
             // 
@@ -367,7 +368,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(41, 20);
             this.textBox7.TabIndex = 22;
-            this.textBox7.Text = "0,02";
+            this.textBox7.Text = "0.02";
             // 
             // textBox8
             // 
@@ -399,7 +400,7 @@
             this.textBox11.Name = "textBox11";
             this.textBox11.Size = new System.Drawing.Size(41, 20);
             this.textBox11.TabIndex = 24;
-            this.textBox11.Text = "2,3";
+            this.textBox11.Text = "2.3";
             // 
             // textBox12
             // 
@@ -407,7 +408,7 @@
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(41, 20);
             this.textBox12.TabIndex = 23;
-            this.textBox12.Text = "2,4";
+            this.textBox12.Text = "2.4";
             // 
             // textBox13
             // 
@@ -507,7 +508,7 @@
             this.textBox20.Name = "textBox20";
             this.textBox20.Size = new System.Drawing.Size(66, 20);
             this.textBox20.TabIndex = 37;
-            this.textBox20.Text = "0,06";
+            this.textBox20.Text = "0.06";
             // 
             // textBox21
             // 
@@ -523,7 +524,7 @@
             this.textBox22.Name = "textBox22";
             this.textBox22.Size = new System.Drawing.Size(66, 20);
             this.textBox22.TabIndex = 39;
-            this.textBox22.Text = "0,0088";
+            this.textBox22.Text = "0.0088";
             // 
             // textBox23
             // 
@@ -531,7 +532,7 @@
             this.textBox23.Name = "textBox23";
             this.textBox23.Size = new System.Drawing.Size(66, 20);
             this.textBox23.TabIndex = 40;
-            this.textBox23.Text = "0,0176";
+            this.textBox23.Text = "0.0176";
             // 
             // textBox24
             // 
@@ -595,11 +596,23 @@
             this.label15.TabIndex = 47;
             this.label15.Text = "offset YAW";
             // 
+            // rbOverride
+            // 
+            this.rbOverride.AutoSize = true;
+            this.rbOverride.Location = new System.Drawing.Point(451, 212);
+            this.rbOverride.Name = "rbOverride";
+            this.rbOverride.Size = new System.Drawing.Size(81, 17);
+            this.rbOverride.TabIndex = 48;
+            this.rbOverride.Text = "OVERRIDE";
+            this.rbOverride.UseVisualStyleBackColor = true;
+            this.rbOverride.CheckedChanged += new System.EventHandler(this.rbOverride_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1106, 373);
+            this.Controls.Add(this.rbOverride);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -718,6 +731,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.RadioButton rbOverride;
     }
 }
 

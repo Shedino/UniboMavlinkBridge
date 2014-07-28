@@ -38,6 +38,31 @@ namespace MavlinkBridge
         byte seqPars = 0;
         byte seqRefs = 0;
         byte seqJoy = 0;
+        //parameters
+        float offset = 0;
+        float mass = 0;
+        float delta = 0;
+        float K1 = 0;
+        float L1 = 0;
+        float Ixy = 0;
+        float K2 = 0;
+        float L2 = 0;
+        float Iz = 0;
+        float KpAttX = 0;
+        float KpAttY = 0;
+        float KpAttZ = 0;
+        float KdAttX = 0;
+        float KdAttY = 0;
+        float KdAttZ = 0;
+        float KiAttX = 0;
+        float KiAttY = 0;
+        float KiAttZ = 0;
+        float GE = 0;
+        float epsilon = 0;
+        float XY_mult = 0;
+        float Jxy = 0;
+        float Jz = 0;
+        float offset_yaw = 0;
 
         bool paramsRcv = false;
 
@@ -357,30 +382,55 @@ namespace MavlinkBridge
                 }
                 if (rbIris.Checked)
                 {
-                    pars.Offset_T = 0.1f; //1
-                    pars.lat_mode = 1.35f;            //Mass
-                    pars.delta = 0.1f;
-                    pars.K1 = 7.0f;               //was7
-                    pars.L1 = 18.0f; //5
-                    pars.Ixy = 0.02f;
-                    pars.K2 = 70.0f;              //was 70
-                    pars.L2 = 200.0f;
-                    pars.Iz = 0.03f;            //was 0.06
-                    pars.KpAttX = 2.5f; //10   was 2.5
-                    pars.KpAttY = 2.4f;     // was 2.4
-                    pars.KpAttZ = 2.0f;
-                    pars.KdAttX = 0.19f;
-                    pars.KdAttY = 0.19f;
-                    pars.KdAttZ = 0.19f; //15
-                    pars.KiAttX = 0.0f;
-                    pars.KiAttY = 0.0f;
-                    pars.KiAttZ = 0.0f;
-                    pars.GE = 0.0f;
-                    pars.epsilon = 0.06f; //20
-                    pars.XY_Multiplier = 1.0f;
-                    pars.offset_x = 0.0088f;             //J_xy
-                    pars.offset_y = 0.0176f;             //J_z
-                    pars.offset_z = 80.0f; //24          //was 80
+                    //pars.Offset_T = 0.1f; //1
+                    //pars.lat_mode = 1.35f;            //Mass
+                    //pars.delta = 0.1f;
+                    //pars.K1 = 7.0f;               //was7
+                    //pars.L1 = 18.0f; //5
+                    //pars.Ixy = 0.02f;
+                    //pars.K2 = 70.0f;              //was 70
+                    //pars.L2 = 200.0f;
+                    //pars.Iz = 0.03f;            //was 0.06
+                    //pars.KpAttX = 2.5f; //10   was 2.5
+                    //pars.KpAttY = 2.4f;     // was 2.4
+                    //pars.KpAttZ = 2.0f;
+                    //pars.KdAttX = 0.19f;
+                    //pars.KdAttY = 0.19f;
+                    //pars.KdAttZ = 0.19f; //15
+                    //pars.KiAttX = 0.0f;
+                    //pars.KiAttY = 0.0f;
+                    //pars.KiAttZ = 0.0f;
+                    //pars.GE = 0.0f;
+                    //pars.epsilon = 0.06f; //20
+                    //pars.XY_Multiplier = 0.0f;
+                    //pars.offset_x = 0.0088f;             //J_xy
+                    //pars.offset_y = 0.0176f;             //J_z
+                    //pars.offset_z = 80.0f; //24          //was 80
+
+                    pars.Offset_T = offset;
+                    pars.lat_mode = mass;
+                    pars.delta = delta;
+                    pars.K1 = K1;
+                    pars.L1 = L1;
+                    pars.Ixy = Ixy;
+                    pars.K2 = K2;
+                    pars.L2 = L2;
+                    pars.Iz = Iz;
+                    pars.KpAttX = KpAttX;
+                    pars.KpAttY = KpAttY;
+                    pars.KpAttZ = KpAttZ;
+                    pars.KdAttX = KdAttX;
+                    pars.KdAttY = KdAttY;
+                    pars.KdAttZ = KdAttZ;
+                    pars.KiAttX = KiAttX;
+                    pars.KiAttY = KiAttY;
+                    pars.KiAttZ = KiAttZ;
+                    pars.GE = GE;
+                    pars.epsilon = epsilon;
+                    pars.XY_Multiplier = XY_mult;
+                    pars.offset_x = Jxy;
+                    pars.offset_y = Jz;
+                    pars.offset_z = offset_yaw; 
                 }
                 MavlinkPacket mppar = new MavlinkPacket();
                 mppar.Message = pars;
@@ -406,6 +456,36 @@ namespace MavlinkBridge
                 paramsRcv = false;
             }
         }
+
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            offset = float.Parse(textBox1.Text);
+            mass = float.Parse(textBox2.Text);
+            delta = float.Parse(textBox3.Text);
+            K1 = float.Parse(textBox4.Text);
+            K1 = float.Parse(textBox5.Text);
+            Ixy = float.Parse(textBox6.Text);
+            K2 = float.Parse(textBox7.Text);
+            L2 = float.Parse(textBox8.Text);
+            Iz = float.Parse(textBox9.Text);
+            KpAttX = float.Parse(textBox10.Text);
+            KpAttY = float.Parse(textBox11.Text);
+            KpAttZ = float.Parse(textBox12.Text);
+            KdAttX = float.Parse(textBox13.Text);
+            KdAttY = float.Parse(textBox14.Text);
+            KdAttZ = float.Parse(textBox15.Text);
+            KiAttX = float.Parse(textBox16.Text);
+            KiAttY = float.Parse(textBox17.Text);
+            KiAttZ = float.Parse(textBox18.Text);
+            GE = float.Parse(textBox19.Text);
+            epsilon = float.Parse(textBox20.Text);
+            XY_mult = float.Parse(textBox21.Text);
+            Jxy = float.Parse(textBox22.Text);
+            Jz = float.Parse(textBox23.Text);
+            offset_yaw = float.Parse(textBox24.Text);
+        }
+
 
     }
 }

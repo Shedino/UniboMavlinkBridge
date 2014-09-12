@@ -2476,6 +2476,52 @@
             <field type="uint8_t[8]" name="custom_version">Custom version field, commonly the first 8 bytes (16 characters) of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases.</field>
         </message>
         <!-- MESSAGE IDs 180 - 240: Space for custom messages in individual projectname_messages.xml files -->
+
+          <message id="201" name="UNIBO_PARAMETERS">
+				  <description>Unibo parameters</description>
+				  <field type="float" name="Offset_T"></field>
+				  <field type="float" name="lat_mode"></field>
+				  <field type="float" name="delta"></field>
+				  <field type="float" name="K1"></field>
+				  <field type="float" name="L1"></field>
+				  <field type="float" name="Ixy"></field>
+				  <field type="float" name="K2"></field>
+				  <field type="float" name="L2"></field>
+				  <field type="float" name="Iz"></field>
+				  <field type="float" name="KpAttX"></field>
+				  <field type="float" name="KpAttY"></field>
+				  <field type="float" name="KpAttZ"></field>
+				  <field type="float" name="KdAttX"></field>
+				  <field type="float" name="KdAttY"></field>
+				  <field type="float" name="KdAttZ"></field>
+				  <field type="float" name="KiAttX"></field>
+				  <field type="float" name="KiAttY"></field>
+				  <field type="float" name="KiAttZ"></field>
+				  <field type="float" name="GE"></field>
+				  <field type="float" name="epsilon"></field>
+				  <field type="float" name="XY_Multiplier"></field>
+				  <field type="float" name="offset_x"></field>
+				  <field type="float" name="offset_y"></field>
+				  <field type="float" name="offset_z"></field>
+		   </message>
+		   <message id="202" name="UNIBO_REFERENCES">
+				  <description>Unibo parameters.</description>
+				  <field type="float" name="p_refX"></field>
+				  <field type="float" name="p_refY"></field>
+				  <field type="float" name="p_refZ"></field>
+				  <field type="float" name="dot_p_refX"></field>
+				  <field type="float" name="dot_p_refY"></field>
+				  <field type="float" name="dot_p_refZ"></field>
+				  <field type="float" name="dot2_p_refX"></field>
+				  <field type="float" name="dot2_p_refY"></field>
+				  <field type="float" name="dot2_p_refZ"></field>
+				  <field type="float" name="psi_ref"></field>
+				  <field type="float" name="dot_psi_ref"></field>
+				  <field type="float" name="dot2_psi_ref"></field>
+				  <field type="float" name="q"></field>
+				  <field type="uint32_t" name="buttons"></field>
+				  <field type="int32_t" name="Tstamp"></field>
+		  </message>
         <message id="248" name="V2_EXTENSION">
             <description>Message implementing parts of the V2 payload specs in V1 frames for transitional support.</description>
             <field type="uint8_t" name="target_network">Network ID (0 for broadcast)</field>

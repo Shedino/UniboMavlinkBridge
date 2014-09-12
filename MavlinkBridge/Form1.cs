@@ -13,6 +13,14 @@ using MavLink;
 
 namespace MavlinkBridge
 {
+
+    public enum ReloadType
+    {
+        ALL,
+        SourceOnly,
+        MavlinkOnly
+    }
+
     public partial class Form1 : Form
     {
         private const string EOL = "\r\n";
@@ -33,6 +41,7 @@ namespace MavlinkBridge
         //MAVLink.MavlinkParse mav = null;
         Mavlink mav = null;
 
+        Mavlink rcvmav = null;
 
         private int _rcvOpti = 0;
         private int _rcvPars = 0;
@@ -62,6 +71,8 @@ namespace MavlinkBridge
 
             //mav = new MAVLink.MavlinkParse();
             mav = new Mavlink();
+            rcvmav = new Mavlink();
+            rcvmav.PacketReceived += new PacketReceivedEventHandler(rcvmav_PacketReceived);
 
             try
             {
@@ -80,7 +91,7 @@ namespace MavlinkBridge
                     smavep = new IPEndPoint(IPAddress.Any, int.Parse(splmav[1]));
                     _sourceMavlinkUDP = new UdpClient(smavep);
 
-                    ConnectSourceUDP();
+                    ConnectSourceUDP(ReloadType.ALL);
                 }
                 else if (rbSourceSerial.Checked) //SERIALE
                 {
@@ -129,18 +140,24 @@ namespace MavlinkBridge
             throw new NotImplementedException();
         }
 
-        private void ConnectSourceUDP()
+        private void ConnectSourceUDP(ReloadType reload)
         {
-            UdpState s = new UdpState();
-            s.e = sep;
-            s.u = _sourceUDP;
-            _sourceUDP.BeginReceive(new AsyncCallback(ReceiveCallback), s);
+            if (reload == ReloadType.ALL || reload == ReloadType.SourceOnly)
+            {
+                UdpState s = new UdpState();
+                s.e = sep;
+                s.u = _sourceUDP;
+                _sourceUDP.BeginReceive(new AsyncCallback(ReceiveCallback), s);
+            }
             if (cbUseMavlink.Checked)
             {
-                UdpState smav = new UdpState();
-                smav.e = smavep;
-                smav.u = _sourceMavlinkUDP;
-                _sourceMavlinkUDP.BeginReceive(new AsyncCallback(ReceiveCallbackMavlink), smav);
+                if (reload == ReloadType.ALL || reload == ReloadType.MavlinkOnly)
+                {
+                    UdpState smav = new UdpState();
+                    smav.e = smavep;
+                    smav.u = _sourceMavlinkUDP;
+                    _sourceMavlinkUDP.BeginReceive(new AsyncCallback(ReceiveCallbackMavlink), smav);
+                }
             }
 
         }
@@ -327,21 +344,14 @@ namespace MavlinkBridge
                         }
 
                         //Invio dati correnti
-                        if (_destinationUDP != null)
-                        {
-                            _destinationUDP.Send(toSend, toSend.Length);
-                        }
-                        if (_destinationSerial != null && _destinationSerial.IsOpen)
-                        {
-                            _destinationSerial.Write(toSend, 0, toSend.Length);
-                        }
+                        SendData(toSend);
                         //tbPackets.Text = _rcvOpti + "";
                     }
                 }
                 //Recupera nuovo pacchetto
                 if (_commActive)
                 {
-                    ConnectSourceUDP();
+                    ConnectSourceUDP(ReloadType.SourceOnly);
                 }
             }
 
@@ -355,17 +365,120 @@ namespace MavlinkBridge
             if (u != null)
             {
                 Byte[] receiveBytes = u.EndReceive(ar, ref e);
-                string receiveString = Encoding.ASCII.GetString(receiveBytes);
+                //string receiveString = Encoding.ASCII.GetString(receiveBytes);
 
-                Console.WriteLine("Received: {0}", receiveString);
+                //Console.WriteLine("Received: {0}", receiveString);
+                /*
+                if (mavlink_parse_char(MAVLINK_COMM_0, c, &rcvmsg, &rcvmstatus))
+                {
+                    // Handle message
+                    //Serial.print("PACKET_RCV: ");
+                    //Serial.println(millis());
+                    switch (rcvmsg.msgid)
+                    {
+                        case MAVLINK_MSG_ID_COMMANDS:
+                            //Decode mavlink message
+                            //Serial.print("DECODE_START: ");
+                            //Serial.println(millis());
+                            mavlink_msg_commands_decode(&rcvmsg, &cmds);
+                            //Serial.print("DECODE_END: ");
+                            //Serial.println(millis());
+                            frame[0] = cmds.LSX;
+                            frame[1] = cmds.LSY;
+                            frame[2] = cmds.RSX;
+                            frame[3] = cmds.RSY;
+                            frame[4] = cmds.BSX;
+                            frame[5] = cmds.BSY;
+                            frame[6] = cmds.Buttons; //frame[FRAME_LEN-2];
+                            //Activate FLAGS
+                            flgSendCommand = true;
+                            lastRadio = millis();
+                            digitalWrite(STATUS_LED, HIGH);
+                            break;
+                        default:
+                            //Do nothing
+                            break;
+                    }
+                }
+                */
+                rcvmav.ParseBytes(receiveBytes);
 
                 //Recupera nuovo pacchetto
                 if (_commActive)
                 {
-                    ConnectSourceUDP();
+                    ConnectSourceUDP(ReloadType.MavlinkOnly);
                 }
             }
 
+        }
+
+        void rcvmav_PacketReceived(object sender, MavlinkPacket e)
+        {
+            MavlinkMessage msg = e.Message;
+            //Console.WriteLine(msg.GetType());
+            byte[] toSend = new byte[255];
+            if (msg.GetType() == typeof(Msg_rc_channels_scaled))
+            {
+                //parso?!
+                Msg_rc_channels_scaled m = (Msg_rc_channels_scaled)msg;
+                toSend = mav.Send(e);
+                //Invio dati correnti
+                SendData(toSend);
+            }
+            else if (msg.GetType() == typeof(Msg_command_long))
+            {
+                //parso?!
+                Msg_command_long m = (Msg_command_long)msg;
+                if (cbMini.Checked)
+                {
+                    //S LEN TYPE (13=references) DATA E
+                    string sendStr = "S 0 17 " + m.command + " " + m.confirmation + " " + m.param1 + " " + m.param2 + " " + m.param3 + " " + m.param4 + " " + m.param5 + " " + m.param6 + " " + m.param7 + " E";
+                    toSend = Encoding.ASCII.GetBytes(sendStr);
+                }
+                else
+                {
+                    toSend = mav.Send(e);
+                }
+                //Invio dati correnti
+                SendData(toSend);
+            }
+            else if (msg.GetType() == typeof(Msg_position_target_local_ned))
+            {
+                //parso?!
+                Msg_position_target_local_ned m = (Msg_position_target_local_ned)msg;
+                if (cbMini.Checked)
+                {
+                    //S LEN TYPE (13=references) DATA E
+                    string sendStr = "S 0 13 " + m.x + " " + m.y + " " + m.z + " " + m.vx + " " + m.vy + " " + m.vz + " " + m.afx + " " + m.afy + " " + m.afz + " E";
+                    toSend = Encoding.ASCII.GetBytes(sendStr);
+                }
+                else
+                {
+                    toSend = mav.Send(e);
+                }
+                //Invio dati correnti
+                SendData(toSend);
+            }
+            else
+            {
+                //switch (msg.
+                toSend = mav.Send(e);
+                //Invio dati correnti
+                SendData(toSend);
+            }
+            //Spedisco sempre dentro gli IF (che fungono da switch/case)
+        }
+
+        private void SendData(byte[] toSend)
+        {
+            if (_destinationUDP != null)
+            {
+                _destinationUDP.Send(toSend, toSend.Length);
+            }
+            if (_destinationSerial != null && _destinationSerial.IsOpen)
+            {
+                _destinationSerial.Write(toSend, 0, toSend.Length);
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)

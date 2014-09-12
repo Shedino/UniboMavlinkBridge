@@ -25,11 +25,11 @@ protocols = [ '1.0' ]
 
 for protocol in protocols :
     xml_directory = './message_definitions'
-    print "xml_directory is", xml_directory
+    print ("xml_directory is %s" % ( xml_directory))
     xml_file_names = glob.glob(xml_directory+'/*.xml')
 
     for xml_file in xml_file_names:
-        print "xml file is ", xml_file
+        print ("xml file is %s" % (xml_file))
         opts = options(lang = "csharp", output = "Csharp", \
                        wire_protocol=protocol)
         args = []
@@ -37,5 +37,5 @@ for protocol in protocols :
         mavgen(opts, args)
         xml_file_base = os.path.basename(xml_file)
         xml_file_base = re.sub("\.xml","", xml_file_base)
-        print "xml_file_base is", xml_file_base
+        print ("xml_file_base is %s" % (xml_file_base))
         mavgen(opts,args)

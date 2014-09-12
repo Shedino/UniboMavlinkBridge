@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbUseMavlink = new System.Windows.Forms.CheckBox();
+            this.tbSourceMavlinkUdp = new System.Windows.Forms.TextBox();
             this.tbSourceSerial = new System.Windows.Forms.TextBox();
             this.tbSourceUdp = new System.Windows.Forms.TextBox();
             this.rbSourceSerial = new System.Windows.Forms.RadioButton();
@@ -89,10 +91,9 @@
             this.rbOverride = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
-            this.tbSourceMavlinkUdp = new System.Windows.Forms.TextBox();
-            this.cbUseMavlink = new System.Windows.Forms.CheckBox();
+            this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
+            this.cbMini = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -101,6 +102,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbMini);
             this.groupBox1.Controls.Add(this.cbUseMavlink);
             this.groupBox1.Controls.Add(this.tbSourceMavlinkUdp);
             this.groupBox1.Controls.Add(this.tbSourceSerial);
@@ -113,6 +115,24 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source";
+            // 
+            // cbUseMavlink
+            // 
+            this.cbUseMavlink.AutoSize = true;
+            this.cbUseMavlink.Location = new System.Drawing.Point(6, 46);
+            this.cbUseMavlink.Name = "cbUseMavlink";
+            this.cbUseMavlink.Size = new System.Drawing.Size(80, 17);
+            this.cbUseMavlink.TabIndex = 6;
+            this.cbUseMavlink.Text = "useMavlink";
+            this.cbUseMavlink.UseVisualStyleBackColor = true;
+            // 
+            // tbSourceMavlinkUdp
+            // 
+            this.tbSourceMavlinkUdp.Location = new System.Drawing.Point(97, 44);
+            this.tbSourceMavlinkUdp.Name = "tbSourceMavlinkUdp";
+            this.tbSourceMavlinkUdp.Size = new System.Drawing.Size(196, 20);
+            this.tbSourceMavlinkUdp.TabIndex = 5;
+            this.tbSourceMavlinkUdp.Text = "127.0.0.1:6644";
             // 
             // tbSourceSerial
             // 
@@ -679,17 +699,6 @@
             this.groupBox4.Text = "groupBox4";
             this.groupBox4.Visible = false;
             // 
-            // rbSourceUNIBO
-            // 
-            this.rbSourceUNIBO.AutoSize = true;
-            this.rbSourceUNIBO.Location = new System.Drawing.Point(6, 19);
-            this.rbSourceUNIBO.Name = "rbSourceUNIBO";
-            this.rbSourceUNIBO.Size = new System.Drawing.Size(91, 17);
-            this.rbSourceUNIBO.TabIndex = 0;
-            this.rbSourceUNIBO.TabStop = true;
-            this.rbSourceUNIBO.Text = "sourceUNIBO";
-            this.rbSourceUNIBO.UseVisualStyleBackColor = true;
-            // 
             // rbSourceMAVLink
             // 
             this.rbSourceMAVLink.AutoSize = true;
@@ -701,23 +710,26 @@
             this.rbSourceMAVLink.Text = "sourceMavLink";
             this.rbSourceMAVLink.UseVisualStyleBackColor = true;
             // 
-            // tbSourceMavlinkUdp
+            // rbSourceUNIBO
             // 
-            this.tbSourceMavlinkUdp.Location = new System.Drawing.Point(97, 44);
-            this.tbSourceMavlinkUdp.Name = "tbSourceMavlinkUdp";
-            this.tbSourceMavlinkUdp.Size = new System.Drawing.Size(196, 20);
-            this.tbSourceMavlinkUdp.TabIndex = 5;
-            this.tbSourceMavlinkUdp.Text = "127.0.0.1:6666";
+            this.rbSourceUNIBO.AutoSize = true;
+            this.rbSourceUNIBO.Location = new System.Drawing.Point(6, 19);
+            this.rbSourceUNIBO.Name = "rbSourceUNIBO";
+            this.rbSourceUNIBO.Size = new System.Drawing.Size(91, 17);
+            this.rbSourceUNIBO.TabIndex = 0;
+            this.rbSourceUNIBO.TabStop = true;
+            this.rbSourceUNIBO.Text = "sourceUNIBO";
+            this.rbSourceUNIBO.UseVisualStyleBackColor = true;
             // 
-            // cbUseMavlink
+            // cbMini
             // 
-            this.cbUseMavlink.AutoSize = true;
-            this.cbUseMavlink.Location = new System.Drawing.Point(6, 46);
-            this.cbUseMavlink.Name = "cbUseMavlink";
-            this.cbUseMavlink.Size = new System.Drawing.Size(80, 17);
-            this.cbUseMavlink.TabIndex = 6;
-            this.cbUseMavlink.Text = "useMavlink";
-            this.cbUseMavlink.UseVisualStyleBackColor = true;
+            this.cbMini.AutoSize = true;
+            this.cbMini.Location = new System.Drawing.Point(299, 46);
+            this.cbMini.Name = "cbMini";
+            this.cbMini.Size = new System.Drawing.Size(55, 17);
+            this.cbMini.TabIndex = 7;
+            this.cbMini.Text = "MINI?";
+            this.cbMini.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -817,6 +829,7 @@
         private System.Windows.Forms.RadioButton rbSourceUNIBO;
         private System.Windows.Forms.CheckBox cbUseMavlink;
         private System.Windows.Forms.TextBox tbSourceMavlinkUdp;
+        private System.Windows.Forms.CheckBox cbMini;
     }
 }
 

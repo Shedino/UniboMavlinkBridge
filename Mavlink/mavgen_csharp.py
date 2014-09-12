@@ -85,7 +85,7 @@ def generate_message_header(f, xml):
             firstchar = re.search('^([0-9])', fe.name )
             if firstchar != None and firstchar.group():
                 fe.name = '_%s' % fe.name
-                print fe.name
+                print ("%s" % (fe.name))
            
     t.write(f, '''
 using System;
@@ -152,7 +152,7 @@ def generate_message_enums(f, xml):
             firstchar = re.search('^([0-9])', fe.name )
             if firstchar != None and firstchar.group():
                 fe.name = '_%s' % fe.name
-                print fe.name
+                print ("%s" % (fe.name))
             
     t.write(f, '''
         ${{enum:
@@ -198,7 +198,7 @@ def generate_one(fh, basename, xml):
 
     directory = os.path.join(basename, xml.basename)
 
-    print("Generating CSharp implementation in directory %s" % directory)
+    print("Generating CSharp implementation in directory %s" % (directory))
     mavparse.mkdir_p(directory)
 
     # add some extra field attributes for convenience with arrays
@@ -318,7 +318,7 @@ def generate_one(fh, basename, xml):
 def generate(basename, xml_list):
     '''generate complete MAVLink C implemenation'''
     
-    print "HERE ",basename, xml_list[0]
+    print ("HERE %s %s" % (basename, xml_list[0]))
     
     directory = os.path.join(basename, xml_list[0].basename)
     

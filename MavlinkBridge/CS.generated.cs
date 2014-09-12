@@ -587,27 +587,7 @@ using System.Reflection;
 		/// 0x8000 motor outputs / control
 		/// </summary>
 		MAV_SYS_STATUS_SENSOR_MOTOR_OUTPUTS = 32768,
-
-		/// <summary>
-		/// 0x10000 rc receiver
-		/// </summary>
-		//MAV_SYS_STATUS_SENSOR_RC_RECEIVER = 65536,
-
-		/// <summary>
-		/// 0x20000 2nd 3D gyro
-		/// </summary>
-		//MAV_SYS_STATUS_SENSOR_3D_GYRO2 = 131072,
-
-		/// <summary>
-		/// 0x40000 2nd 3D accelerometer
-		/// </summary>
-		//MAV_SYS_STATUS_SENSOR_3D_ACCEL2 = 262144,
-
-		/// <summary>
-		/// 0x80000 2nd 3D magnetometer
-		/// </summary>
-		//MAV_SYS_STATUS_SENSOR_3D_MAG2 = 524288,
-		//MAV_SYS_STATUS_SENSOR_ENUM_END = 524289,
+		MAV_SYS_STATUS_SENSOR_ENUM_END = 32769,
 
 	}
 
@@ -642,7 +622,27 @@ using System.Reflection;
 		/// Local coordinate frame, Z-down (x: east, y: north, z: up)
 		/// </summary>
 		MAV_FRAME_LOCAL_ENU = 4,
-		MAV_FRAME_ENUM_END = 5,
+
+		/// <summary>
+		/// Offset to the current local frame. Anything expressed in this frame should be added to the current local frame position.
+		/// </summary>
+		MAV_FRAME_LOCAL_OFFSET_NED = 7,
+
+		/// <summary>
+		/// Setpoint in body NED frame. This makes sense if all position control is externalized - e.g. useful to command 2 m/s^2 acceleration to the right.
+		/// </summary>
+		MAV_FRAME_BODY_NED = 8,
+
+		/// <summary>
+		/// Offset in body NED frame. This makes sense if adding setpoints to the current flight path, to avoid an obstacle - e.g. useful to command 2 m/s^2 acceleration to the east.
+		/// </summary>
+		MAV_FRAME_BODY_OFFSET_NED = 9,
+
+		/// <summary>
+		/// Global coordinate frame with above terrain level altitude. WGS84 coordinate system, relative altitude over terrain with respect to the waypoint coordinate. First value / x: latitude in degrees, second value / y: longitude in degrees, third value / z: positive altitude in meters with 0 being at ground level in terrain model.
+		/// </summary>
+		MAV_FRAME_GLOBAL_TERRAIN_ALT = 10,
+		MAV_FRAME_ENUM_END = 11,
 
 	}
 
@@ -659,6 +659,101 @@ using System.Reflection;
 		MAVLINK_DATA_STREAM_IMG_PGM = 5,
 		MAVLINK_DATA_STREAM_IMG_PNG = 6,
 		MAVLINK_DATA_STREAM_TYPE_ENUM_END = 7,
+
+	}
+
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public enum FENCE_ACTION : ushort
+	{
+
+		/// <summary>
+		/// Disable fenced mode
+		/// </summary>
+		FENCE_ACTION_NONE = 0,
+
+		/// <summary>
+		/// Switched to guided mode to return point (fence point 0)
+		/// </summary>
+		FENCE_ACTION_GUIDED = 1,
+
+		/// <summary>
+		/// Report fence breach, but don't take action
+		/// </summary>
+		FENCE_ACTION_REPORT = 2,
+
+		/// <summary>
+		/// Switched to guided mode to return point (fence point 0) with manual throttle control
+		/// </summary>
+		FENCE_ACTION_GUIDED_THR_PASS = 3,
+		FENCE_ACTION_ENUM_END = 4,
+
+	}
+
+
+	/// <summary>
+	/// 
+	/// </summary>
+	public enum FENCE_BREACH : ushort
+	{
+
+		/// <summary>
+		/// No last fence breach
+		/// </summary>
+		FENCE_BREACH_NONE = 0,
+
+		/// <summary>
+		/// Breached minimum altitude
+		/// </summary>
+		FENCE_BREACH_MINALT = 1,
+
+		/// <summary>
+		/// Breached maximum altitude
+		/// </summary>
+		FENCE_BREACH_MAXALT = 2,
+
+		/// <summary>
+		/// Breached fence boundary
+		/// </summary>
+		FENCE_BREACH_BOUNDARY = 3,
+		FENCE_BREACH_ENUM_END = 4,
+
+	}
+
+
+	/// <summary>
+	/// Enumeration of possible mount operation modes
+	/// </summary>
+	public enum MAV_MOUNT_MODE : ushort
+	{
+
+		/// <summary>
+		/// Load and keep safe position (Roll,Pitch,Yaw) from permant memory and stop stabilization
+		/// </summary>
+		MAV_MOUNT_MODE_RETRACT = 0,
+
+		/// <summary>
+		/// Load and keep neutral position (Roll,Pitch,Yaw) from permanent memory.
+		/// </summary>
+		MAV_MOUNT_MODE_NEUTRAL = 1,
+
+		/// <summary>
+		/// Load neutral position and start MAVLink Roll,Pitch,Yaw control with stabilization
+		/// </summary>
+		MAV_MOUNT_MODE_MAVLINK_TARGETING = 2,
+
+		/// <summary>
+		/// Load neutral position and start RC Roll,Pitch,Yaw control with stabilization
+		/// </summary>
+		MAV_MOUNT_MODE_RC_TARGETING = 3,
+
+		/// <summary>
+		/// Load neutral position and start to point to Lat,Lon,Alt
+		/// </summary>
+		MAV_MOUNT_MODE_GPS_POINT = 4,
+		MAV_MOUNT_MODE_ENUM_END = 5,
 
 	}
 
@@ -713,6 +808,16 @@ using System.Reflection;
 		/// Control autonomous path planning on the MAV.
 		/// </summary>
 		MAV_CMD_NAV_PATHPLANNING = 81,
+
+		/// <summary>
+		/// Navigate to MISSION using a spline path.
+		/// </summary>
+		MAV_CMD_NAV_SPLINE_WAYPOINT = 82,
+
+		/// <summary>
+		/// hand control over to an external controller
+		/// </summary>
+		MAV_CMD_NAV_GUIDED_ENABLE = 92,
 
 		/// <summary>
 		/// NOP - This command is only used to mark the upper limit of the NAV/ACTION commands in the enumeration
@@ -790,6 +895,21 @@ using System.Reflection;
 		MAV_CMD_DO_REPEAT_SERVO = 184,
 
 		/// <summary>
+		/// Terminate flight immediately
+		/// </summary>
+		MAV_CMD_DO_FLIGHTTERMINATION = 185,
+
+		/// <summary>
+		/// Mission command to perform a landing from a rally point.
+		/// </summary>
+		MAV_CMD_DO_RALLY_LAND = 190,
+
+		/// <summary>
+		/// Mission command to safely abort an autonmous landing.
+		/// </summary>
+		MAV_CMD_DO_GO_AROUND = 191,
+
+		/// <summary>
 		/// Control onboard camera system.
 		/// </summary>
 		MAV_CMD_DO_CONTROL_VIDEO = 200,
@@ -798,6 +918,61 @@ using System.Reflection;
 		/// Sets the region of interest (ROI) for a sensor set or the vehicle itself. This can then be used by the vehicles control system to control the vehicle attitude and the attitude of various sensors such as cameras.
 		/// </summary>
 		MAV_CMD_DO_SET_ROI = 201,
+
+		/// <summary>
+		/// Mission command to configure an on-board camera controller system.
+		/// </summary>
+		MAV_CMD_DO_DIGICAM_CONFIGURE = 202,
+
+		/// <summary>
+		/// Mission command to control an on-board camera controller system.
+		/// </summary>
+		MAV_CMD_DO_DIGICAM_CONTROL = 203,
+
+		/// <summary>
+		/// Mission command to configure a camera or antenna mount
+		/// </summary>
+		MAV_CMD_DO_MOUNT_CONFIGURE = 204,
+
+		/// <summary>
+		/// Mission command to control a camera or antenna mount
+		/// </summary>
+		MAV_CMD_DO_MOUNT_CONTROL = 205,
+
+		/// <summary>
+		/// Mission command to set CAM_TRIGG_DIST for this flight
+		/// </summary>
+		MAV_CMD_DO_SET_CAM_TRIGG_DIST = 206,
+
+		/// <summary>
+		/// Mission command to enable the geofence
+		/// </summary>
+		MAV_CMD_DO_FENCE_ENABLE = 207,
+
+		/// <summary>
+		/// Mission command to trigger a parachute
+		/// </summary>
+		MAV_CMD_DO_PARACHUTE = 208,
+
+		/// <summary>
+		/// Change to/from inverted flight
+		/// </summary>
+		MAV_CMD_DO_INVERTED_FLIGHT = 210,
+
+		/// <summary>
+		/// Mission command to control a camera or antenna mount, using a quaternion as reference.
+		/// </summary>
+		MAV_CMD_DO_MOUNT_CONTROL_QUAT = 220,
+
+		/// <summary>
+		/// set id of master controller
+		/// </summary>
+		MAV_CMD_DO_GUIDED_MASTER = 221,
+
+		/// <summary>
+		/// set limits for external control
+		/// </summary>
+		MAV_CMD_DO_GUIDED_LIMITS = 222,
 
 		/// <summary>
 		/// NOP - This command is only used to mark the upper limit of the DO commands in the enumeration
@@ -843,7 +1018,42 @@ using System.Reflection;
 		/// Starts receiver pairing
 		/// </summary>
 		MAV_CMD_START_RX_PAIR = 500,
-		MAV_CMD_ENUM_END = 501,
+
+		/// <summary>
+		/// Start image capture sequence
+		/// </summary>
+		MAV_CMD_IMAGE_START_CAPTURE = 2000,
+
+		/// <summary>
+		/// Stop image capture sequence
+		/// </summary>
+		MAV_CMD_IMAGE_STOP_CAPTURE = 2001,
+
+		/// <summary>
+		/// Starts video capture
+		/// </summary>
+		MAV_CMD_VIDEO_START_CAPTURE = 2500,
+
+		/// <summary>
+		/// Stop the current video capture
+		/// </summary>
+		MAV_CMD_VIDEO_STOP_CAPTURE = 2501,
+
+		/// <summary>
+		/// Create a panorama at the current position
+		/// </summary>
+		MAV_CMD_PANORAMA_CREATE = 2800,
+
+		/// <summary>
+		/// Deploy payload on a Lat / Lon / Alt position. This includes the navigation to reach the required release position and velocity.
+		/// </summary>
+		MAV_CMD_PAYLOAD_PREPARE_DEPLOY = 30001,
+
+		/// <summary>
+		/// Control the payload deployment.
+		/// </summary>
+		MAV_CMD_PAYLOAD_CONTROL_DEPLOY = 30002,
+		MAV_CMD_ENUM_END = 30003,
 
 	}
 
@@ -1267,6 +1477,256 @@ using System.Reflection;
 	}
 
 
+	/// <summary>
+	/// SERIAL_CONTROL device types
+	/// </summary>
+	public enum SERIAL_CONTROL_DEV : ushort
+	{
+
+		/// <summary>
+		/// First telemetry port
+		/// </summary>
+		SERIAL_CONTROL_DEV_TELEM1 = 0,
+
+		/// <summary>
+		/// Second telemetry port
+		/// </summary>
+		SERIAL_CONTROL_DEV_TELEM2 = 1,
+
+		/// <summary>
+		/// First GPS port
+		/// </summary>
+		SERIAL_CONTROL_DEV_GPS1 = 2,
+
+		/// <summary>
+		/// Second GPS port
+		/// </summary>
+		SERIAL_CONTROL_DEV_GPS2 = 3,
+		SERIAL_CONTROL_DEV_ENUM_END = 4,
+
+	}
+
+
+	/// <summary>
+	/// SERIAL_CONTROL flags (bitmask)
+	/// </summary>
+	public enum SERIAL_CONTROL_FLAG : ushort
+	{
+
+		/// <summary>
+		/// Set if this is a reply
+		/// </summary>
+		SERIAL_CONTROL_FLAG_REPLY = 1,
+
+		/// <summary>
+		/// Set if the sender wants the receiver to send a response as another SERIAL_CONTROL message
+		/// </summary>
+		SERIAL_CONTROL_FLAG_RESPOND = 2,
+
+		/// <summary>
+		/// Set if access to the serial port should be removed from whatever driver is currently using it, giving exclusive access to the SERIAL_CONTROL protocol. The port can be handed back by sending a request without this flag set
+		/// </summary>
+		SERIAL_CONTROL_FLAG_EXCLUSIVE = 4,
+
+		/// <summary>
+		/// Block on writes to the serial port
+		/// </summary>
+		SERIAL_CONTROL_FLAG_BLOCKING = 8,
+
+		/// <summary>
+		/// Send multiple replies until port is drained
+		/// </summary>
+		SERIAL_CONTROL_FLAG_MULTI = 16,
+		SERIAL_CONTROL_FLAG_ENUM_END = 17,
+
+	}
+
+
+	/// <summary>
+	/// Enumeration of distance sensor types
+	/// </summary>
+	public enum MAV_DISTANCE_SENSOR : ushort
+	{
+
+		/// <summary>
+		/// Laser altimeter, e.g. LightWare SF02/F or PulsedLight units
+		/// </summary>
+		MAV_DISTANCE_SENSOR_LASER = 0,
+
+		/// <summary>
+		/// Ultrasound altimeter, e.g. MaxBotix units
+		/// </summary>
+		MAV_DISTANCE_SENSOR_ULTRASOUND = 1,
+		MAV_DISTANCE_SENSOR_ENUM_END = 2,
+
+	}
+
+
+	/// <summary>
+	/// Bitmask of (optional) autopilot capabilities (64 bit). If a bit is set, the autopilot supports this capability.
+	/// </summary>
+	public enum MAV_PROTOCOL_CAPABILITY : ushort
+	{
+
+		/// <summary>
+		/// Autopilot supports MISSION float message type.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_MISSION_FLOAT = 1,
+
+		/// <summary>
+		/// Autopilot supports the new param float message type.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_PARAM_FLOAT = 2,
+
+		/// <summary>
+		/// Autopilot supports MISSION_INT scaled integer message type.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_MISSION_INT = 4,
+
+		/// <summary>
+		/// Autopilot supports COMMAND_INT scaled integer message type.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_COMMAND_INT = 8,
+
+		/// <summary>
+		/// Autopilot supports the new param union message type.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_PARAM_UNION = 16,
+
+		/// <summary>
+		/// Autopilot supports the new param union message type.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_FTP = 32,
+
+		/// <summary>
+		/// Autopilot supports commanding attitude offboard.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_SET_ATTITUDE_TARGET = 64,
+
+		/// <summary>
+		/// Autopilot supports commanding position and velocity targets in local NED frame.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_SET_POSITION_TARGET_LOCAL_NED = 128,
+
+		/// <summary>
+		/// Autopilot supports commanding position and velocity targets in global scaled integers.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_SET_POSITION_TARGET_GLOBAL_INT = 256,
+
+		/// <summary>
+		/// Autopilot supports terrain protocol / data handling.
+		/// </summary>
+		MAV_PROTOCOL_CAPABILITY_TERRAIN = 512,
+		MAV_PROTOCOL_CAPABILITY_ENUM_END = 513,
+
+	}
+
+
+	/// <summary>
+	/// Enumeration of estimator types
+	/// </summary>
+	public enum MAV_ESTIMATOR_TYPE : ushort
+	{
+
+		/// <summary>
+		/// This is a naive estimator without any real covariance feedback.
+		/// </summary>
+		MAV_ESTIMATOR_TYPE_NAIVE = 1,
+
+		/// <summary>
+		/// Computer vision based estimate. Might be up to scale.
+		/// </summary>
+		MAV_ESTIMATOR_TYPE_VISION = 2,
+
+		/// <summary>
+		/// Visual-inertial estimate.
+		/// </summary>
+		MAV_ESTIMATOR_TYPE_VIO = 3,
+
+		/// <summary>
+		/// Plain GPS estimate.
+		/// </summary>
+		MAV_ESTIMATOR_TYPE_GPS = 4,
+
+		/// <summary>
+		/// Estimator integrating GPS and inertial sensing.
+		/// </summary>
+		MAV_ESTIMATOR_TYPE_GPS_INS = 5,
+		MAV_ESTIMATOR_TYPE_ENUM_END = 6,
+
+	}
+
+
+	/// <summary>
+	/// Enumeration of battery types
+	/// </summary>
+	public enum MAV_BATTERY_TYPE : ushort
+	{
+
+		/// <summary>
+		/// Not specified.
+		/// </summary>
+		MAV_BATTERY_TYPE_UNKNOWN = 0,
+
+		/// <summary>
+		/// Lithium polymere battery
+		/// </summary>
+		MAV_BATTERY_TYPE_LIPO = 1,
+
+		/// <summary>
+		/// Lithium ferrite battery
+		/// </summary>
+		MAV_BATTERY_TYPE_LIFE = 2,
+
+		/// <summary>
+		/// Lithium-ION battery
+		/// </summary>
+		MAV_BATTERY_TYPE_LION = 3,
+
+		/// <summary>
+		/// Nickel metal hydride battery
+		/// </summary>
+		MAV_BATTERY_TYPE_NIMH = 4,
+		MAV_BATTERY_TYPE_ENUM_END = 5,
+
+	}
+
+
+	/// <summary>
+	/// Enumeration of battery functions
+	/// </summary>
+	public enum MAV_BATTERY_FUNCTION : ushort
+	{
+
+		/// <summary>
+		/// Lithium polymere battery
+		/// </summary>
+		MAV_BATTERY_FUNCTION_UNKNOWN = 0,
+
+		/// <summary>
+		/// Battery supports all flight systems
+		/// </summary>
+		MAV_BATTERY_FUNCTION_ALL = 1,
+
+		/// <summary>
+		/// Battery for the propulsion system
+		/// </summary>
+		MAV_BATTERY_FUNCTION_PROPULSION = 2,
+
+		/// <summary>
+		/// Avionics battery
+		/// </summary>
+		MAV_BATTERY_FUNCTION_AVIONICS = 3,
+
+		/// <summary>
+		/// Payload battery
+		/// </summary>
+		MAV_BATTERY_TYPE_PAYLOAD = 4,
+		MAV_BATTERY_FUNCTION_ENUM_END = 5,
+
+	}
+
+
 }
 
     
@@ -1296,7 +1756,7 @@ namespace MavLink
 		public byte autopilot;
 
 		/// <summary>
-		/// System mode bitfield, see MAV_MODE_FLAGS ENUM in mavlink/include/mavlink_types.h
+		/// System mode bitfield, see MAV_MODE_FLAG ENUM in mavlink/include/mavlink_types.h
 		/// </summary>
 		public byte base_mode;
 
@@ -1704,7 +2164,7 @@ namespace MavLink
 		public UInt64 time_usec;
 
 		/// <summary>
-		/// 0-1: no fix, 2: 2D fix, 3: 3D fix. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.
+		/// 0-1: no fix, 2: 2D fix, 3: 3D fix, 4: DGPS, 5: RTK. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.
 		/// </summary>
 		public byte fix_type;
 
@@ -2044,7 +2504,7 @@ namespace MavLink
 
 
 	/// <summary>
-	/// The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion.
+	/// The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
 	/// </summary>
 	public class Msg_attitude_quaternion : MavlinkMessage
     {
@@ -2055,22 +2515,22 @@ namespace MavLink
 		public UInt32 time_boot_ms;
 
 		/// <summary>
-		/// Quaternion component 1
+		/// Quaternion component 1, w (1 in null-rotation)
 		/// </summary>
 		public float q1;
 
 		/// <summary>
-		/// Quaternion component 2
+		/// Quaternion component 2, x (0 in null-rotation)
 		/// </summary>
 		public float q2;
 
 		/// <summary>
-		/// Quaternion component 3
+		/// Quaternion component 3, y (0 in null-rotation)
 		/// </summary>
 		public float q3;
 
 		/// <summary>
-		/// Quaternion component 4
+		/// Quaternion component 4, z (0 in null-rotation)
 		/// </summary>
 		public float q4;
 
@@ -2167,7 +2627,7 @@ namespace MavLink
 		public Int32 lon;
 
 		/// <summary>
-		/// Altitude in meters, expressed as * 1000 (millimeters), above MSL
+		/// Altitude in meters, expressed as * 1000 (millimeters), WGS84 (not AMSL)
 		/// </summary>
 		public Int32 alt;
 
@@ -2808,168 +3268,6 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Set the setpoint for a local position controller. This is the position in local coordinates the MAV should fly to. This message is sent by the path/MISSION planner to the onboard position controller. As some MAVs have a degree of freedom in yaw (e.g. all helicopters/quadrotors), the desired yaw angle is part of the message.
-	/// </summary>
-	public class Msg_set_local_position_setpoint : MavlinkMessage
-    {
-
-		/// <summary>
-		/// System ID
-		/// </summary>
-		public byte target_system;
-
-		/// <summary>
-		/// Component ID
-		/// </summary>
-		public byte target_component;
-
-		/// <summary>
-		/// Coordinate frame - valid values are only MAV_FRAME_LOCAL_NED or MAV_FRAME_LOCAL_ENU
-		/// </summary>
-		public byte coordinate_frame;
-
-		/// <summary>
-		/// x position
-		/// </summary>
-		public float x;
-
-		/// <summary>
-		/// y position
-		/// </summary>
-		public float y;
-
-		/// <summary>
-		/// z position
-		/// </summary>
-		public float z;
-
-		/// <summary>
-		/// Desired yaw angle
-		/// </summary>
-		public float yaw;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SET_LOCAL_POSITION_SETPOINT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Transmit the current local setpoint of the controller to other MAVs (collision avoidance) and to the GCS.
-	/// </summary>
-	public class Msg_local_position_setpoint : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Coordinate frame - valid values are only MAV_FRAME_LOCAL_NED or MAV_FRAME_LOCAL_ENU
-		/// </summary>
-		public byte coordinate_frame;
-
-		/// <summary>
-		/// x position
-		/// </summary>
-		public float x;
-
-		/// <summary>
-		/// y position
-		/// </summary>
-		public float y;
-
-		/// <summary>
-		/// z position
-		/// </summary>
-		public float z;
-
-		/// <summary>
-		/// Desired yaw angle
-		/// </summary>
-		public float yaw;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_LOCAL_POSITION_SETPOINT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Transmit the current local setpoint of the controller to other MAVs (collision avoidance) and to the GCS.
-	/// </summary>
-	public class Msg_global_position_setpoint_int : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Coordinate frame - valid values are only MAV_FRAME_GLOBAL or MAV_FRAME_GLOBAL_RELATIVE_ALT
-		/// </summary>
-		public byte coordinate_frame;
-
-		/// <summary>
-		/// Latitude (WGS84), in degrees * 1E7
-		/// </summary>
-		public Int32 latitude;
-
-		/// <summary>
-		/// Longitude (WGS84), in degrees * 1E7
-		/// </summary>
-		public Int32 longitude;
-
-		/// <summary>
-		/// Altitude (WGS84), in meters * 1000 (positive for up)
-		/// </summary>
-		public Int32 altitude;
-
-		/// <summary>
-		/// Desired yaw angle in degrees * 100
-		/// </summary>
-		public Int16 yaw;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_GLOBAL_POSITION_SETPOINT_INT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Set the current global position setpoint.
-	/// </summary>
-	public class Msg_set_global_position_setpoint_int : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Coordinate frame - valid values are only MAV_FRAME_GLOBAL or MAV_FRAME_GLOBAL_RELATIVE_ALT
-		/// </summary>
-		public byte coordinate_frame;
-
-		/// <summary>
-		/// Latitude (WGS84), in degrees * 1E7
-		/// </summary>
-		public Int32 latitude;
-
-		/// <summary>
-		/// Longitude (WGS84), in degrees * 1E7
-		/// </summary>
-		public Int32 longitude;
-
-		/// <summary>
-		/// Altitude (WGS84), in meters * 1000 (positive for up)
-		/// </summary>
-		public Int32 altitude;
-
-		/// <summary>
-		/// Desired yaw angle in degrees * 100
-		/// </summary>
-		public Int16 yaw;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SET_GLOBAL_POSITION_SETPOINT_INT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
 	/// Set a safety zone (volume), which is defined by two corners of a cube. This message can be used to tell the MAV which setpoints/MISSIONs to accept and which to reject. Safety areas are often enforced by national or competition regulations.
 	/// </summary>
 	public class Msg_safety_set_allowed_area : MavlinkMessage
@@ -3076,244 +3374,44 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Set roll, pitch and yaw.
+	/// The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0).
 	/// </summary>
-	public class Msg_set_roll_pitch_yaw_thrust : MavlinkMessage
+	public class Msg_attitude_quaternion_cov : MavlinkMessage
     {
 
 		/// <summary>
-		/// System ID
-		/// </summary>
-		public byte target_system;
-
-		/// <summary>
-		/// Component ID
-		/// </summary>
-		public byte target_component;
-
-		/// <summary>
-		/// Desired roll angle in radians
-		/// </summary>
-		public float roll;
-
-		/// <summary>
-		/// Desired pitch angle in radians
-		/// </summary>
-		public float pitch;
-
-		/// <summary>
-		/// Desired yaw angle in radians
-		/// </summary>
-		public float yaw;
-
-		/// <summary>
-		/// Collective thrust, normalized to 0 .. 1
-		/// </summary>
-		public float thrust;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SET_ROLL_PITCH_YAW_THRUST(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Set roll, pitch and yaw.
-	/// </summary>
-	public class Msg_set_roll_pitch_yaw_speed_thrust : MavlinkMessage
-    {
-
-		/// <summary>
-		/// System ID
-		/// </summary>
-		public byte target_system;
-
-		/// <summary>
-		/// Component ID
-		/// </summary>
-		public byte target_component;
-
-		/// <summary>
-		/// Desired roll angular speed in rad/s
-		/// </summary>
-		public float roll_speed;
-
-		/// <summary>
-		/// Desired pitch angular speed in rad/s
-		/// </summary>
-		public float pitch_speed;
-
-		/// <summary>
-		/// Desired yaw angular speed in rad/s
-		/// </summary>
-		public float yaw_speed;
-
-		/// <summary>
-		/// Collective thrust, normalized to 0 .. 1
-		/// </summary>
-		public float thrust;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SET_ROLL_PITCH_YAW_SPEED_THRUST(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Setpoint in roll, pitch, yaw currently active on the system.
-	/// </summary>
-	public class Msg_roll_pitch_yaw_thrust_setpoint : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Timestamp in milliseconds since system boot
+		/// Timestamp (milliseconds since system boot)
 		/// </summary>
 		public UInt32 time_boot_ms;
 
 		/// <summary>
-		/// Desired roll angle in radians
+		/// Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation)
 		/// </summary>
-		public float roll;
+		public float[] q; // Array size 4
 
 		/// <summary>
-		/// Desired pitch angle in radians
+		/// Roll angular speed (rad/s)
 		/// </summary>
-		public float pitch;
+		public float rollspeed;
 
 		/// <summary>
-		/// Desired yaw angle in radians
+		/// Pitch angular speed (rad/s)
 		/// </summary>
-		public float yaw;
+		public float pitchspeed;
 
 		/// <summary>
-		/// Collective thrust, normalized to 0 .. 1
+		/// Yaw angular speed (rad/s)
 		/// </summary>
-		public float thrust;
+		public float yawspeed;
+
+		/// <summary>
+		/// Attitude covariance
+		/// </summary>
+		public float[] covariance; // Array size 9
 
         public override int Serialize(byte[] bytes, ref int offset)
             {
-                return MavLinkSerializer.Serialize_ROLL_PITCH_YAW_THRUST_SETPOINT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Setpoint in rollspeed, pitchspeed, yawspeed currently active on the system.
-	/// </summary>
-	public class Msg_roll_pitch_yaw_speed_thrust_setpoint : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Timestamp in milliseconds since system boot
-		/// </summary>
-		public UInt32 time_boot_ms;
-
-		/// <summary>
-		/// Desired roll angular speed in rad/s
-		/// </summary>
-		public float roll_speed;
-
-		/// <summary>
-		/// Desired pitch angular speed in rad/s
-		/// </summary>
-		public float pitch_speed;
-
-		/// <summary>
-		/// Desired yaw angular speed in rad/s
-		/// </summary>
-		public float yaw_speed;
-
-		/// <summary>
-		/// Collective thrust, normalized to 0 .. 1
-		/// </summary>
-		public float thrust;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_ROLL_PITCH_YAW_SPEED_THRUST_SETPOINT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Setpoint in the four motor speeds
-	/// </summary>
-	public class Msg_set_quad_motors_setpoint : MavlinkMessage
-    {
-
-		/// <summary>
-		/// System ID of the system that should set these motor commands
-		/// </summary>
-		public byte target_system;
-
-		/// <summary>
-		/// Front motor in + configuration, front left motor in x configuration
-		/// </summary>
-		public UInt16 motor_front_nw;
-
-		/// <summary>
-		/// Right motor in + configuration, front right motor in x configuration
-		/// </summary>
-		public UInt16 motor_right_ne;
-
-		/// <summary>
-		/// Back motor in + configuration, back right motor in x configuration
-		/// </summary>
-		public UInt16 motor_back_se;
-
-		/// <summary>
-		/// Left motor in + configuration, back left motor in x configuration
-		/// </summary>
-		public UInt16 motor_left_sw;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SET_QUAD_MOTORS_SETPOINT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Setpoint for up to four quadrotors in a group / wing
-	/// </summary>
-	public class Msg_set_quad_swarm_roll_pitch_yaw_thrust : MavlinkMessage
-    {
-
-		/// <summary>
-		/// ID of the quadrotor group (0 - 255, up to 256 groups supported)
-		/// </summary>
-		public byte group;
-
-		/// <summary>
-		/// ID of the flight mode (0 - 255, up to 256 modes supported)
-		/// </summary>
-		public byte mode;
-
-		/// <summary>
-		/// Desired roll angle in radians +-PI (+-INT16_MAX)
-		/// </summary>
-		public Int16[] roll; // Array size 4
-
-		/// <summary>
-		/// Desired pitch angle in radians +-PI (+-INT16_MAX)
-		/// </summary>
-		public Int16[] pitch; // Array size 4
-
-		/// <summary>
-		/// Desired yaw angle in radians, scaled to int16 +-PI (+-INT16_MAX)
-		/// </summary>
-		public Int16[] yaw; // Array size 4
-
-		/// <summary>
-		/// Collective thrust, scaled to uint16 (0..UINT16_MAX)
-		/// </summary>
-		public UInt16[] thrust; // Array size 4
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SET_QUAD_SWARM_ROLL_PITCH_YAW_THRUST(this, bytes, ref offset);
+                return MavLinkSerializer.Serialize_ATTITUDE_QUATERNION_COV(this, bytes, ref offset);
             }        
 	}
 
@@ -3372,117 +3470,250 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Setpoint for up to four quadrotors in a group / wing
+	/// The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It  is designed as scaled integer message since the resolution of float is not sufficient. NOTE: This message is intended for onboard networks / companion computers and higher-bandwidth links and optimized for accuracy and completeness. Please use the GLOBAL_POSITION_INT message for a minimal subset.
 	/// </summary>
-	public class Msg_set_quad_swarm_led_roll_pitch_yaw_thrust : MavlinkMessage
+	public class Msg_global_position_int_cov : MavlinkMessage
     {
 
 		/// <summary>
-		/// ID of the quadrotor group (0 - 255, up to 256 groups supported)
+		/// Timestamp (milliseconds since system boot)
 		/// </summary>
-		public byte group;
+		public UInt32 time_boot_ms;
 
 		/// <summary>
-		/// ID of the flight mode (0 - 255, up to 256 modes supported)
+		/// Timestamp (microseconds since UNIX epoch) in UTC. 0 for unknown. Commonly filled by the precision time source of a GPS receiver.
 		/// </summary>
-		public byte mode;
+		public UInt64 time_utc;
 
 		/// <summary>
-		/// RGB red channel (0-255)
+		/// Class id of the estimator this estimate originated from.
 		/// </summary>
-		public byte[] led_red; // Array size 4
+		public byte estimator_type;
 
 		/// <summary>
-		/// RGB green channel (0-255)
+		/// Latitude, expressed as degrees * 1E7
 		/// </summary>
-		public byte[] led_blue; // Array size 4
+		public Int32 lat;
 
 		/// <summary>
-		/// RGB blue channel (0-255)
+		/// Longitude, expressed as degrees * 1E7
 		/// </summary>
-		public byte[] led_green; // Array size 4
+		public Int32 lon;
 
 		/// <summary>
-		/// Desired roll angle in radians +-PI (+-INT16_MAX)
+		/// Altitude in meters, expressed as * 1000 (millimeters), above MSL
 		/// </summary>
-		public Int16[] roll; // Array size 4
+		public Int32 alt;
 
 		/// <summary>
-		/// Desired pitch angle in radians +-PI (+-INT16_MAX)
+		/// Altitude above ground in meters, expressed as * 1000 (millimeters)
 		/// </summary>
-		public Int16[] pitch; // Array size 4
+		public Int32 relative_alt;
 
 		/// <summary>
-		/// Desired yaw angle in radians, scaled to int16 +-PI (+-INT16_MAX)
+		/// Ground X Speed (Latitude), expressed as m/s
 		/// </summary>
-		public Int16[] yaw; // Array size 4
+		public float vx;
 
 		/// <summary>
-		/// Collective thrust, scaled to uint16 (0..UINT16_MAX)
+		/// Ground Y Speed (Longitude), expressed as m/s
 		/// </summary>
-		public UInt16[] thrust; // Array size 4
+		public float vy;
+
+		/// <summary>
+		/// Ground Z Speed (Altitude), expressed as m/s
+		/// </summary>
+		public float vz;
+
+		/// <summary>
+		/// Covariance matrix (first six entries are the first ROW, next six entries are the second row, etc.)
+		/// </summary>
+		public float[] covariance; // Array size 36
 
         public override int Serialize(byte[] bytes, ref int offset)
             {
-                return MavLinkSerializer.Serialize_SET_QUAD_SWARM_LED_ROLL_PITCH_YAW_THRUST(this, bytes, ref offset);
+                return MavLinkSerializer.Serialize_GLOBAL_POSITION_INT_COV(this, bytes, ref offset);
             }        
 	}
 
 
 	/// <summary>
-	/// Corrects the systems state by adding an error correction term to the position and velocity, and by rotating the attitude by a correction angle.
+	/// The filtered local position (e.g. fused computer vision and accelerometers). Coordinate frame is right-handed, Z-axis down (aeronautical frame, NED / north-east-down convention)
 	/// </summary>
-	public class Msg_state_correction : MavlinkMessage
+	public class Msg_local_position_ned_cov : MavlinkMessage
     {
 
 		/// <summary>
-		/// x position error
+		/// Timestamp (milliseconds since system boot)
 		/// </summary>
-		public float xErr;
+		public UInt32 time_boot_ms;
 
 		/// <summary>
-		/// y position error
+		/// Timestamp (microseconds since UNIX epoch) in UTC. 0 for unknown. Commonly filled by the precision time source of a GPS receiver.
 		/// </summary>
-		public float yErr;
+		public UInt64 time_utc;
 
 		/// <summary>
-		/// z position error
+		/// Class id of the estimator this estimate originated from.
 		/// </summary>
-		public float zErr;
+		public byte estimator_type;
 
 		/// <summary>
-		/// roll error (radians)
+		/// X Position
 		/// </summary>
-		public float rollErr;
+		public float x;
 
 		/// <summary>
-		/// pitch error (radians)
+		/// Y Position
 		/// </summary>
-		public float pitchErr;
+		public float y;
 
 		/// <summary>
-		/// yaw error (radians)
+		/// Z Position
 		/// </summary>
-		public float yawErr;
+		public float z;
 
 		/// <summary>
-		/// x velocity
+		/// X Speed
 		/// </summary>
-		public float vxErr;
+		public float vx;
 
 		/// <summary>
-		/// y velocity
+		/// Y Speed
 		/// </summary>
-		public float vyErr;
+		public float vy;
 
 		/// <summary>
-		/// z velocity
+		/// Z Speed
 		/// </summary>
-		public float vzErr;
+		public float vz;
+
+		/// <summary>
+		/// Covariance matrix (first six entries are the first ROW, next six entries are the second row, etc.)
+		/// </summary>
+		public float[] covariance; // Array size 36
 
         public override int Serialize(byte[] bytes, ref int offset)
             {
-                return MavLinkSerializer.Serialize_STATE_CORRECTION(this, bytes, ref offset);
+                return MavLinkSerializer.Serialize_LOCAL_POSITION_NED_COV(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// The PPM values of the RC channels received. The standard PPM modulation is as follows: 1000 microseconds: 0%, 2000 microseconds: 100%. Individual receivers/transmitters might violate this specification.
+	/// </summary>
+	public class Msg_rc_channels : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp (milliseconds since system boot)
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// Total number of RC channels being received. This can be larger than 18, indicating that more channels are available but not given in this message. This value should be 0 when no RC channels are available.
+		/// </summary>
+		public byte chancount;
+
+		/// <summary>
+		/// RC channel 1 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan1_raw;
+
+		/// <summary>
+		/// RC channel 2 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan2_raw;
+
+		/// <summary>
+		/// RC channel 3 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan3_raw;
+
+		/// <summary>
+		/// RC channel 4 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan4_raw;
+
+		/// <summary>
+		/// RC channel 5 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan5_raw;
+
+		/// <summary>
+		/// RC channel 6 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan6_raw;
+
+		/// <summary>
+		/// RC channel 7 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan7_raw;
+
+		/// <summary>
+		/// RC channel 8 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan8_raw;
+
+		/// <summary>
+		/// RC channel 9 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan9_raw;
+
+		/// <summary>
+		/// RC channel 10 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan10_raw;
+
+		/// <summary>
+		/// RC channel 11 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan11_raw;
+
+		/// <summary>
+		/// RC channel 12 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan12_raw;
+
+		/// <summary>
+		/// RC channel 13 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan13_raw;
+
+		/// <summary>
+		/// RC channel 14 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan14_raw;
+
+		/// <summary>
+		/// RC channel 15 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan15_raw;
+
+		/// <summary>
+		/// RC channel 16 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan16_raw;
+
+		/// <summary>
+		/// RC channel 17 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan17_raw;
+
+		/// <summary>
+		/// RC channel 18 value, in microseconds. A value of UINT16_MAX implies the channel is unused.
+		/// </summary>
+		public UInt16 chan18_raw;
+
+		/// <summary>
+		/// Receive signal strength indicator, 0: 0%, 100: 100%, 255: invalid/unknown.
+		/// </summary>
+		public byte rssi;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_RC_CHANNELS(this, bytes, ref offset);
             }        
 	}
 
@@ -3652,6 +3883,90 @@ namespace MavLink
 
 
 	/// <summary>
+	/// Message encoding a mission item. This message is emitted to announce
+	///                the presence of a mission item and to set a mission item on the system. The mission item can be either in x, y, z meters (type: LOCAL) or x:lat, y:lon, z:altitude. Local frame is Z-down, right handed (NED), global frame is Z-up, right handed (ENU). See alsohttp://qgroundcontrol.org/mavlink/waypoint_protocol.
+	/// </summary>
+	public class Msg_mission_item_int : MavlinkMessage
+    {
+
+		/// <summary>
+		/// System ID
+		/// </summary>
+		public byte target_system;
+
+		/// <summary>
+		/// Component ID
+		/// </summary>
+		public byte target_component;
+
+		/// <summary>
+		/// Waypoint ID (sequence number). Starts at zero. Increases monotonically for each waypoint, no gaps in the sequence (0,1,2,3,4).
+		/// </summary>
+		public UInt16 seq;
+
+		/// <summary>
+		/// The coordinate system of the MISSION. see MAV_FRAME in mavlink_types.h
+		/// </summary>
+		public byte frame;
+
+		/// <summary>
+		/// The scheduled action for the MISSION. see MAV_CMD in common.xml MAVLink specs
+		/// </summary>
+		public UInt16 command;
+
+		/// <summary>
+		/// false:0, true:1
+		/// </summary>
+		public byte current;
+
+		/// <summary>
+		/// autocontinue to next wp
+		/// </summary>
+		public byte autocontinue;
+
+		/// <summary>
+		/// PARAM1, see MAV_CMD enum
+		/// </summary>
+		public float param1;
+
+		/// <summary>
+		/// PARAM2, see MAV_CMD enum
+		/// </summary>
+		public float param2;
+
+		/// <summary>
+		/// PARAM3, see MAV_CMD enum
+		/// </summary>
+		public float param3;
+
+		/// <summary>
+		/// PARAM4, see MAV_CMD enum
+		/// </summary>
+		public float param4;
+
+		/// <summary>
+		/// PARAM5 / local: x position in meters * 1e4, global: latitude in degrees * 10^7
+		/// </summary>
+		public Int32 x;
+
+		/// <summary>
+		/// PARAM6 / y position: local: x position in meters * 1e4, global: longitude in degrees *10^7
+		/// </summary>
+		public Int32 y;
+
+		/// <summary>
+		/// PARAM7 / z position: global: altitude in meters (relative or absolute, depending on frame.
+		/// </summary>
+		public float z;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_MISSION_ITEM_INT(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
 	/// Metrics typically displayed on a HUD for fixed wing aircraft
 	/// </summary>
 	public class Msg_vfr_hud : MavlinkMessage
@@ -3690,6 +4005,84 @@ namespace MavLink
         public override int Serialize(byte[] bytes, ref int offset)
             {
                 return MavLinkSerializer.Serialize_VFR_HUD(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Message encoding a command with parameters as scaled integers. Scaling depends on the actual command value.
+	/// </summary>
+	public class Msg_command_int : MavlinkMessage
+    {
+
+		/// <summary>
+		/// System ID
+		/// </summary>
+		public byte target_system;
+
+		/// <summary>
+		/// Component ID
+		/// </summary>
+		public byte target_component;
+
+		/// <summary>
+		/// The coordinate system of the COMMAND. see MAV_FRAME in mavlink_types.h
+		/// </summary>
+		public byte frame;
+
+		/// <summary>
+		/// The scheduled action for the mission item. see MAV_CMD in common.xml MAVLink specs
+		/// </summary>
+		public UInt16 command;
+
+		/// <summary>
+		/// false:0, true:1
+		/// </summary>
+		public byte current;
+
+		/// <summary>
+		/// autocontinue to next wp
+		/// </summary>
+		public byte autocontinue;
+
+		/// <summary>
+		/// PARAM1, see MAV_CMD enum
+		/// </summary>
+		public float param1;
+
+		/// <summary>
+		/// PARAM2, see MAV_CMD enum
+		/// </summary>
+		public float param2;
+
+		/// <summary>
+		/// PARAM3, see MAV_CMD enum
+		/// </summary>
+		public float param3;
+
+		/// <summary>
+		/// PARAM4, see MAV_CMD enum
+		/// </summary>
+		public float param4;
+
+		/// <summary>
+		/// PARAM5 / local: x position in meters * 1e4, global: latitude in degrees * 10^7
+		/// </summary>
+		public Int32 x;
+
+		/// <summary>
+		/// PARAM6 / local: y position in meters * 1e4, global: longitude in degrees * 10^7
+		/// </summary>
+		public Int32 y;
+
+		/// <summary>
+		/// PARAM7 / z position: global: altitude in meters (relative or absolute, depending on frame.
+		/// </summary>
+		public float z;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_COMMAND_INT(this, bytes, ref offset);
             }        
 	}
 
@@ -3786,44 +4179,6 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Setpoint in roll, pitch, yaw rates and thrust currently active on the system.
-	/// </summary>
-	public class Msg_roll_pitch_yaw_rates_thrust_setpoint : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Timestamp in milliseconds since system boot
-		/// </summary>
-		public UInt32 time_boot_ms;
-
-		/// <summary>
-		/// Desired roll rate in radians per second
-		/// </summary>
-		public float roll_rate;
-
-		/// <summary>
-		/// Desired pitch rate in radians per second
-		/// </summary>
-		public float pitch_rate;
-
-		/// <summary>
-		/// Desired yaw rate in radians per second
-		/// </summary>
-		public float yaw_rate;
-
-		/// <summary>
-		/// Collective thrust, normalized to 0 .. 1
-		/// </summary>
-		public float thrust;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_ROLL_PITCH_YAW_RATES_THRUST_SETPOINT(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
 	/// Setpoint in roll, pitch, yaw and thrust from the operator
 	/// </summary>
 	public class Msg_manual_setpoint : MavlinkMessage
@@ -3867,6 +4222,464 @@ namespace MavLink
         public override int Serialize(byte[] bytes, ref int offset)
             {
                 return MavLinkSerializer.Serialize_MANUAL_SETPOINT(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Set the vehicle attitude and body angular rates.
+	/// </summary>
+	public class Msg_set_attitude_target : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp in milliseconds since system boot
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// System ID
+		/// </summary>
+		public byte target_system;
+
+		/// <summary>
+		/// Component ID
+		/// </summary>
+		public byte target_component;
+
+		/// <summary>
+		/// Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 6: reserved, bit 7: throttle, bit 8: attitude
+		/// </summary>
+		public byte type_mask;
+
+		/// <summary>
+		/// Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
+		/// </summary>
+		public float[] q; // Array size 4
+
+		/// <summary>
+		/// Body roll rate in radians per second
+		/// </summary>
+		public float body_roll_rate;
+
+		/// <summary>
+		/// Body roll rate in radians per second
+		/// </summary>
+		public float body_pitch_rate;
+
+		/// <summary>
+		/// Body roll rate in radians per second
+		/// </summary>
+		public float body_yaw_rate;
+
+		/// <summary>
+		/// Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
+		/// </summary>
+		public float thrust;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_SET_ATTITUDE_TARGET(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Set the vehicle attitude and body angular rates.
+	/// </summary>
+	public class Msg_attitude_target : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp in milliseconds since system boot
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 7: reserved, bit 8: attitude
+		/// </summary>
+		public byte type_mask;
+
+		/// <summary>
+		/// Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
+		/// </summary>
+		public float[] q; // Array size 4
+
+		/// <summary>
+		/// Body roll rate in radians per second
+		/// </summary>
+		public float body_roll_rate;
+
+		/// <summary>
+		/// Body roll rate in radians per second
+		/// </summary>
+		public float body_pitch_rate;
+
+		/// <summary>
+		/// Body roll rate in radians per second
+		/// </summary>
+		public float body_yaw_rate;
+
+		/// <summary>
+		/// Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
+		/// </summary>
+		public float thrust;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_ATTITUDE_TARGET(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Set vehicle position, velocity and acceleration setpoint in local frame.
+	/// </summary>
+	public class Msg_set_position_target_local_ned : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp in milliseconds since system boot
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// System ID
+		/// </summary>
+		public byte target_system;
+
+		/// <summary>
+		/// Component ID
+		/// </summary>
+		public byte target_component;
+
+		/// <summary>
+		/// Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9
+		/// </summary>
+		public byte coordinate_frame;
+
+		/// <summary>
+		/// Bitmask to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 10 is set the floats afx afy afz should be interpreted as force instead of acceleration. Mapping: bit 1: x, bit 2: y, bit 3: z, bit 4: vx, bit 5: vy, bit 6: vz, bit 7: ax, bit 8: ay, bit 9: az, bit 10: is force setpoint, bit 11: yaw, bit 12: yaw rate
+		/// </summary>
+		public UInt16 type_mask;
+
+		/// <summary>
+		/// X Position in NED frame in meters
+		/// </summary>
+		public float x;
+
+		/// <summary>
+		/// Y Position in NED frame in meters
+		/// </summary>
+		public float y;
+
+		/// <summary>
+		/// Z Position in NED frame in meters (note, altitude is negative in NED)
+		/// </summary>
+		public float z;
+
+		/// <summary>
+		/// X velocity in NED frame in meter / s
+		/// </summary>
+		public float vx;
+
+		/// <summary>
+		/// Y velocity in NED frame in meter / s
+		/// </summary>
+		public float vy;
+
+		/// <summary>
+		/// Z velocity in NED frame in meter / s
+		/// </summary>
+		public float vz;
+
+		/// <summary>
+		/// X acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afx;
+
+		/// <summary>
+		/// Y acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afy;
+
+		/// <summary>
+		/// Z acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afz;
+
+		/// <summary>
+		/// yaw setpoint in rad
+		/// </summary>
+		public float yaw;
+
+		/// <summary>
+		/// yaw rate setpoint in rad/s
+		/// </summary>
+		public float yaw_rate;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_SET_POSITION_TARGET_LOCAL_NED(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Set vehicle position, velocity and acceleration setpoint in local frame.
+	/// </summary>
+	public class Msg_position_target_local_ned : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp in milliseconds since system boot
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// Valid options are: MAV_FRAME_LOCAL_NED = 1, MAV_FRAME_LOCAL_OFFSET_NED = 7, MAV_FRAME_BODY_NED = 8, MAV_FRAME_BODY_OFFSET_NED = 9
+		/// </summary>
+		public byte coordinate_frame;
+
+		/// <summary>
+		/// Bitmask to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 10 is set the floats afx afy afz should be interpreted as force instead of acceleration. Mapping: bit 1: x, bit 2: y, bit 3: z, bit 4: vx, bit 5: vy, bit 6: vz, bit 7: ax, bit 8: ay, bit 9: az, bit 10: is force setpoint, bit 11: yaw, bit 12: yaw rate
+		/// </summary>
+		public UInt16 type_mask;
+
+		/// <summary>
+		/// X Position in NED frame in meters
+		/// </summary>
+		public float x;
+
+		/// <summary>
+		/// Y Position in NED frame in meters
+		/// </summary>
+		public float y;
+
+		/// <summary>
+		/// Z Position in NED frame in meters (note, altitude is negative in NED)
+		/// </summary>
+		public float z;
+
+		/// <summary>
+		/// X velocity in NED frame in meter / s
+		/// </summary>
+		public float vx;
+
+		/// <summary>
+		/// Y velocity in NED frame in meter / s
+		/// </summary>
+		public float vy;
+
+		/// <summary>
+		/// Z velocity in NED frame in meter / s
+		/// </summary>
+		public float vz;
+
+		/// <summary>
+		/// X acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afx;
+
+		/// <summary>
+		/// Y acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afy;
+
+		/// <summary>
+		/// Z acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afz;
+
+		/// <summary>
+		/// yaw setpoint in rad
+		/// </summary>
+		public float yaw;
+
+		/// <summary>
+		/// yaw rate setpoint in rad/s
+		/// </summary>
+		public float yaw_rate;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_POSITION_TARGET_LOCAL_NED(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Set vehicle position, velocity and acceleration setpoint in the WGS84 coordinate system.
+	/// </summary>
+	public class Msg_set_position_target_global_int : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp in milliseconds since system boot. The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// System ID
+		/// </summary>
+		public byte target_system;
+
+		/// <summary>
+		/// Component ID
+		/// </summary>
+		public byte target_component;
+
+		/// <summary>
+		/// Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
+		/// </summary>
+		public byte coordinate_frame;
+
+		/// <summary>
+		/// Bitmask to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 10 is set the floats afx afy afz should be interpreted as force instead of acceleration. Mapping: bit 1: x, bit 2: y, bit 3: z, bit 4: vx, bit 5: vy, bit 6: vz, bit 7: ax, bit 8: ay, bit 9: az, bit 10: is force setpoint, bit 11: yaw, bit 12: yaw rate
+		/// </summary>
+		public UInt16 type_mask;
+
+		/// <summary>
+		/// X Position in WGS84 frame in 1e7 * meters
+		/// </summary>
+		public Int32 lat_int;
+
+		/// <summary>
+		/// Y Position in WGS84 frame in 1e7 * meters
+		/// </summary>
+		public Int32 lon_int;
+
+		/// <summary>
+		/// Altitude in meters in WGS84 altitude, not AMSL if absolute or relative, above terrain if GLOBAL_TERRAIN_ALT_INT
+		/// </summary>
+		public float alt;
+
+		/// <summary>
+		/// X velocity in NED frame in meter / s
+		/// </summary>
+		public float vx;
+
+		/// <summary>
+		/// Y velocity in NED frame in meter / s
+		/// </summary>
+		public float vy;
+
+		/// <summary>
+		/// Z velocity in NED frame in meter / s
+		/// </summary>
+		public float vz;
+
+		/// <summary>
+		/// X acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afx;
+
+		/// <summary>
+		/// Y acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afy;
+
+		/// <summary>
+		/// Z acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afz;
+
+		/// <summary>
+		/// yaw setpoint in rad
+		/// </summary>
+		public float yaw;
+
+		/// <summary>
+		/// yaw rate setpoint in rad/s
+		/// </summary>
+		public float yaw_rate;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_SET_POSITION_TARGET_GLOBAL_INT(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Set vehicle position, velocity and acceleration setpoint in the WGS84 coordinate system.
+	/// </summary>
+	public class Msg_position_target_global_int : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Timestamp in milliseconds since system boot. The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
+		/// </summary>
+		public byte coordinate_frame;
+
+		/// <summary>
+		/// Bitmask to indicate which dimensions should be ignored by the vehicle: a value of 0b0000000000000000 or 0b0000001000000000 indicates that none of the setpoint dimensions should be ignored. If bit 10 is set the floats afx afy afz should be interpreted as force instead of acceleration. Mapping: bit 1: x, bit 2: y, bit 3: z, bit 4: vx, bit 5: vy, bit 6: vz, bit 7: ax, bit 8: ay, bit 9: az, bit 10: is force setpoint, bit 11: yaw, bit 12: yaw rate
+		/// </summary>
+		public UInt16 type_mask;
+
+		/// <summary>
+		/// X Position in WGS84 frame in 1e7 * meters
+		/// </summary>
+		public Int32 lat_int;
+
+		/// <summary>
+		/// Y Position in WGS84 frame in 1e7 * meters
+		/// </summary>
+		public Int32 lon_int;
+
+		/// <summary>
+		/// Altitude in meters in WGS84 altitude, not AMSL if absolute or relative, above terrain if GLOBAL_TERRAIN_ALT_INT
+		/// </summary>
+		public float alt;
+
+		/// <summary>
+		/// X velocity in NED frame in meter / s
+		/// </summary>
+		public float vx;
+
+		/// <summary>
+		/// Y velocity in NED frame in meter / s
+		/// </summary>
+		public float vy;
+
+		/// <summary>
+		/// Z velocity in NED frame in meter / s
+		/// </summary>
+		public float vz;
+
+		/// <summary>
+		/// X acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afx;
+
+		/// <summary>
+		/// Y acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afy;
+
+		/// <summary>
+		/// Z acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
+		/// </summary>
+		public float afz;
+
+		/// <summary>
+		/// yaw setpoint in rad
+		/// </summary>
+		public float yaw;
+
+		/// <summary>
+		/// yaw rate setpoint in rad/s
+		/// </summary>
+		public float yaw_rate;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_POSITION_TARGET_GLOBAL_INT(this, bytes, ref offset);
             }        
 	}
 
@@ -4591,22 +5404,22 @@ namespace MavLink
     {
 
 		/// <summary>
-		/// True attitude quaternion component 1
+		/// True attitude quaternion component 1, w (1 in null-rotation)
 		/// </summary>
 		public float q1;
 
 		/// <summary>
-		/// True attitude quaternion component 2
+		/// True attitude quaternion component 2, x (0 in null-rotation)
 		/// </summary>
 		public float q2;
 
 		/// <summary>
-		/// True attitude quaternion component 3
+		/// True attitude quaternion component 3, y (0 in null-rotation)
 		/// </summary>
 		public float q3;
 
 		/// <summary>
-		/// True attitude quaternion component 4
+		/// True attitude quaternion component 4, z (0 in null-rotation)
 		/// </summary>
 		public float q4;
 
@@ -4751,90 +5564,34 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Begin file transfer
+	/// File transfer message
 	/// </summary>
-	public class Msg_file_transfer_start : MavlinkMessage
+	public class Msg_file_transfer_protocol : MavlinkMessage
     {
 
 		/// <summary>
-		/// Unique transfer ID
+		/// Network ID (0 for broadcast)
 		/// </summary>
-		public UInt64 transfer_uid;
+		public byte target_network;
 
 		/// <summary>
-		/// Destination path
+		/// System ID (0 for broadcast)
 		/// </summary>
-		public byte[] dest_path; // Array size 240
+		public byte target_system;
 
 		/// <summary>
-		/// Transfer direction: 0: from requester, 1: to requester
+		/// Component ID (0 for broadcast)
 		/// </summary>
-		public byte direction;
+		public byte target_component;
 
 		/// <summary>
-		/// File size in bytes
+		/// Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
 		/// </summary>
-		public UInt32 file_size;
-
-		/// <summary>
-		/// RESERVED
-		/// </summary>
-		public byte flags;
+		public byte[] payload; // Array size 251
 
         public override int Serialize(byte[] bytes, ref int offset)
             {
-                return MavLinkSerializer.Serialize_FILE_TRANSFER_START(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Get directory listing
-	/// </summary>
-	public class Msg_file_transfer_dir_list : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Unique transfer ID
-		/// </summary>
-		public UInt64 transfer_uid;
-
-		/// <summary>
-		/// Directory path to list
-		/// </summary>
-		public byte[] dir_path; // Array size 240
-
-		/// <summary>
-		/// RESERVED
-		/// </summary>
-		public byte flags;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_FILE_TRANSFER_DIR_LIST(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// File transfer result
-	/// </summary>
-	public class Msg_file_transfer_res : MavlinkMessage
-    {
-
-		/// <summary>
-		/// Unique transfer ID
-		/// </summary>
-		public UInt64 transfer_uid;
-
-		/// <summary>
-		/// 0: OK, 1: not permitted, 2: bad path / file name, 3: no space left on device
-		/// </summary>
-		public byte result;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_FILE_TRANSFER_RES(this, bytes, ref offset);
+                return MavLinkSerializer.Serialize_FILE_TRANSFER_PROTOCOL(this, bytes, ref offset);
             }        
 	}
 
@@ -4983,7 +5740,7 @@ namespace MavLink
 		public UInt64 time_usec;
 
 		/// <summary>
-		/// Vehicle attitude expressed as normalized quaternion
+		/// Vehicle attitude expressed as normalized quaternion in w, x, y, z order (with 1 0 0 0 being the null-rotation)
 		/// </summary>
 		public float[] attitude_quaternion; // Array size 4
 
@@ -5360,7 +6117,7 @@ namespace MavLink
 		public UInt64 time_usec;
 
 		/// <summary>
-		/// 0-1: no fix, 2: 2D fix, 3: 3D fix. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.
+		/// 0-1: no fix, 2: 2D fix, 3: 3D fix, 4: DGPS fix, 5: RTK Fix. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.
 		/// </summary>
 		public byte fix_type;
 
@@ -5448,6 +6205,205 @@ namespace MavLink
             }        
 	}
 
+
+	/// <summary>
+	/// Control a serial port. This can be used for raw access to an onboard serial peripheral such as a GPS or telemetry radio. It is designed to make it possible to update the devices firmware via MAVLink messages or change the devices settings. A message with zero bytes can be used to change just the baudrate.
+	/// </summary>
+	public class Msg_serial_control : MavlinkMessage
+    {
+
+		/// <summary>
+		/// See SERIAL_CONTROL_DEV enum
+		/// </summary>
+		public byte device;
+
+		/// <summary>
+		/// See SERIAL_CONTROL_FLAG enum
+		/// </summary>
+		public byte flags;
+
+		/// <summary>
+		/// Timeout for reply data in milliseconds
+		/// </summary>
+		public UInt16 timeout;
+
+		/// <summary>
+		/// Baudrate of transfer. Zero means no change.
+		/// </summary>
+		public UInt32 baudrate;
+
+		/// <summary>
+		/// how many bytes in this transfer
+		/// </summary>
+		public byte count;
+
+		/// <summary>
+		/// serial data
+		/// </summary>
+		public byte[] data; // Array size 70
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_SERIAL_CONTROL(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting
+	/// </summary>
+	public class Msg_gps_rtk : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Time since boot of last baseline message received in ms.
+		/// </summary>
+		public UInt32 time_last_baseline_ms;
+
+		/// <summary>
+		/// Identification of connected RTK receiver.
+		/// </summary>
+		public byte rtk_receiver_id;
+
+		/// <summary>
+		/// GPS Week Number of last baseline
+		/// </summary>
+		public UInt16 wn;
+
+		/// <summary>
+		/// GPS Time of Week of last baseline
+		/// </summary>
+		public UInt32 tow;
+
+		/// <summary>
+		/// GPS-specific health report for RTK data.
+		/// </summary>
+		public byte rtk_health;
+
+		/// <summary>
+		/// Rate of baseline messages being received by GPS, in HZ
+		/// </summary>
+		public byte rtk_rate;
+
+		/// <summary>
+		/// Current number of sats used for RTK calculation.
+		/// </summary>
+		public byte nsats;
+
+		/// <summary>
+		/// Coordinate system of baseline. 0 == ECEF, 1 == NED
+		/// </summary>
+		public byte baseline_coords_type;
+
+		/// <summary>
+		/// Current baseline in ECEF x or NED north component in mm.
+		/// </summary>
+		public Int32 baseline_a_mm;
+
+		/// <summary>
+		/// Current baseline in ECEF y or NED east component in mm.
+		/// </summary>
+		public Int32 baseline_b_mm;
+
+		/// <summary>
+		/// Current baseline in ECEF z or NED down component in mm.
+		/// </summary>
+		public Int32 baseline_c_mm;
+
+		/// <summary>
+		/// Current estimate of baseline accuracy.
+		/// </summary>
+		public UInt32 accuracy;
+
+		/// <summary>
+		/// Current number of integer ambiguity hypotheses.
+		/// </summary>
+		public Int32 iar_num_hypotheses;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_GPS_RTK(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting
+	/// </summary>
+	public class Msg_gps2_rtk : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Time since boot of last baseline message received in ms.
+		/// </summary>
+		public UInt32 time_last_baseline_ms;
+
+		/// <summary>
+		/// Identification of connected RTK receiver.
+		/// </summary>
+		public byte rtk_receiver_id;
+
+		/// <summary>
+		/// GPS Week Number of last baseline
+		/// </summary>
+		public UInt16 wn;
+
+		/// <summary>
+		/// GPS Time of Week of last baseline
+		/// </summary>
+		public UInt32 tow;
+
+		/// <summary>
+		/// GPS-specific health report for RTK data.
+		/// </summary>
+		public byte rtk_health;
+
+		/// <summary>
+		/// Rate of baseline messages being received by GPS, in HZ
+		/// </summary>
+		public byte rtk_rate;
+
+		/// <summary>
+		/// Current number of sats used for RTK calculation.
+		/// </summary>
+		public byte nsats;
+
+		/// <summary>
+		/// Coordinate system of baseline. 0 == ECEF, 1 == NED
+		/// </summary>
+		public byte baseline_coords_type;
+
+		/// <summary>
+		/// Current baseline in ECEF x or NED north component in mm.
+		/// </summary>
+		public Int32 baseline_a_mm;
+
+		/// <summary>
+		/// Current baseline in ECEF y or NED east component in mm.
+		/// </summary>
+		public Int32 baseline_b_mm;
+
+		/// <summary>
+		/// Current baseline in ECEF z or NED down component in mm.
+		/// </summary>
+		public Int32 baseline_c_mm;
+
+		/// <summary>
+		/// Current estimate of baseline accuracy.
+		/// </summary>
+		public UInt32 accuracy;
+
+		/// <summary>
+		/// Current number of integer ambiguity hypotheses.
+		/// </summary>
+		public Int32 iar_num_hypotheses;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_GPS2_RTK(this, bytes, ref offset);
+            }        
+	}
+
 	public class Msg_data_transmission_handshake : MavlinkMessage
     {
 
@@ -5511,47 +6467,228 @@ namespace MavLink
             }        
 	}
 
+	public class Msg_distance_sensor : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Time since system boot
+		/// </summary>
+		public UInt32 time_boot_ms;
+
+		/// <summary>
+		/// Minimum distance the sensor can measure in centimeters
+		/// </summary>
+		public UInt16 min_distance;
+
+		/// <summary>
+		/// Maximum distance the sensor can measure in centimeters
+		/// </summary>
+		public UInt16 max_distance;
+
+		/// <summary>
+		/// Current distance reading
+		/// </summary>
+		public UInt16 current_distance;
+
+		/// <summary>
+		/// Type from MAV_DISTANCE_SENSOR enum.
+		/// </summary>
+		public byte type;
+
+		/// <summary>
+		/// Onboard ID of the sensor
+		/// </summary>
+		public byte id;
+
+		/// <summary>
+		/// Direction the sensor faces from FIXME enum.
+		/// </summary>
+		public byte orientation;
+
+		/// <summary>
+		/// Measurement covariance in centimeters, 0 for unknown / invalid readings
+		/// </summary>
+		public byte covariance;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_DISTANCE_SENSOR(this, bytes, ref offset);
+            }        
+	}
+
 
 	/// <summary>
-	/// Transmitte battery informations for a accu pack.
+	/// Request for terrain data and terrain status
+	/// </summary>
+	public class Msg_terrain_request : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Latitude of SW corner of first grid (degrees *10^7)
+		/// </summary>
+		public Int32 lat;
+
+		/// <summary>
+		/// Longitude of SW corner of first grid (in degrees *10^7)
+		/// </summary>
+		public Int32 lon;
+
+		/// <summary>
+		/// Grid spacing in meters
+		/// </summary>
+		public UInt16 grid_spacing;
+
+		/// <summary>
+		/// Bitmask of requested 4x4 grids (row major 8x7 array of grids, 56 bits)
+		/// </summary>
+		public UInt64 mask;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_TERRAIN_REQUEST(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Terrain data sent from GCS. The lat/lon and grid_spacing must be the same as a lat/lon from a TERRAIN_REQUEST
+	/// </summary>
+	public class Msg_terrain_data : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Latitude of SW corner of first grid (degrees *10^7)
+		/// </summary>
+		public Int32 lat;
+
+		/// <summary>
+		/// Longitude of SW corner of first grid (in degrees *10^7)
+		/// </summary>
+		public Int32 lon;
+
+		/// <summary>
+		/// Grid spacing in meters
+		/// </summary>
+		public UInt16 grid_spacing;
+
+		/// <summary>
+		/// bit within the terrain request mask
+		/// </summary>
+		public byte gridbit;
+
+		/// <summary>
+		/// Terrain data in meters AMSL
+		/// </summary>
+		public Int16[] data; // Array size 16
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_TERRAIN_DATA(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Request that the vehicle report terrain height at the given location. Used by GCS to check if vehicle has all terrain data needed for a mission.
+	/// </summary>
+	public class Msg_terrain_check : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Latitude (degrees *10^7)
+		/// </summary>
+		public Int32 lat;
+
+		/// <summary>
+		/// Longitude (degrees *10^7)
+		/// </summary>
+		public Int32 lon;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_TERRAIN_CHECK(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Response from a TERRAIN_CHECK request
+	/// </summary>
+	public class Msg_terrain_report : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Latitude (degrees *10^7)
+		/// </summary>
+		public Int32 lat;
+
+		/// <summary>
+		/// Longitude (degrees *10^7)
+		/// </summary>
+		public Int32 lon;
+
+		/// <summary>
+		/// grid spacing (zero if terrain at this location unavailable)
+		/// </summary>
+		public UInt16 spacing;
+
+		/// <summary>
+		/// Terrain height in meters AMSL
+		/// </summary>
+		public float terrain_height;
+
+		/// <summary>
+		/// Current vehicle height above lat/lon terrain height (meters)
+		/// </summary>
+		public float current_height;
+
+		/// <summary>
+		/// Number of 4x4 terrain blocks waiting to be received or read from disk
+		/// </summary>
+		public UInt16 pending;
+
+		/// <summary>
+		/// Number of 4x4 terrain blocks in memory
+		/// </summary>
+		public UInt16 loaded;
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_TERRAIN_REPORT(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Battery information
 	/// </summary>
 	public class Msg_battery_status : MavlinkMessage
     {
 
 		/// <summary>
-		/// Accupack ID
+		/// Battery ID
 		/// </summary>
-		public byte accu_id;
+		public byte id;
 
 		/// <summary>
-		/// Battery voltage of cell 1, in millivolts (1 = 1 millivolt)
+		/// Function of the battery
 		/// </summary>
-		public UInt16 voltage_cell_1;
+		public byte battery_function;
 
 		/// <summary>
-		/// Battery voltage of cell 2, in millivolts (1 = 1 millivolt), -1: no cell
+		/// Type (chemistry) of the battery
 		/// </summary>
-		public UInt16 voltage_cell_2;
+		public byte type;
 
 		/// <summary>
-		/// Battery voltage of cell 3, in millivolts (1 = 1 millivolt), -1: no cell
+		/// Temperature of the battery in centi-degrees celsius. INT16_MAX for unknown temperature.
 		/// </summary>
-		public UInt16 voltage_cell_3;
+		public Int16 temperature;
 
 		/// <summary>
-		/// Battery voltage of cell 4, in millivolts (1 = 1 millivolt), -1: no cell
+		/// Battery voltage of cells, in millivolts (1 = 1 millivolt)
 		/// </summary>
-		public UInt16 voltage_cell_4;
-
-		/// <summary>
-		/// Battery voltage of cell 5, in millivolts (1 = 1 millivolt), -1: no cell
-		/// </summary>
-		public UInt16 voltage_cell_5;
-
-		/// <summary>
-		/// Battery voltage of cell 6, in millivolts (1 = 1 millivolt), -1: no cell
-		/// </summary>
-		public UInt16 voltage_cell_6;
+		public UInt16[] voltages; // Array size 10
 
 		/// <summary>
 		/// Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current
@@ -5581,107 +6718,29 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Set the 8 DOF setpoint for a controller.
+	/// Version and capability of autopilot software
 	/// </summary>
-	public class Msg_setpoint_8dof : MavlinkMessage
+	public class Msg_autopilot_version : MavlinkMessage
     {
 
 		/// <summary>
-		/// System ID
+		/// bitmask of capabilities (see MAV_PROTOCOL_CAPABILITY enum)
 		/// </summary>
-		public byte target_system;
+		public UInt64 capabilities;
 
 		/// <summary>
-		/// Value 1
+		/// Firmware version number
 		/// </summary>
-		public float val1;
+		public UInt32 version;
 
 		/// <summary>
-		/// Value 2
+		/// Custom version field, commonly the first 8 bytes (16 characters) of the git hash. This is not an unique identifier, but should allow to identify the commit using the main version number even for very large code bases.
 		/// </summary>
-		public float val2;
-
-		/// <summary>
-		/// Value 3
-		/// </summary>
-		public float val3;
-
-		/// <summary>
-		/// Value 4
-		/// </summary>
-		public float val4;
-
-		/// <summary>
-		/// Value 5
-		/// </summary>
-		public float val5;
-
-		/// <summary>
-		/// Value 6
-		/// </summary>
-		public float val6;
-
-		/// <summary>
-		/// Value 7
-		/// </summary>
-		public float val7;
-
-		/// <summary>
-		/// Value 8
-		/// </summary>
-		public float val8;
+		public byte[] custom_version; // Array size 8
 
         public override int Serialize(byte[] bytes, ref int offset)
             {
-                return MavLinkSerializer.Serialize_SETPOINT_8DOF(this, bytes, ref offset);
-            }        
-	}
-
-
-	/// <summary>
-	/// Set the 6 DOF setpoint for a attitude and position controller.
-	/// </summary>
-	public class Msg_setpoint_6dof : MavlinkMessage
-    {
-
-		/// <summary>
-		/// System ID
-		/// </summary>
-		public byte target_system;
-
-		/// <summary>
-		/// Translational Component in x
-		/// </summary>
-		public float trans_x;
-
-		/// <summary>
-		/// Translational Component in y
-		/// </summary>
-		public float trans_y;
-
-		/// <summary>
-		/// Translational Component in z
-		/// </summary>
-		public float trans_z;
-
-		/// <summary>
-		/// Rotational Component in x
-		/// </summary>
-		public float rot_x;
-
-		/// <summary>
-		/// Rotational Component in y
-		/// </summary>
-		public float rot_y;
-
-		/// <summary>
-		/// Rotational Component in z
-		/// </summary>
-		public float rot_z;
-
-        public override int Serialize(byte[] bytes, ref int offset)
-            {
-                return MavLinkSerializer.Serialize_SETPOINT_6DOF(this, bytes, ref offset);
+                return MavLinkSerializer.Serialize_AUTOPILOT_VERSION(this, bytes, ref offset);
             }        
 	}
 
@@ -5820,7 +6879,7 @@ namespace MavLink
 
 
 	/// <summary>
-	/// Unibo references.
+	/// Unibo parameters.
 	/// </summary>
 	public class Msg_unibo_references : MavlinkMessage
     {
@@ -5903,6 +6962,44 @@ namespace MavLink
         public override int Serialize(byte[] bytes, ref int offset)
             {
                 return MavLinkSerializer.Serialize_UNIBO_REFERENCES(this, bytes, ref offset);
+            }        
+	}
+
+
+	/// <summary>
+	/// Message implementing parts of the V2 payload specs in V1 frames for transitional support.
+	/// </summary>
+	public class Msg_v2_extension : MavlinkMessage
+    {
+
+		/// <summary>
+		/// Network ID (0 for broadcast)
+		/// </summary>
+		public byte target_network;
+
+		/// <summary>
+		/// System ID (0 for broadcast)
+		/// </summary>
+		public byte target_system;
+
+		/// <summary>
+		/// Component ID (0 for broadcast)
+		/// </summary>
+		public byte target_component;
+
+		/// <summary>
+		/// A code that identifies the software component that understands this message (analogous to usb device classes or mime type strings).  If this code is less than 32768, it is considered a 'registered' protocol extension and the corresponding entry should be added to https://github.com/mavlink/mavlink/extension-message-ids.xml.  Software creators can register blocks of message IDs as needed (useful for GCS specific metadata, etc...). Message_types greater than 32767 are considered local experiments and should not be checked in to any widely distributed codebase.
+		/// </summary>
+		public UInt16 message_type;
+
+		/// <summary>
+		/// Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
+		/// </summary>
+		public byte[] payload; // Array size 249
+
+        public override int Serialize(byte[] bytes, ref int offset)
+            {
+                return MavLinkSerializer.Serialize_V2_EXTENSION(this, bytes, ref offset);
             }        
 	}
 

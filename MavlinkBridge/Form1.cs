@@ -461,7 +461,7 @@ namespace MavlinkBridge
             parsObj.Mass = float.Parse(textBox2.Text);
             parsObj.Delta = float.Parse(textBox3.Text);
             parsObj.K1 = float.Parse(textBox4.Text);
-            parsObj.K1 = float.Parse(textBox5.Text);
+            parsObj.L1 = float.Parse(textBox5.Text);
             parsObj.Ixy = float.Parse(textBox6.Text);
             parsObj.K2 = float.Parse(textBox7.Text);
             parsObj.L2 = float.Parse(textBox8.Text);
@@ -483,6 +483,6 @@ namespace MavlinkBridge
             parsObj.Offset_yaw = float.Parse(textBox24.Text);
         }
 
-
+          
     }
 }

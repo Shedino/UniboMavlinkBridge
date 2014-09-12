@@ -23,8 +23,12 @@ namespace MavlinkBridge
         private SerialPort _sourceSerial = null;
         private SerialPort _destinationSerial = null;
 
+
+        private UdpClient _sourceMavlinkUDP = null;
+        
         private bool _commActive = false;
         IPEndPoint sep = null;
+        IPEndPoint smavep = null;
 
         //MAVLink.MavlinkParse mav = null;
         Mavlink mav = null;
@@ -70,6 +74,12 @@ namespace MavlinkBridge
                     sep = new IPEndPoint(IPAddress.Any, int.Parse(spl[1]));
                     _sourceUDP = new UdpClient(sep);
 
+
+                    string utxtmav = tbSourceMavlinkUdp.Text;
+                    string[] splmav = utxtmav.Split(':');
+                    smavep = new IPEndPoint(IPAddress.Any, int.Parse(splmav[1]));
+                    _sourceMavlinkUDP = new UdpClient(smavep);
+
                     ConnectSourceUDP();
                 }
                 else if (rbSourceSerial.Checked) //SERIALE
@@ -89,6 +99,7 @@ namespace MavlinkBridge
                     string utxt = tbDestUdp.Text;
                     string[] spl = utxt.Split(':');
                     _destinationUDP = new UdpClient(spl[0], int.Parse(spl[1]));
+//                    _destinationUDP.op
                 }
                 else if (rbDestinationSerial.Checked) //SERIALE
                 {
@@ -124,6 +135,14 @@ namespace MavlinkBridge
             s.e = sep;
             s.u = _sourceUDP;
             _sourceUDP.BeginReceive(new AsyncCallback(ReceiveCallback), s);
+            if (cbUseMavlink.Checked)
+            {
+                UdpState smav = new UdpState();
+                smav.e = smavep;
+                smav.u = _sourceMavlinkUDP;
+                _sourceMavlinkUDP.BeginReceive(new AsyncCallback(ReceiveCallbackMavlink), smav);
+            }
+
         }
 
         private void _disconnetcBtn_Click(object sender, EventArgs e)
@@ -136,6 +155,10 @@ namespace MavlinkBridge
             {
                 //_sourceUDP.EndReceive();
                 _sourceUDP.Close();
+            }
+            if (_sourceMavlinkUDP != null)
+            {
+                _sourceMavlinkUDP.Close();
             }
             if (_sourceSerial != null)
             {
@@ -315,6 +338,27 @@ namespace MavlinkBridge
                         //tbPackets.Text = _rcvOpti + "";
                     }
                 }
+                //Recupera nuovo pacchetto
+                if (_commActive)
+                {
+                    ConnectSourceUDP();
+                }
+            }
+
+        }
+
+        public void ReceiveCallbackMavlink(IAsyncResult ar)
+        {
+            UdpClient u = (UdpClient)((UdpState)(ar.AsyncState)).u;
+            IPEndPoint e = (IPEndPoint)((UdpState)(ar.AsyncState)).e;
+
+            if (u != null)
+            {
+                Byte[] receiveBytes = u.EndReceive(ar, ref e);
+                string receiveString = Encoding.ASCII.GetString(receiveBytes);
+
+                Console.WriteLine("Received: {0}", receiveString);
+
                 //Recupera nuovo pacchetto
                 if (_commActive)
                 {

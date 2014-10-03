@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbMini = new System.Windows.Forms.CheckBox();
             this.cbUseMavlink = new System.Windows.Forms.CheckBox();
             this.tbSourceMavlinkUdp = new System.Windows.Forms.TextBox();
             this.tbSourceSerial = new System.Windows.Forms.TextBox();
@@ -93,7 +94,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
-            this.cbMini = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -115,6 +115,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source";
+            // 
+            // cbMini
+            // 
+            this.cbMini.AutoSize = true;
+            this.cbMini.Location = new System.Drawing.Point(299, 46);
+            this.cbMini.Name = "cbMini";
+            this.cbMini.Size = new System.Drawing.Size(55, 17);
+            this.cbMini.TabIndex = 7;
+            this.cbMini.Text = "MINI?";
+            this.cbMini.UseVisualStyleBackColor = true;
             // 
             // cbUseMavlink
             // 
@@ -720,16 +730,6 @@
             this.rbSourceUNIBO.TabStop = true;
             this.rbSourceUNIBO.Text = "sourceUNIBO";
             this.rbSourceUNIBO.UseVisualStyleBackColor = true;
-            // 
-            // cbMini
-            // 
-            this.cbMini.AutoSize = true;
-            this.cbMini.Location = new System.Drawing.Point(299, 46);
-            this.cbMini.Name = "cbMini";
-            this.cbMini.Size = new System.Drawing.Size(55, 17);
-            this.cbMini.TabIndex = 7;
-            this.cbMini.Text = "MINI?";
-            this.cbMini.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

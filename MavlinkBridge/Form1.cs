@@ -449,7 +449,7 @@ namespace MavlinkBridge
                 if (cbMini.Checked)
                 {
                     //S LEN TYPE (13=references) DATA E
-                    string sendStr = "S 0 13 " + m.x + " " + m.y + " " + m.z + " " + m.vx + " " + m.vy + " " + m.vz + " " + m.afx + " " + m.afy + " " + m.afz + " E";
+                    string sendStr = "S 0 13 " + m.x + " " + m.y + " " + m.z + " " + m.vx + " " + m.vy + " " + m.vz + " " + m.afx + " " + m.afy + " " + m.afz + " " + m.yaw + " " + m.yaw_rate + " E";
                     toSend = Encoding.ASCII.GetBytes(sendStr);
                 }
                 else

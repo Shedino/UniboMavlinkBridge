@@ -94,6 +94,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
+            this.btnMarco = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -699,6 +700,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnMarco);
             this.groupBox4.Controls.Add(this.rbSourceMAVLink);
             this.groupBox4.Controls.Add(this.rbSourceUNIBO);
             this.groupBox4.Location = new System.Drawing.Point(12, 244);
@@ -730,6 +732,16 @@
             this.rbSourceUNIBO.TabStop = true;
             this.rbSourceUNIBO.Text = "sourceUNIBO";
             this.rbSourceUNIBO.UseVisualStyleBackColor = true;
+            // 
+            // btnMarco
+            // 
+            this.btnMarco.Location = new System.Drawing.Point(598, 19);
+            this.btnMarco.Name = "btnMarco";
+            this.btnMarco.Size = new System.Drawing.Size(161, 33);
+            this.btnMarco.TabIndex = 48;
+            this.btnMarco.Text = "Marco";
+            this.btnMarco.UseVisualStyleBackColor = true;
+            this.btnMarco.Click += new System.EventHandler(this.btnMarco_Click);
             // 
             // Form1
             // 
@@ -830,6 +842,7 @@
         private System.Windows.Forms.CheckBox cbUseMavlink;
         private System.Windows.Forms.TextBox tbSourceMavlinkUdp;
         private System.Windows.Forms.CheckBox cbMini;
+        private System.Windows.Forms.Button btnMarco;
     }
 }
 

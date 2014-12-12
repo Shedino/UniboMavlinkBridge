@@ -640,6 +640,23 @@ namespace MavlinkBridge
             parsObj.Offset_yaw = float.Parse(textBox24.Text);
         }
 
+        private void btnMarco_Click(object sender, EventArgs e)
+        {
+            //Costruisco il mio array di bytes
+            byte[] toSend = new byte[255];
+
+
+            //Invio dati correnti
+            if (_destinationUDP != null)
+            {
+                _destinationUDP.Send(toSend, toSend.Length);
+            }
+            if (_destinationSerial != null && _destinationSerial.IsOpen)
+            {
+                _destinationSerial.Write(toSend, 0, toSend.Length);
+            }
+        }
+
           
     }
 }

@@ -21,7 +21,7 @@ namespace MavlinkBridge
         MavlinkOnly
     }
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private const string EOL = "\r\n";
 
@@ -56,7 +56,7 @@ namespace MavlinkBridge
 
         bool paramsRcv = false;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -655,6 +655,36 @@ namespace MavlinkBridge
             {
                 _destinationSerial.Write(toSend, 0, toSend.Length);
             }
+        }
+
+        private void sourceBox_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbSourceSerial_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbUdpAddress1_KeyDownHandle(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Enter)
+            //{
+            //    // some processing
+            //    btnOk.Enabled = true;
+            //    txtPassword.Focus();
+            //}
+        }
+
+        private void rbUdpAddress1_TextChanged(object sender, EventArgs e)
+        {
+            //double value;
+            //// Convert the text to a Double and determine if it is a negative number.
+            //if (!double.TryParse(rbUdpAddress1.Text,out value))
+            //{
+
+            //}
         }
 
           

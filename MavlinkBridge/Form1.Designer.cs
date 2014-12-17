@@ -1,6 +1,6 @@
 ﻿namespace MavlinkBridge
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Variabile di progettazione necessaria.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbMini = new System.Windows.Forms.CheckBox();
             this.cbUseMavlink = new System.Windows.Forms.CheckBox();
@@ -92,13 +93,16 @@
             this.rbOverride = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnMarco = new System.Windows.Forms.Button();
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
-            this.btnMarco = new System.Windows.Forms.Button();
+            this.rbSourceBox = new System.Windows.Forms.GroupBox();
+            this.rbUdpAddress1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.rbSourceBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -108,82 +112,51 @@
             this.groupBox1.Controls.Add(this.tbSourceMavlinkUdp);
             this.groupBox1.Controls.Add(this.tbSourceSerial);
             this.groupBox1.Controls.Add(this.tbSourceUdp);
-            this.groupBox1.Controls.Add(this.rbSourceSerial);
-            this.groupBox1.Controls.Add(this.rbSourceUDP);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(765, 73);
-            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Source";
             // 
             // cbMini
             // 
-            this.cbMini.AutoSize = true;
-            this.cbMini.Location = new System.Drawing.Point(299, 46);
+            resources.ApplyResources(this.cbMini, "cbMini");
             this.cbMini.Name = "cbMini";
-            this.cbMini.Size = new System.Drawing.Size(55, 17);
-            this.cbMini.TabIndex = 7;
-            this.cbMini.Text = "MINI?";
             this.cbMini.UseVisualStyleBackColor = true;
             // 
             // cbUseMavlink
             // 
-            this.cbUseMavlink.AutoSize = true;
-            this.cbUseMavlink.Location = new System.Drawing.Point(6, 46);
+            resources.ApplyResources(this.cbUseMavlink, "cbUseMavlink");
             this.cbUseMavlink.Name = "cbUseMavlink";
-            this.cbUseMavlink.Size = new System.Drawing.Size(80, 17);
-            this.cbUseMavlink.TabIndex = 6;
-            this.cbUseMavlink.Text = "useMavlink";
             this.cbUseMavlink.UseVisualStyleBackColor = true;
             // 
             // tbSourceMavlinkUdp
             // 
-            this.tbSourceMavlinkUdp.Location = new System.Drawing.Point(97, 44);
+            resources.ApplyResources(this.tbSourceMavlinkUdp, "tbSourceMavlinkUdp");
             this.tbSourceMavlinkUdp.Name = "tbSourceMavlinkUdp";
-            this.tbSourceMavlinkUdp.Size = new System.Drawing.Size(196, 20);
-            this.tbSourceMavlinkUdp.TabIndex = 5;
-            this.tbSourceMavlinkUdp.Text = "127.0.0.1:6644";
             // 
             // tbSourceSerial
             // 
-            this.tbSourceSerial.Enabled = false;
-            this.tbSourceSerial.Location = new System.Drawing.Point(419, 18);
+            resources.ApplyResources(this.tbSourceSerial, "tbSourceSerial");
             this.tbSourceSerial.Name = "tbSourceSerial";
-            this.tbSourceSerial.Size = new System.Drawing.Size(138, 20);
-            this.tbSourceSerial.TabIndex = 3;
-            this.tbSourceSerial.Text = "COM12:57600";
             // 
             // tbSourceUdp
             // 
-            this.tbSourceUdp.Location = new System.Drawing.Point(97, 18);
+            resources.ApplyResources(this.tbSourceUdp, "tbSourceUdp");
             this.tbSourceUdp.Name = "tbSourceUdp";
-            this.tbSourceUdp.Size = new System.Drawing.Size(196, 20);
-            this.tbSourceUdp.TabIndex = 2;
-            this.tbSourceUdp.Text = "127.0.0.1:6655";
             // 
             // rbSourceSerial
             // 
-            this.rbSourceSerial.AutoSize = true;
-            this.rbSourceSerial.Enabled = false;
-            this.rbSourceSerial.Location = new System.Drawing.Point(328, 19);
+            resources.ApplyResources(this.rbSourceSerial, "rbSourceSerial");
             this.rbSourceSerial.Name = "rbSourceSerial";
-            this.rbSourceSerial.Size = new System.Drawing.Size(63, 17);
-            this.rbSourceSerial.TabIndex = 1;
             this.rbSourceSerial.TabStop = true;
-            this.rbSourceSerial.Text = "SERIAL";
             this.rbSourceSerial.UseVisualStyleBackColor = true;
+            this.rbSourceSerial.CheckedChanged += new System.EventHandler(this.rbSourceSerial_CheckedChanged);
             // 
             // rbSourceUDP
             // 
-            this.rbSourceUDP.AutoSize = true;
+            resources.ApplyResources(this.rbSourceUDP, "rbSourceUDP");
             this.rbSourceUDP.Checked = true;
-            this.rbSourceUDP.Location = new System.Drawing.Point(6, 19);
             this.rbSourceUDP.Name = "rbSourceUDP";
-            this.rbSourceUDP.Size = new System.Drawing.Size(48, 17);
-            this.rbSourceUDP.TabIndex = 0;
             this.rbSourceUDP.TabStop = true;
-            this.rbSourceUDP.Text = "UDP";
             this.rbSourceUDP.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -192,97 +165,63 @@
             this.groupBox2.Controls.Add(this.tbDestUdp);
             this.groupBox2.Controls.Add(this.rbDestinationSerial);
             this.groupBox2.Controls.Add(this.rbDestinationUDP);
-            this.groupBox2.Location = new System.Drawing.Point(12, 91);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(765, 69);
-            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Destination";
             // 
             // tbDestSerial
             // 
-            this.tbDestSerial.Location = new System.Drawing.Point(419, 18);
+            resources.ApplyResources(this.tbDestSerial, "tbDestSerial");
             this.tbDestSerial.Name = "tbDestSerial";
-            this.tbDestSerial.Size = new System.Drawing.Size(138, 20);
-            this.tbDestSerial.TabIndex = 5;
-            this.tbDestSerial.Text = "COM21:115200";
             // 
             // tbDestUdp
             // 
-            this.tbDestUdp.Location = new System.Drawing.Point(97, 18);
+            resources.ApplyResources(this.tbDestUdp, "tbDestUdp");
             this.tbDestUdp.Name = "tbDestUdp";
-            this.tbDestUdp.Size = new System.Drawing.Size(196, 20);
-            this.tbDestUdp.TabIndex = 4;
-            this.tbDestUdp.Text = "192.168.1.155:54321";
             // 
             // rbDestinationSerial
             // 
-            this.rbDestinationSerial.AutoSize = true;
+            resources.ApplyResources(this.rbDestinationSerial, "rbDestinationSerial");
             this.rbDestinationSerial.Checked = true;
-            this.rbDestinationSerial.Location = new System.Drawing.Point(328, 19);
             this.rbDestinationSerial.Name = "rbDestinationSerial";
-            this.rbDestinationSerial.Size = new System.Drawing.Size(63, 17);
-            this.rbDestinationSerial.TabIndex = 3;
             this.rbDestinationSerial.TabStop = true;
-            this.rbDestinationSerial.Text = "SERIAL";
             this.rbDestinationSerial.UseVisualStyleBackColor = true;
             // 
             // rbDestinationUDP
             // 
-            this.rbDestinationUDP.AutoSize = true;
-            this.rbDestinationUDP.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.rbDestinationUDP, "rbDestinationUDP");
             this.rbDestinationUDP.Name = "rbDestinationUDP";
-            this.rbDestinationUDP.Size = new System.Drawing.Size(48, 17);
-            this.rbDestinationUDP.TabIndex = 2;
             this.rbDestinationUDP.TabStop = true;
-            this.rbDestinationUDP.Text = "UDP";
             this.rbDestinationUDP.UseVisualStyleBackColor = true;
             // 
             // _connectBtn
             // 
-            this._connectBtn.Location = new System.Drawing.Point(12, 181);
+            resources.ApplyResources(this._connectBtn, "_connectBtn");
             this._connectBtn.Name = "_connectBtn";
-            this._connectBtn.Size = new System.Drawing.Size(167, 57);
-            this._connectBtn.TabIndex = 2;
-            this._connectBtn.Text = "GO";
             this._connectBtn.UseVisualStyleBackColor = true;
             this._connectBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // _disconnetcBtn
             // 
-            this._disconnetcBtn.Location = new System.Drawing.Point(610, 181);
+            resources.ApplyResources(this._disconnetcBtn, "_disconnetcBtn");
             this._disconnetcBtn.Name = "_disconnetcBtn";
-            this._disconnetcBtn.Size = new System.Drawing.Size(167, 57);
-            this._disconnetcBtn.TabIndex = 3;
-            this._disconnetcBtn.Text = "STOP";
             this._disconnetcBtn.UseVisualStyleBackColor = true;
             this._disconnetcBtn.Click += new System.EventHandler(this._disconnetcBtn_Click);
             // 
             // tbPackets
             // 
-            this.tbPackets.Location = new System.Drawing.Point(309, 193);
+            resources.ApplyResources(this.tbPackets, "tbPackets");
             this.tbPackets.Name = "tbPackets";
-            this.tbPackets.Size = new System.Drawing.Size(100, 20);
-            this.tbPackets.TabIndex = 4;
-            this.tbPackets.Text = "0";
-            this.tbPackets.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(207, 196);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Routed packets";
             // 
             // tbDebug
             // 
-            this.tbDebug.Location = new System.Drawing.Point(12, 321);
-            this.tbDebug.Multiline = true;
+            resources.ApplyResources(this.tbDebug, "tbDebug");
             this.tbDebug.Name = "tbDebug";
-            this.tbDebug.Size = new System.Drawing.Size(765, 82);
-            this.tbDebug.TabIndex = 6;
             // 
             // timer1
             // 
@@ -291,362 +230,219 @@
             // 
             // rbAtech
             // 
-            this.rbAtech.AutoSize = true;
+            resources.ApplyResources(this.rbAtech, "rbAtech");
             this.rbAtech.Checked = true;
-            this.rbAtech.Location = new System.Drawing.Point(451, 168);
             this.rbAtech.Name = "rbAtech";
-            this.rbAtech.Size = new System.Drawing.Size(61, 17);
-            this.rbAtech.TabIndex = 7;
             this.rbAtech.TabStop = true;
-            this.rbAtech.Text = "ATECH";
             this.rbAtech.UseVisualStyleBackColor = true;
             // 
             // rbIris
             // 
-            this.rbIris.AutoSize = true;
-            this.rbIris.Location = new System.Drawing.Point(451, 189);
+            resources.ApplyResources(this.rbIris, "rbIris");
             this.rbIris.Name = "rbIris";
-            this.rbIris.Size = new System.Drawing.Size(46, 17);
-            this.rbIris.TabIndex = 8;
-            this.rbIris.Text = "IRIS";
             this.rbIris.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(155, 19);
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(66, 20);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.Text = "-2.2";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(85, 337);
+            resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(167, 33);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "UPDATE PARAMETERS";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(155, 41);
+            resources.ApplyResources(this.textBox2, "textBox2");
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(66, 20);
-            this.textBox2.TabIndex = 11;
-            this.textBox2.Text = "1.35";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(103, 22);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Offset";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(103, 44);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "Mass";
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(103, 64);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(32, 13);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "Delta";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(86, 87);
+            resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "K1, L1, Ixy";
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(155, 62);
+            resources.ApplyResources(this.textBox3, "textBox3");
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(66, 20);
-            this.textBox3.TabIndex = 16;
-            this.textBox3.Text = "0.1";
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(155, 84);
+            resources.ApplyResources(this.textBox4, "textBox4");
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(41, 20);
-            this.textBox4.TabIndex = 17;
-            this.textBox4.Text = "7";
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(202, 84);
+            resources.ApplyResources(this.textBox5, "textBox5");
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(41, 20);
-            this.textBox5.TabIndex = 18;
-            this.textBox5.Text = "18";
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(249, 84);
+            resources.ApplyResources(this.textBox6, "textBox6");
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(41, 20);
-            this.textBox6.TabIndex = 19;
-            this.textBox6.Text = "0.02";
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(249, 107);
+            resources.ApplyResources(this.textBox7, "textBox7");
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(41, 20);
-            this.textBox7.TabIndex = 22;
-            this.textBox7.Text = "70";
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(202, 107);
+            resources.ApplyResources(this.textBox8, "textBox8");
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(41, 20);
-            this.textBox8.TabIndex = 21;
-            this.textBox8.Text = "200";
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(155, 107);
+            resources.ApplyResources(this.textBox9, "textBox9");
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(41, 20);
-            this.textBox9.TabIndex = 20;
-            this.textBox9.Text = "0.02";
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(249, 130);
+            resources.ApplyResources(this.textBox10, "textBox10");
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(41, 20);
-            this.textBox10.TabIndex = 25;
-            this.textBox10.Text = "2.4";
             // 
             // textBox11
             // 
-            this.textBox11.Location = new System.Drawing.Point(202, 130);
+            resources.ApplyResources(this.textBox11, "textBox11");
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(41, 20);
-            this.textBox11.TabIndex = 24;
-            this.textBox11.Text = "2.3";
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(155, 130);
+            resources.ApplyResources(this.textBox12, "textBox12");
             this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(41, 20);
-            this.textBox12.TabIndex = 23;
-            this.textBox12.Text = "2";
             // 
             // textBox13
             // 
-            this.textBox13.Location = new System.Drawing.Point(249, 153);
+            resources.ApplyResources(this.textBox13, "textBox13");
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(41, 20);
-            this.textBox13.TabIndex = 28;
-            this.textBox13.Text = "0.19";
             // 
             // textBox14
             // 
-            this.textBox14.Location = new System.Drawing.Point(202, 153);
+            resources.ApplyResources(this.textBox14, "textBox14");
             this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(41, 20);
-            this.textBox14.TabIndex = 27;
-            this.textBox14.Text = "0.19";
             // 
             // textBox15
             // 
-            this.textBox15.Location = new System.Drawing.Point(155, 153);
+            resources.ApplyResources(this.textBox15, "textBox15");
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(41, 20);
-            this.textBox15.TabIndex = 26;
-            this.textBox15.Text = "0.19";
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(249, 175);
+            resources.ApplyResources(this.textBox16, "textBox16");
             this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(41, 20);
-            this.textBox16.TabIndex = 31;
-            this.textBox16.Text = "0";
             // 
             // textBox17
             // 
-            this.textBox17.Location = new System.Drawing.Point(202, 175);
+            resources.ApplyResources(this.textBox17, "textBox17");
             this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(41, 20);
-            this.textBox17.TabIndex = 30;
-            this.textBox17.Text = "0";
             // 
             // textBox18
             // 
-            this.textBox18.Location = new System.Drawing.Point(155, 175);
+            resources.ApplyResources(this.textBox18, "textBox18");
             this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(41, 20);
-            this.textBox18.TabIndex = 29;
-            this.textBox18.Text = "0";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(86, 110);
+            resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 32;
-            this.label6.Text = "K2, L2, Iz";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(89, 132);
+            resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 13);
-            this.label7.TabIndex = 33;
-            this.label7.Text = "Kp ATT";
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(89, 156);
+            resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
-            this.label8.TabIndex = 34;
-            this.label8.Text = "Kd ATT";
             // 
             // label9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(93, 178);
+            resources.ApplyResources(this.label9, "label9");
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 35;
-            this.label9.Text = "Ki ATT";
             // 
             // textBox19
             // 
-            this.textBox19.Location = new System.Drawing.Point(155, 198);
+            resources.ApplyResources(this.textBox19, "textBox19");
             this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(66, 20);
-            this.textBox19.TabIndex = 36;
-            this.textBox19.Text = "0";
             // 
             // textBox20
             // 
-            this.textBox20.Location = new System.Drawing.Point(155, 220);
+            resources.ApplyResources(this.textBox20, "textBox20");
             this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(66, 20);
-            this.textBox20.TabIndex = 37;
-            this.textBox20.Text = "0.06";
             // 
             // textBox21
             // 
-            this.textBox21.Location = new System.Drawing.Point(155, 242);
+            resources.ApplyResources(this.textBox21, "textBox21");
             this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(66, 20);
-            this.textBox21.TabIndex = 38;
-            this.textBox21.Text = "1";
             // 
             // textBox22
             // 
-            this.textBox22.Location = new System.Drawing.Point(155, 262);
+            resources.ApplyResources(this.textBox22, "textBox22");
             this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(66, 20);
-            this.textBox22.TabIndex = 39;
-            this.textBox22.Text = "0.0088";
             // 
             // textBox23
             // 
-            this.textBox23.Location = new System.Drawing.Point(155, 283);
+            resources.ApplyResources(this.textBox23, "textBox23");
             this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(66, 20);
-            this.textBox23.TabIndex = 40;
-            this.textBox23.Text = "0.0176";
             // 
             // textBox24
             // 
-            this.textBox24.Location = new System.Drawing.Point(155, 304);
+            resources.ApplyResources(this.textBox24, "textBox24");
             this.textBox24.Name = "textBox24";
-            this.textBox24.Size = new System.Drawing.Size(66, 20);
-            this.textBox24.TabIndex = 41;
-            this.textBox24.Text = "80";
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(102, 201);
+            resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(22, 13);
-            this.label10.TabIndex = 42;
-            this.label10.Text = "GE";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(94, 222);
+            resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(40, 13);
-            this.label11.TabIndex = 43;
-            this.label11.Text = "epsilon";
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(94, 245);
+            resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(46, 13);
-            this.label12.TabIndex = 44;
-            this.label12.Text = "XY_mult";
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(110, 266);
+            resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(22, 13);
-            this.label13.TabIndex = 45;
-            this.label13.Text = "Jxy";
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(113, 286);
+            resources.ApplyResources(this.label14, "label14");
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(17, 13);
-            this.label14.TabIndex = 46;
-            this.label14.Text = "Jz";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(87, 306);
+            resources.ApplyResources(this.label15, "label15");
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(61, 13);
-            this.label15.TabIndex = 47;
-            this.label15.Text = "offset YAW";
             // 
             // rbOverride
             // 
-            this.rbOverride.AutoSize = true;
-            this.rbOverride.Location = new System.Drawing.Point(451, 212);
+            resources.ApplyResources(this.rbOverride, "rbOverride");
             this.rbOverride.Name = "rbOverride";
-            this.rbOverride.Size = new System.Drawing.Size(81, 17);
-            this.rbOverride.TabIndex = 48;
-            this.rbOverride.Text = "OVERRIDE";
             this.rbOverride.UseVisualStyleBackColor = true;
             this.rbOverride.CheckedChanged += new System.EventHandler(this.rbOverride_CheckedChanged);
             // 
@@ -691,63 +487,62 @@
             this.groupBox3.Controls.Add(this.textBox17);
             this.groupBox3.Controls.Add(this.textBox13);
             this.groupBox3.Controls.Add(this.textBox18);
-            this.groupBox3.Location = new System.Drawing.Point(783, 12);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(396, 394);
-            this.groupBox3.TabIndex = 49;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnMarco);
             this.groupBox4.Controls.Add(this.rbSourceMAVLink);
             this.groupBox4.Controls.Add(this.rbSourceUNIBO);
-            this.groupBox4.Location = new System.Drawing.Point(12, 244);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(765, 71);
-            this.groupBox4.TabIndex = 50;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
-            this.groupBox4.Visible = false;
+            // 
+            // btnMarco
+            // 
+            resources.ApplyResources(this.btnMarco, "btnMarco");
+            this.btnMarco.Name = "btnMarco";
+            this.btnMarco.UseVisualStyleBackColor = true;
+            this.btnMarco.Click += new System.EventHandler(this.btnMarco_Click);
             // 
             // rbSourceMAVLink
             // 
-            this.rbSourceMAVLink.AutoSize = true;
-            this.rbSourceMAVLink.Location = new System.Drawing.Point(6, 42);
+            resources.ApplyResources(this.rbSourceMAVLink, "rbSourceMAVLink");
             this.rbSourceMAVLink.Name = "rbSourceMAVLink";
-            this.rbSourceMAVLink.Size = new System.Drawing.Size(98, 17);
-            this.rbSourceMAVLink.TabIndex = 1;
             this.rbSourceMAVLink.TabStop = true;
-            this.rbSourceMAVLink.Text = "sourceMavLink";
             this.rbSourceMAVLink.UseVisualStyleBackColor = true;
             // 
             // rbSourceUNIBO
             // 
-            this.rbSourceUNIBO.AutoSize = true;
-            this.rbSourceUNIBO.Location = new System.Drawing.Point(6, 19);
+            resources.ApplyResources(this.rbSourceUNIBO, "rbSourceUNIBO");
             this.rbSourceUNIBO.Name = "rbSourceUNIBO";
-            this.rbSourceUNIBO.Size = new System.Drawing.Size(91, 17);
-            this.rbSourceUNIBO.TabIndex = 0;
             this.rbSourceUNIBO.TabStop = true;
-            this.rbSourceUNIBO.Text = "sourceUNIBO";
             this.rbSourceUNIBO.UseVisualStyleBackColor = true;
             // 
-            // btnMarco
+            // rbSourceBox
             // 
-            this.btnMarco.Location = new System.Drawing.Point(598, 19);
-            this.btnMarco.Name = "btnMarco";
-            this.btnMarco.Size = new System.Drawing.Size(161, 33);
-            this.btnMarco.TabIndex = 48;
-            this.btnMarco.Text = "Marco";
-            this.btnMarco.UseVisualStyleBackColor = true;
-            this.btnMarco.Click += new System.EventHandler(this.btnMarco_Click);
+            this.rbSourceBox.Controls.Add(this.rbSourceUDP);
+            this.rbSourceBox.Controls.Add(this.rbSourceSerial);
+            resources.ApplyResources(this.rbSourceBox, "rbSourceBox");
+            this.rbSourceBox.Name = "rbSourceBox";
+            this.rbSourceBox.TabStop = false;
+            this.rbSourceBox.Enter += new System.EventHandler(this.sourceBox_Enter);
             // 
-            // Form1
+            // rbUdpAddress1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this.rbUdpAddress1, "rbUdpAddress1");
+            this.rbUdpAddress1.Name = "rbUdpAddress1";
+            this.rbUdpAddress1.TextChanged += new System.EventHandler(this.rbUdpAddress1_TextChanged);
+            this.rbUdpAddress1.KeyDown += new System.Windows.Forms.KeyEventHandler(rbUdpAddress1_KeyDownHandle);
+            // 
+            // MainForm
+            // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1187, 415);
+            this.Controls.Add(this.rbUdpAddress1);
+            this.Controls.Add(this.rbSourceBox);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.rbOverride);
@@ -760,8 +555,8 @@
             this.Controls.Add(this._connectBtn);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Name = "MainForm";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -770,6 +565,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.rbSourceBox.ResumeLayout(false);
+            this.rbSourceBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -843,6 +640,8 @@
         private System.Windows.Forms.TextBox tbSourceMavlinkUdp;
         private System.Windows.Forms.CheckBox cbMini;
         private System.Windows.Forms.Button btnMarco;
+        private System.Windows.Forms.GroupBox rbSourceBox;
+        private System.Windows.Forms.TextBox rbUdpAddress1;
     }
 }
 

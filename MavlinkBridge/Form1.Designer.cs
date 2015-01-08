@@ -97,7 +97,12 @@
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
             this.rbSourceBox = new System.Windows.Forms.GroupBox();
-            this.rbUdpAddress1 = new System.Windows.Forms.TextBox();
+            this.rbComBtn = new System.Windows.Forms.Button();
+            this.rbComAddress = new System.Windows.Forms.ComboBox();
+            this.rbUdpPort = new System.Windows.Forms.MaskedTextBox();
+            this.portLabel = new System.Windows.Forms.Label();
+            this.rbUdpAddress = new System.Windows.Forms.MaskedTextBox();
+            this.TestLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -523,25 +528,63 @@
             // 
             // rbSourceBox
             // 
+            this.rbSourceBox.Controls.Add(this.TestLabel);
+            this.rbSourceBox.Controls.Add(this.rbComBtn);
+            this.rbSourceBox.Controls.Add(this.rbComAddress);
+            this.rbSourceBox.Controls.Add(this.rbUdpPort);
+            this.rbSourceBox.Controls.Add(this.portLabel);
+            this.rbSourceBox.Controls.Add(this.rbUdpAddress);
             this.rbSourceBox.Controls.Add(this.rbSourceUDP);
             this.rbSourceBox.Controls.Add(this.rbSourceSerial);
             resources.ApplyResources(this.rbSourceBox, "rbSourceBox");
             this.rbSourceBox.Name = "rbSourceBox";
             this.rbSourceBox.TabStop = false;
-            this.rbSourceBox.Enter += new System.EventHandler(this.sourceBox_Enter);
+            this.rbSourceBox.Enter += new System.EventHandler(this.rbSourceBox_Enter);
             // 
-            // rbUdpAddress1
+            // rbComBtn
             // 
-            resources.ApplyResources(this.rbUdpAddress1, "rbUdpAddress1");
-            this.rbUdpAddress1.Name = "rbUdpAddress1";
-            this.rbUdpAddress1.TextChanged += new System.EventHandler(this.rbUdpAddress1_TextChanged);
-            this.rbUdpAddress1.KeyDown += new System.Windows.Forms.KeyEventHandler(rbUdpAddress1_KeyDownHandle);
+            resources.ApplyResources(this.rbComBtn, "rbComBtn");
+            this.rbComBtn.Name = "rbComBtn";
+            this.rbComBtn.UseVisualStyleBackColor = true;
+            this.rbComBtn.Click += new System.EventHandler(this.rbComBtn_Click);
+            // 
+            // rbComAddress
+            // 
+            this.rbComAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rbComAddress.FormattingEnabled = true;
+            this.rbComAddress.Items.AddRange(new object[] {
+            resources.GetString("rbComAddress.Items"),
+            resources.GetString("rbComAddress.Items1")});
+            resources.ApplyResources(this.rbComAddress, "rbComAddress");
+            this.rbComAddress.Name = "rbComAddress";
+            this.rbComAddress.SelectedIndexChanged += new System.EventHandler(this.rbComAddress_SelectedIndexChanged);
+            // 
+            // rbUdpPort
+            // 
+            this.rbUdpPort.BeepOnError = true;
+            resources.ApplyResources(this.rbUdpPort, "rbUdpPort");
+            this.rbUdpPort.Name = "rbUdpPort";
+            // 
+            // portLabel
+            // 
+            resources.ApplyResources(this.portLabel, "portLabel");
+            this.portLabel.Name = "portLabel";
+            // 
+            // rbUdpAddress
+            // 
+            this.rbUdpAddress.BeepOnError = true;
+            resources.ApplyResources(this.rbUdpAddress, "rbUdpAddress");
+            this.rbUdpAddress.Name = "rbUdpAddress";
+            // 
+            // TestLabel
+            // 
+            resources.ApplyResources(this.TestLabel, "TestLabel");
+            this.TestLabel.Name = "TestLabel";
             // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.rbUdpAddress1);
             this.Controls.Add(this.rbSourceBox);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -641,7 +684,12 @@
         private System.Windows.Forms.CheckBox cbMini;
         private System.Windows.Forms.Button btnMarco;
         private System.Windows.Forms.GroupBox rbSourceBox;
-        private System.Windows.Forms.TextBox rbUdpAddress1;
+        private System.Windows.Forms.MaskedTextBox rbUdpAddress;
+        private System.Windows.Forms.Label portLabel;
+        private System.Windows.Forms.MaskedTextBox rbUdpPort;
+        private System.Windows.Forms.ComboBox rbComAddress;
+        private System.Windows.Forms.Button rbComBtn;
+        private System.Windows.Forms.Label TestLabel;
     }
 }
 

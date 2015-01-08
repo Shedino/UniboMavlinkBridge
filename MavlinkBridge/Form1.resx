@@ -117,95 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;cbMini.Name" xml:space="preserve">
-    <value>cbMini</value>
-  </data>
-  <data name="&gt;&gt;cbMini.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbMini.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;cbMini.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cbUseMavlink.Name" xml:space="preserve">
-    <value>cbUseMavlink</value>
-  </data>
-  <data name="&gt;&gt;cbUseMavlink.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbUseMavlink.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;cbUseMavlink.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tbSourceMavlinkUdp.Name" xml:space="preserve">
-    <value>tbSourceMavlinkUdp</value>
-  </data>
-  <data name="&gt;&gt;tbSourceMavlinkUdp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbSourceMavlinkUdp.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;tbSourceMavlinkUdp.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;tbSourceSerial.Name" xml:space="preserve">
-    <value>tbSourceSerial</value>
-  </data>
-  <data name="&gt;&gt;tbSourceSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbSourceSerial.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;tbSourceSerial.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;tbSourceUdp.Name" xml:space="preserve">
-    <value>tbSourceUdp</value>
-  </data>
-  <data name="&gt;&gt;tbSourceUdp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbSourceUdp.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;tbSourceUdp.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 12</value>
-  </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 73</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBox1.Text" xml:space="preserve">
-    <value>Source</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
   <data name="cbMini.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cbMini.Location" type="System.Drawing.Point, System.Drawing">
     <value>305, 46</value>
   </data>
@@ -332,11 +248,35 @@
   <data name="&gt;&gt;tbSourceUdp.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 12</value>
+  </data>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 73</value>
+  </data>
+  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
   <data name="rbSourceSerial.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="rbSourceSerial.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 18</value>
+    <value>6, 42</value>
   </data>
   <data name="rbSourceSerial.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 17</value>
@@ -357,13 +297,13 @@
     <value>rbSourceBox</value>
   </data>
   <data name="&gt;&gt;rbSourceSerial.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>7</value>
   </data>
   <data name="rbSourceUDP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="rbSourceUDP.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 40</value>
+    <value>6, 18</value>
   </data>
   <data name="rbSourceUDP.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 17</value>
@@ -384,79 +324,7 @@
     <value>rbSourceBox</value>
   </data>
   <data name="&gt;&gt;rbSourceUDP.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tbDestSerial.Name" xml:space="preserve">
-    <value>tbDestSerial</value>
-  </data>
-  <data name="&gt;&gt;tbDestSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbDestSerial.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;tbDestSerial.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tbDestUdp.Name" xml:space="preserve">
-    <value>tbDestUdp</value>
-  </data>
-  <data name="&gt;&gt;tbDestUdp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbDestUdp.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;tbDestUdp.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationSerial.Name" xml:space="preserve">
-    <value>rbDestinationSerial</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationSerial.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationSerial.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationSerial.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationUDP.Name" xml:space="preserve">
-    <value>rbDestinationUDP</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationUDP.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationUDP.Parent" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;rbDestinationUDP.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 91</value>
-  </data>
-  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 69</value>
-  </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>Destination</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
-    <value>groupBox2</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>6</value>
   </data>
   <data name="tbDestSerial.Location" type="System.Drawing.Point, System.Drawing">
     <value>419, 18</value>
@@ -560,6 +428,30 @@
   <data name="&gt;&gt;rbDestinationUDP.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 91</value>
+  </data>
+  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 69</value>
+  </data>
+  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
   <data name="_connectBtn.Location" type="System.Drawing.Point, System.Drawing">
     <value>417, 174</value>
   </data>
@@ -582,7 +474,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;_connectBtn.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>10</value>
   </data>
   <data name="_disconnetcBtn.Location" type="System.Drawing.Point, System.Drawing">
     <value>785, 181</value>
@@ -606,7 +498,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;_disconnetcBtn.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>9</value>
   </data>
   <data name="tbPackets.Location" type="System.Drawing.Point, System.Drawing">
     <value>593, 191</value>
@@ -634,7 +526,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbPackets.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>8</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -661,7 +553,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>7</value>
   </data>
   <data name="tbDebug.Location" type="System.Drawing.Point, System.Drawing">
     <value>384, 321</value>
@@ -685,7 +577,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tbDebug.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>6</value>
   </data>
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -715,7 +607,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;rbAtech.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="rbIris.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -742,7 +634,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;rbIris.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>81, 19</value>
@@ -1747,7 +1639,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;rbOverride.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="groupBox3.Location" type="System.Drawing.Point, System.Drawing">
     <value>953, 12</value>
@@ -1771,69 +1663,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;btnMarco.Name" xml:space="preserve">
-    <value>btnMarco</value>
-  </data>
-  <data name="&gt;&gt;btnMarco.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnMarco.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;btnMarco.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;rbSourceMAVLink.Name" xml:space="preserve">
-    <value>rbSourceMAVLink</value>
-  </data>
-  <data name="&gt;&gt;rbSourceMAVLink.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbSourceMAVLink.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;rbSourceMAVLink.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;rbSourceUNIBO.Name" xml:space="preserve">
-    <value>rbSourceUNIBO</value>
-  </data>
-  <data name="&gt;&gt;rbSourceUNIBO.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbSourceUNIBO.Parent" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;rbSourceUNIBO.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>384, 244</value>
-  </data>
-  <data name="groupBox4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 71</value>
-  </data>
-  <data name="groupBox4.TabIndex" type="System.Int32, mscorlib">
-    <value>50</value>
-  </data>
-  <data name="groupBox4.Text" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="groupBox4.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;groupBox4.Name" xml:space="preserve">
-    <value>groupBox4</value>
-  </data>
-  <data name="&gt;&gt;groupBox4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox4.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="btnMarco.Location" type="System.Drawing.Point, System.Drawing">
@@ -1914,6 +1743,204 @@
   <data name="&gt;&gt;rbSourceUNIBO.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>384, 244</value>
+  </data>
+  <data name="groupBox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 71</value>
+  </data>
+  <data name="groupBox4.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="groupBox4.Text" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="groupBox4.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Name" xml:space="preserve">
+    <value>groupBox4</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="TestLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="TestLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>318, 25</value>
+  </data>
+  <data name="TestLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 13</value>
+  </data>
+  <data name="TestLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="TestLabel.Text" xml:space="preserve">
+    <value>label16</value>
+  </data>
+  <data name="&gt;&gt;TestLabel.Name" xml:space="preserve">
+    <value>TestLabel</value>
+  </data>
+  <data name="&gt;&gt;TestLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TestLabel.Parent" xml:space="preserve">
+    <value>rbSourceBox</value>
+  </data>
+  <data name="&gt;&gt;TestLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbComBtn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 18</value>
+  </data>
+  <data name="rbComBtn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 43</value>
+  </data>
+  <data name="rbComBtn.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="rbComBtn.Text" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="&gt;&gt;rbComBtn.Name" xml:space="preserve">
+    <value>rbComBtn</value>
+  </data>
+  <data name="&gt;&gt;rbComBtn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbComBtn.Parent" xml:space="preserve">
+    <value>rbSourceBox</value>
+  </data>
+  <data name="&gt;&gt;rbComBtn.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="rbComAddress.Items" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="rbComAddress.Items1" xml:space="preserve">
+    <value>111</value>
+  </data>
+  <data name="rbComAddress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 40</value>
+  </data>
+  <data name="rbComAddress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 21</value>
+  </data>
+  <data name="rbComAddress.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="&gt;&gt;rbComAddress.Name" xml:space="preserve">
+    <value>rbComAddress</value>
+  </data>
+  <data name="&gt;&gt;rbComAddress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbComAddress.Parent" xml:space="preserve">
+    <value>rbSourceBox</value>
+  </data>
+  <data name="&gt;&gt;rbComAddress.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="rbUdpPort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>187, 17</value>
+  </data>
+  <data name="rbUdpPort.Mask" xml:space="preserve">
+    <value>9990</value>
+  </data>
+  <data name="rbUdpPort.PromptChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="rbUdpPort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 20</value>
+  </data>
+  <data name="rbUdpPort.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="rbUdpPort.Text" xml:space="preserve">
+    <value>6655</value>
+  </data>
+  <data name="rbUdpPort.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="&gt;&gt;rbUdpPort.Name" xml:space="preserve">
+    <value>rbUdpPort</value>
+  </data>
+  <data name="&gt;&gt;rbUdpPort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbUdpPort.Parent" xml:space="preserve">
+    <value>rbSourceBox</value>
+  </data>
+  <data name="&gt;&gt;rbUdpPort.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="portLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="portLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>155, 20</value>
+  </data>
+  <data name="portLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 13</value>
+  </data>
+  <data name="portLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="portLabel.Text" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="&gt;&gt;portLabel.Name" xml:space="preserve">
+    <value>portLabel</value>
+  </data>
+  <data name="&gt;&gt;portLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;portLabel.Parent" xml:space="preserve">
+    <value>rbSourceBox</value>
+  </data>
+  <data name="&gt;&gt;portLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="rbUdpAddress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>60, 17</value>
+  </data>
+  <data name="rbUdpAddress.Mask" xml:space="preserve">
+    <value>990\.990\.990\.990</value>
+  </data>
+  <data name="rbUdpAddress.PromptChar" type="System.Char, mscorlib" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="rbUdpAddress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 20</value>
+  </data>
+  <data name="rbUdpAddress.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="rbUdpAddress.Text" xml:space="preserve">
+    <value>127  0  0  1</value>
+  </data>
+  <data name="rbUdpAddress.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;rbUdpAddress.Name" xml:space="preserve">
+    <value>rbUdpAddress</value>
+  </data>
+  <data name="&gt;&gt;rbUdpAddress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbUdpAddress.Parent" xml:space="preserve">
+    <value>rbSourceBox</value>
+  </data>
+  <data name="&gt;&gt;rbUdpAddress.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="rbSourceBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
   </data>
@@ -1924,7 +1951,7 @@
     <value>51</value>
   </data>
   <data name="rbSourceBox.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Read</value>
   </data>
   <data name="&gt;&gt;rbSourceBox.Name" xml:space="preserve">
     <value>rbSourceBox</value>
@@ -1936,30 +1963,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;rbSourceBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="rbUdpAddress1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 115</value>
-  </data>
-  <data name="rbUdpAddress1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="rbUdpAddress1.TabIndex" type="System.Int32, mscorlib">
-    <value>52</value>
-  </data>
-  <data name="rbUdpAddress1.Text" xml:space="preserve">
-    <value>127</value>
-  </data>
-  <data name="&gt;&gt;rbUdpAddress1.Name" xml:space="preserve">
-    <value>rbUdpAddress1</value>
-  </data>
-  <data name="&gt;&gt;rbUdpAddress1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbUdpAddress1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;rbUdpAddress1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

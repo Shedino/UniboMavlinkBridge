@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Web.UI.WebControls;
 using System.IO.Ports;
 using System.Net.Sockets;
 using System.Net;
@@ -59,6 +60,15 @@ namespace MavlinkBridge
         public MainForm()
         {
             InitializeComponent();
+
+            // Get a list of serial port names.
+            string[] ComPorts=SerialPort.GetPortNames();
+            this.rbComAddress.Items.Clear();
+            foreach(string ComPort in ComPorts)
+            {
+                this.rbComAddress.Items.Add(new ListItem(ComPort,ComPort));
+            }
+            this.rbComAddress.SelectedIndex=0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -657,36 +667,40 @@ namespace MavlinkBridge
             }
         }
 
-        private void sourceBox_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void rbSourceSerial_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void rbUdpAddress1_KeyDownHandle(object sender, KeyEventArgs e)
+        private void rbComAddress_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (e.KeyCode == Keys.Enter)
-            //{
-            //    // some processing
-            //    btnOk.Enabled = true;
-            //    txtPassword.Focus();
-            //}
+        //    //TestLabel.Text = "ok" ;
+        //    // Get a list of serial port names.
+        //    string[] ports = SerialPort.GetPortNames();
+
+        //    //Console.WriteLine("The following serial ports were found:");
+
+        //    // Display each port name to the console.
+        //    foreach (string port in ports)
+        //    {
+        //        this.rbComAddress.Items.Add(new ListItem(port, port));
+        //        //Console.WriteLine(port);
+        //        //TestLabel.Text = port;//"done";//
+        //        //TestLabel.Update();
+        //    }
+
+        //    //Console.ReadLine();
         }
 
-        private void rbUdpAddress1_TextChanged(object sender, EventArgs e)
+        private void rbSourceBox_Enter(object sender, EventArgs e)
         {
-            //double value;
-            //// Convert the text to a Double and determine if it is a negative number.
-            //if (!double.TryParse(rbUdpAddress1.Text,out value))
-            //{
 
-            //}
         }
 
+        private void rbComBtn_Click(object sender, EventArgs e)
+        {
+            TestLabel.Text = this.rbComAddress.Text;
+        }
           
     }
 }

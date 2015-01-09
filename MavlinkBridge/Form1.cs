@@ -699,8 +699,50 @@ namespace MavlinkBridge
 
         private void rbComBtn_Click(object sender, EventArgs e)
         {
-            TestLabel.Text = this.rbComAddress.Text;
+            if (_commActive)
+            {
+                _commActive = false;
+                _sourceSerial.Close();
+                this.rbComBtn.Text = "Connect";
+            }
+            else
+            {
+                _commActive = true;
+                _sourceSerial = new SerialPort(this.rbComAddress.Text);
+                _sourceSerial.BaudRate = 57600;
+                _sourceSerial.Parity = Parity.None;
+                _sourceSerial.StopBits = StopBits.One;
+                _sourceSerial.DataBits = 8;
+                _sourceSerial.Handshake = Handshake.None;
+                _sourceSerial.DataReceived += SerialPortDataReceived;
+                try{
+                    _sourceSerial.Open();
+                }
+                catch (Exception ex)
+                {
+                    //valutare come completare questa parte una volta che aggiungi la console
+                    //System.Diagnostics.Debug.WriteLine(ex.Message + ex.StackTrace);
+                    TestLabel.Text = "no";
+                }
+                this.rbComBtn.Text = "Disconnect";
+                //Console.WriteLine("Press any key to continue...");
+                //Console.WriteLine();
+                //Console.ReadKey();
+            }
         }
-          
+
+        private void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            string indata = sp.ReadExisting();
+            //this.TestLabel.Text = "ok";// indata;
+            this.BeginInvoke(new SetTextDeleg(si_DataReceived), new object[] { indata });
+            //Debug.Print("Data Received:");
+            //Debug.Print(indata);
+        }
+
+        // delegate is used to write to a UI control from a non-UI thread
+        private delegate void SetTextDeleg(string text);
+        private void si_DataReceived(string data) { this.rbReadBox.Text = data.Trim(); }
     }
 }

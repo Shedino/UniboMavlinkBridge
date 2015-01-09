@@ -97,12 +97,13 @@
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
             this.rbSourceBox = new System.Windows.Forms.GroupBox();
+            this.TestLabel = new System.Windows.Forms.Label();
             this.rbComBtn = new System.Windows.Forms.Button();
             this.rbComAddress = new System.Windows.Forms.ComboBox();
             this.rbUdpPort = new System.Windows.Forms.MaskedTextBox();
             this.portLabel = new System.Windows.Forms.Label();
             this.rbUdpAddress = new System.Windows.Forms.MaskedTextBox();
-            this.TestLabel = new System.Windows.Forms.Label();
+            this.rbReadBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -528,6 +529,7 @@
             // 
             // rbSourceBox
             // 
+            this.rbSourceBox.Controls.Add(this.rbReadBox);
             this.rbSourceBox.Controls.Add(this.TestLabel);
             this.rbSourceBox.Controls.Add(this.rbComBtn);
             this.rbSourceBox.Controls.Add(this.rbComAddress);
@@ -540,6 +542,11 @@
             this.rbSourceBox.Name = "rbSourceBox";
             this.rbSourceBox.TabStop = false;
             this.rbSourceBox.Enter += new System.EventHandler(this.rbSourceBox_Enter);
+            // 
+            // TestLabel
+            // 
+            resources.ApplyResources(this.TestLabel, "TestLabel");
+            this.TestLabel.Name = "TestLabel";
             // 
             // rbComBtn
             // 
@@ -576,10 +583,11 @@
             resources.ApplyResources(this.rbUdpAddress, "rbUdpAddress");
             this.rbUdpAddress.Name = "rbUdpAddress";
             // 
-            // TestLabel
+            // rbReadBox
             // 
-            resources.ApplyResources(this.TestLabel, "TestLabel");
-            this.TestLabel.Name = "TestLabel";
+            this.rbReadBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            resources.ApplyResources(this.rbReadBox, "rbReadBox");
+            this.rbReadBox.Name = "rbReadBox";
             // 
             // MainForm
             // 
@@ -690,6 +698,7 @@
         private System.Windows.Forms.ComboBox rbComAddress;
         private System.Windows.Forms.Button rbComBtn;
         private System.Windows.Forms.Label TestLabel;
+        private System.Windows.Forms.TextBox rbReadBox;
     }
 }
 

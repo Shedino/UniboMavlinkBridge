@@ -97,13 +97,11 @@
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
             this.rbSourceBox = new System.Windows.Forms.GroupBox();
+            this.rbReadBox = new System.Windows.Forms.TextBox();
             this.TestLabel = new System.Windows.Forms.Label();
             this.rbComBtn = new System.Windows.Forms.Button();
             this.rbComAddress = new System.Windows.Forms.ComboBox();
-            this.rbUdpPort = new System.Windows.Forms.MaskedTextBox();
-            this.portLabel = new System.Windows.Forms.Label();
             this.rbUdpAddress = new System.Windows.Forms.MaskedTextBox();
-            this.rbReadBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -164,6 +162,7 @@
             this.rbSourceUDP.Name = "rbSourceUDP";
             this.rbSourceUDP.TabStop = true;
             this.rbSourceUDP.UseVisualStyleBackColor = true;
+            //this.rbSourceUDP.CheckedChanged += new System.EventHandler(this.rbSourceUDP_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -533,8 +532,6 @@
             this.rbSourceBox.Controls.Add(this.TestLabel);
             this.rbSourceBox.Controls.Add(this.rbComBtn);
             this.rbSourceBox.Controls.Add(this.rbComAddress);
-            this.rbSourceBox.Controls.Add(this.rbUdpPort);
-            this.rbSourceBox.Controls.Add(this.portLabel);
             this.rbSourceBox.Controls.Add(this.rbUdpAddress);
             this.rbSourceBox.Controls.Add(this.rbSourceUDP);
             this.rbSourceBox.Controls.Add(this.rbSourceSerial);
@@ -542,6 +539,13 @@
             this.rbSourceBox.Name = "rbSourceBox";
             this.rbSourceBox.TabStop = false;
             this.rbSourceBox.Enter += new System.EventHandler(this.rbSourceBox_Enter);
+            // 
+            // rbReadBox
+            // 
+            this.rbReadBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            resources.ApplyResources(this.rbReadBox, "rbReadBox");
+            this.rbReadBox.Name = "rbReadBox";
+//            this.rbReadBox.TextChanged += new System.EventHandler(this.rbReadBox_TextChanged);
             // 
             // TestLabel
             // 
@@ -566,28 +570,12 @@
             this.rbComAddress.Name = "rbComAddress";
             this.rbComAddress.SelectedIndexChanged += new System.EventHandler(this.rbComAddress_SelectedIndexChanged);
             // 
-            // rbUdpPort
-            // 
-            this.rbUdpPort.BeepOnError = true;
-            resources.ApplyResources(this.rbUdpPort, "rbUdpPort");
-            this.rbUdpPort.Name = "rbUdpPort";
-            // 
-            // portLabel
-            // 
-            resources.ApplyResources(this.portLabel, "portLabel");
-            this.portLabel.Name = "portLabel";
-            // 
             // rbUdpAddress
             // 
             this.rbUdpAddress.BeepOnError = true;
             resources.ApplyResources(this.rbUdpAddress, "rbUdpAddress");
             this.rbUdpAddress.Name = "rbUdpAddress";
-            // 
-            // rbReadBox
-            // 
-            this.rbReadBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            resources.ApplyResources(this.rbReadBox, "rbReadBox");
-            this.rbReadBox.Name = "rbReadBox";
+            this.rbUdpAddress.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.rbUdpAddress_MaskInputRejected);
             // 
             // MainForm
             // 
@@ -693,8 +681,6 @@
         private System.Windows.Forms.Button btnMarco;
         private System.Windows.Forms.GroupBox rbSourceBox;
         private System.Windows.Forms.MaskedTextBox rbUdpAddress;
-        private System.Windows.Forms.Label portLabel;
-        private System.Windows.Forms.MaskedTextBox rbUdpPort;
         private System.Windows.Forms.ComboBox rbComAddress;
         private System.Windows.Forms.Button rbComBtn;
         private System.Windows.Forms.Label TestLabel;

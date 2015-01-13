@@ -703,6 +703,7 @@ namespace MavlinkBridge
             {
                 _commActive = false;
                 _sourceSerial.Close();
+                _sourceSerial.Dispose();
                 this.rbComBtn.Text = "Connect";
             }
             else
@@ -734,7 +735,7 @@ namespace MavlinkBridge
         private void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
+            string indata = sp.ReadLine();
             //this.TestLabel.Text = "ok";// indata;
             this.BeginInvoke(new SetTextDeleg(si_DataReceived), new object[] { indata });
             //Debug.Print("Data Received:");
@@ -743,6 +744,17 @@ namespace MavlinkBridge
 
         // delegate is used to write to a UI control from a non-UI thread
         private delegate void SetTextDeleg(string text);
-        private void si_DataReceived(string data) { this.rbReadBox.Text = data.Trim(); }
+        
+        private void si_DataReceived(string data) {
+            if (this.rbReadBox.Text.Length != 0) {
+                this.rbReadBox.AppendText(Environment.NewLine);
+            }
+            this.rbReadBox.AppendText(data);
+        }
+
+        private void rbUdpAddress_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
     }
 }

@@ -357,7 +357,7 @@
     <value>rbSourceBox</value>
   </data>
   <data name="&gt;&gt;rbSourceSerial.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="rbSourceUDP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -384,7 +384,7 @@
     <value>rbSourceBox</value>
   </data>
   <data name="&gt;&gt;rbSourceUDP.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;tbDestSerial.Name" xml:space="preserve">
     <value>tbDestSerial</value>
@@ -1920,6 +1920,9 @@
   <data name="rbReadBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="rbReadBox.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
   <data name="rbReadBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>353, 78</value>
   </data>
@@ -1942,7 +1945,7 @@
     <value>True</value>
   </data>
   <data name="TestLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>318, 25</value>
+    <value>296, 40</value>
   </data>
   <data name="TestLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 13</value>
@@ -1966,10 +1969,10 @@
     <value>1</value>
   </data>
   <data name="rbComBtn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>228, 18</value>
+    <value>180, 17</value>
   </data>
   <data name="rbComBtn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 43</value>
+    <value>73, 45</value>
   </data>
   <data name="rbComBtn.TabIndex" type="System.Int32, mscorlib">
     <value>56</value>
@@ -1999,7 +2002,7 @@
     <value>60, 40</value>
   </data>
   <data name="rbComAddress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 21</value>
+    <value>114, 21</value>
   </data>
   <data name="rbComAddress.TabIndex" type="System.Int32, mscorlib">
     <value>55</value>
@@ -2016,83 +2019,23 @@
   <data name="&gt;&gt;rbComAddress.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="rbUdpPort.Location" type="System.Drawing.Point, System.Drawing">
-    <value>187, 17</value>
-  </data>
-  <data name="rbUdpPort.Mask" xml:space="preserve">
-    <value>9990</value>
-  </data>
-  <data name="rbUdpPort.PromptChar" type="System.Char, mscorlib" xml:space="preserve">
-    <value> </value>
-  </data>
-  <data name="rbUdpPort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>35, 20</value>
-  </data>
-  <data name="rbUdpPort.TabIndex" type="System.Int32, mscorlib">
-    <value>54</value>
-  </data>
-  <data name="rbUdpPort.Text" xml:space="preserve">
-    <value>6655</value>
-  </data>
-  <data name="rbUdpPort.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="&gt;&gt;rbUdpPort.Name" xml:space="preserve">
-    <value>rbUdpPort</value>
-  </data>
-  <data name="&gt;&gt;rbUdpPort.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbUdpPort.Parent" xml:space="preserve">
-    <value>rbSourceBox</value>
-  </data>
-  <data name="&gt;&gt;rbUdpPort.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="portLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="portLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>155, 20</value>
-  </data>
-  <data name="portLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 13</value>
-  </data>
-  <data name="portLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>53</value>
-  </data>
-  <data name="portLabel.Text" xml:space="preserve">
-    <value>Port</value>
-  </data>
-  <data name="&gt;&gt;portLabel.Name" xml:space="preserve">
-    <value>portLabel</value>
-  </data>
-  <data name="&gt;&gt;portLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;portLabel.Parent" xml:space="preserve">
-    <value>rbSourceBox</value>
-  </data>
-  <data name="&gt;&gt;portLabel.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <data name="rbUdpAddress.Location" type="System.Drawing.Point, System.Drawing">
     <value>60, 17</value>
   </data>
   <data name="rbUdpAddress.Mask" xml:space="preserve">
-    <value>990\.990\.990\.990</value>
+    <value>990\.990\.990\.990\:9990</value>
   </data>
   <data name="rbUdpAddress.PromptChar" type="System.Char, mscorlib" xml:space="preserve">
     <value> </value>
   </data>
   <data name="rbUdpAddress.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 20</value>
+    <value>114, 20</value>
   </data>
   <data name="rbUdpAddress.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
   </data>
   <data name="rbUdpAddress.Text" xml:space="preserve">
-    <value>127  0  0  1</value>
+    <value>127  0  0  16655</value>
   </data>
   <data name="rbUdpAddress.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
@@ -2107,7 +2050,7 @@
     <value>rbSourceBox</value>
   </data>
   <data name="&gt;&gt;rbUdpAddress.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="rbSourceBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>

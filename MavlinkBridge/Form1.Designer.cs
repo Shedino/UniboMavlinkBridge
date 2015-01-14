@@ -99,9 +99,13 @@
             this.rbSourceBox = new System.Windows.Forms.GroupBox();
             this.rbReadBox = new System.Windows.Forms.TextBox();
             this.TestLabel = new System.Windows.Forms.Label();
+            this.rbComUdBtn = new System.Windows.Forms.Button();
             this.rbComBtn = new System.Windows.Forms.Button();
             this.rbComAddress = new System.Windows.Forms.ComboBox();
             this.rbUdpAddress = new System.Windows.Forms.MaskedTextBox();
+            this.rbCmdLbl = new System.Windows.Forms.Label();
+            this.rbCmdBox = new System.Windows.Forms.TextBox();
+            this.rbCmdBtn = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -162,7 +166,6 @@
             this.rbSourceUDP.Name = "rbSourceUDP";
             this.rbSourceUDP.TabStop = true;
             this.rbSourceUDP.UseVisualStyleBackColor = true;
-            //this.rbSourceUDP.CheckedChanged += new System.EventHandler(this.rbSourceUDP_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -528,8 +531,12 @@
             // 
             // rbSourceBox
             // 
+            this.rbSourceBox.Controls.Add(this.rbCmdBtn);
+            this.rbSourceBox.Controls.Add(this.rbCmdBox);
+            this.rbSourceBox.Controls.Add(this.rbCmdLbl);
             this.rbSourceBox.Controls.Add(this.rbReadBox);
             this.rbSourceBox.Controls.Add(this.TestLabel);
+            this.rbSourceBox.Controls.Add(this.rbComUdBtn);
             this.rbSourceBox.Controls.Add(this.rbComBtn);
             this.rbSourceBox.Controls.Add(this.rbComAddress);
             this.rbSourceBox.Controls.Add(this.rbUdpAddress);
@@ -545,12 +552,19 @@
             this.rbReadBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
             resources.ApplyResources(this.rbReadBox, "rbReadBox");
             this.rbReadBox.Name = "rbReadBox";
-//            this.rbReadBox.TextChanged += new System.EventHandler(this.rbReadBox_TextChanged);
             // 
             // TestLabel
             // 
             resources.ApplyResources(this.TestLabel, "TestLabel");
             this.TestLabel.Name = "TestLabel";
+            this.TestLabel.Click += new System.EventHandler(this.TestLabel_Click);
+            // 
+            // rbComUdBtn
+            // 
+            resources.ApplyResources(this.rbComUdBtn, "rbComUdBtn");
+            this.rbComUdBtn.Name = "rbComUdBtn";
+            this.rbComUdBtn.UseVisualStyleBackColor = true;
+            this.rbComUdBtn.Click += new System.EventHandler(this.rbComUdBtn_Click);
             // 
             // rbComBtn
             // 
@@ -564,8 +578,7 @@
             this.rbComAddress.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rbComAddress.FormattingEnabled = true;
             this.rbComAddress.Items.AddRange(new object[] {
-            resources.GetString("rbComAddress.Items"),
-            resources.GetString("rbComAddress.Items1")});
+            resources.GetString("rbComAddress.Items")});
             resources.ApplyResources(this.rbComAddress, "rbComAddress");
             this.rbComAddress.Name = "rbComAddress";
             this.rbComAddress.SelectedIndexChanged += new System.EventHandler(this.rbComAddress_SelectedIndexChanged);
@@ -576,6 +589,23 @@
             resources.ApplyResources(this.rbUdpAddress, "rbUdpAddress");
             this.rbUdpAddress.Name = "rbUdpAddress";
             this.rbUdpAddress.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.rbUdpAddress_MaskInputRejected);
+            // 
+            // rbCmdLbl
+            // 
+            resources.ApplyResources(this.rbCmdLbl, "rbCmdLbl");
+            this.rbCmdLbl.Name = "rbCmdLbl";
+            // 
+            // rbCmdBox
+            // 
+            resources.ApplyResources(this.rbCmdBox, "rbCmdBox");
+            this.rbCmdBox.Name = "rbCmdBox";
+            // 
+            // rbCmdBtn
+            // 
+            resources.ApplyResources(this.rbCmdBtn, "rbCmdBtn");
+            this.rbCmdBtn.Name = "rbCmdBtn";
+            this.rbCmdBtn.UseVisualStyleBackColor = true;
+            this.rbCmdBtn.Click += new System.EventHandler(this.rbCmdBtn_Click);
             // 
             // MainForm
             // 
@@ -685,6 +715,10 @@
         private System.Windows.Forms.Button rbComBtn;
         private System.Windows.Forms.Label TestLabel;
         private System.Windows.Forms.TextBox rbReadBox;
+        private System.Windows.Forms.Button rbComUdBtn;
+        private System.Windows.Forms.Button rbCmdBtn;
+        private System.Windows.Forms.TextBox rbCmdBox;
+        private System.Windows.Forms.Label rbCmdLbl;
     }
 }
 

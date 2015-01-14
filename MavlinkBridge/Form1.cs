@@ -60,15 +60,30 @@ namespace MavlinkBridge
         public MainForm()
         {
             InitializeComponent();
+            UpdComPorts();
+            //// Get a list of serial port names.
+            //string[] ComPorts=SerialPort.GetPortNames();
+            //this.rbComAddress.Items.Clear();
+            //foreach(string ComPort in ComPorts)
+            //{
+            //    this.rbComAddress.Items.Add(new ListItem(ComPort,ComPort));
+            //}
+            //this.rbComAddress.SelectedIndex=0;
+        }
 
+        private void UpdComPorts()
+        {
             // Get a list of serial port names.
-            string[] ComPorts=SerialPort.GetPortNames();
+            string[] ComPorts = SerialPort.GetPortNames();
             this.rbComAddress.Items.Clear();
-            foreach(string ComPort in ComPorts)
+            if (ComPorts.Length > 0)
             {
-                this.rbComAddress.Items.Add(new ListItem(ComPort,ComPort));
+                foreach (string ComPort in ComPorts)
+                {
+                    this.rbComAddress.Items.Add(new ListItem(ComPort, ComPort));
+                }
+                this.rbComAddress.SelectedIndex = 0;
             }
-            this.rbComAddress.SelectedIndex=0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -704,6 +719,9 @@ namespace MavlinkBridge
                 _commActive = false;
                 _sourceSerial.Close();
                 _sourceSerial.Dispose();
+                rbCmdLbl.Enabled = false;
+                rbCmdBox.Enabled = false;
+                rbCmdBtn.Enabled = false;
                 this.rbComBtn.Text = "Connect";
             }
             else
@@ -725,11 +743,19 @@ namespace MavlinkBridge
                     //System.Diagnostics.Debug.WriteLine(ex.Message + ex.StackTrace);
                     TestLabel.Text = "no";
                 }
+                rbCmdLbl.Enabled = true;
+                rbCmdBox.Enabled = true;
+                rbCmdBtn.Enabled = true;
                 this.rbComBtn.Text = "Disconnect";
                 //Console.WriteLine("Press any key to continue...");
                 //Console.WriteLine();
                 //Console.ReadKey();
             }
+        }
+
+        private void rbComUdBtn_Click(object sender, EventArgs e)
+        {
+            UpdComPorts();
         }
 
         private void SerialPortDataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -755,6 +781,16 @@ namespace MavlinkBridge
         private void rbUdpAddress_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
 
+        }
+
+        private void TestLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbCmdBtn_Click(object sender, EventArgs e)
+        {
+            _sourceSerial.Write(this.rbCmdBox.Text + Environment.NewLine);
         }
     }
 }

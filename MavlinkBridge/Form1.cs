@@ -11,6 +11,7 @@ using System.IO.Ports;
 using System.Net.Sockets;
 using System.Net;
 using MavLink;
+using System.Globalization;
 
 namespace MavlinkBridge
 {
@@ -44,10 +45,12 @@ namespace MavlinkBridge
 
         Mavlink rcvmav = null;
 
+        NumberFormatInfo nfi = System.Globalization.CultureInfo.InvariantCulture.NumberFormat;
         private int _rcvOpti = 0;
         private int _rcvPars = 0;
         private int _rcvRefs = 0;
         private int _rcvJoy = 0;
+        private int counter = 0;
         byte seqOpti = 0;
         byte seqPars = 0;
         byte seqRefs = 0;
@@ -457,7 +460,7 @@ namespace MavlinkBridge
                 if (cbMini.Checked)
                 {
                     //S LEN TYPE (13=references) DATA E
-                    string sendStr = "S 0 17 " + m.command + " " + m.confirmation + " " + m.param1 + " " + m.param2 + " " + m.param3 + " " + m.param4 + " " + m.param5 + " " + m.param6 + " " + m.param7 + " E";
+                    string sendStr = "S 0 17 " + m.command.ToString(nfi) + " " + m.confirmation.ToString(nfi) + " " + m.param1.ToString(nfi) + " " + m.param2.ToString(nfi) + " " + m.param3.ToString(nfi) + " " + m.param4.ToString(nfi) + " " + m.param5.ToString(nfi) + " " + m.param6.ToString(nfi) + " " + m.param7.ToString(nfi) + " E";
                     toSend = Encoding.ASCII.GetBytes(sendStr);
                 }
                 else
@@ -474,7 +477,8 @@ namespace MavlinkBridge
                 if (cbMini.Checked)
                 {
                     //S LEN TYPE (13=references) DATA E
-                    string sendStr = "S 0 13 " + m.x + " " + m.y + " " + m.z + " " + m.vx + " " + m.vy + " " + m.vz + " " + m.afx + " " + m.afy + " " + m.afz + " " + m.yaw + " " + m.yaw_rate + " E";
+                    string sendStr = "S 0 13 " + ConvIntStr(m.x) + " " + ConvIntStr(m.y) + " " + ConvIntStr(m.z) + " " + ConvIntStr(m.vx) + " " + ConvIntStr(m.vy) + " " + ConvIntStr(m.vz) + " " + ConvIntStr(m.afx) + " " + ConvIntStr(m.afy) + " " + ConvIntStr(m.afz) + " " + ConvIntStr(m.yaw) + " " + ConvIntStr(m.yaw_rate) + " E";
+                    Console.WriteLine(sendStr);
                     toSend = Encoding.ASCII.GetBytes(sendStr);
                 }
                 else
@@ -492,6 +496,12 @@ namespace MavlinkBridge
                 SendData(toSend);
             }
             //Spedisco sempre dentro gli IF (che fungono da switch/case)
+        }
+
+        private string ConvIntStr(float p)
+        {
+            int retval = Convert.ToInt32(p*1000);
+            return retval.ToString(nfi);
         }
 
         private void SendData(byte[] toSend)

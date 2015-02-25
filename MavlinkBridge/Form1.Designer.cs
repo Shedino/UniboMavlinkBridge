@@ -93,6 +93,8 @@
             this.rbOverride = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
+            this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
             this.btnMarco = new System.Windows.Forms.Button();
             this.rbSourceMAVLink = new System.Windows.Forms.RadioButton();
             this.rbSourceUNIBO = new System.Windows.Forms.RadioButton();
@@ -141,6 +143,34 @@
             resources.ApplyResources(this.tbSourceMavlinkUdp, "tbSourceMavlinkUdp");
             this.tbSourceMavlinkUdp.Name = "tbSourceMavlinkUdp";
             // 
+            // cbMini
+            // 
+            this.cbMini.AutoSize = true;
+            this.cbMini.Location = new System.Drawing.Point(299, 46);
+            this.cbMini.Name = "cbMini";
+            this.cbMini.Size = new System.Drawing.Size(55, 17);
+            this.cbMini.TabIndex = 7;
+            this.cbMini.Text = "MINI?";
+            this.cbMini.UseVisualStyleBackColor = true;
+            // 
+            // cbUseMavlink
+            // 
+            this.cbUseMavlink.AutoSize = true;
+            this.cbUseMavlink.Location = new System.Drawing.Point(6, 46);
+            this.cbUseMavlink.Name = "cbUseMavlink";
+            this.cbUseMavlink.Size = new System.Drawing.Size(80, 17);
+            this.cbUseMavlink.TabIndex = 6;
+            this.cbUseMavlink.Text = "useMavlink";
+            this.cbUseMavlink.UseVisualStyleBackColor = true;
+            // 
+            // tbSourceMavlinkUdp
+            // 
+            this.tbSourceMavlinkUdp.Location = new System.Drawing.Point(97, 44);
+            this.tbSourceMavlinkUdp.Name = "tbSourceMavlinkUdp";
+            this.tbSourceMavlinkUdp.Size = new System.Drawing.Size(196, 20);
+            this.tbSourceMavlinkUdp.TabIndex = 5;
+            this.tbSourceMavlinkUdp.Text = "127.0.0.1:9090";
+            // 
             // tbSourceSerial
             // 
             resources.ApplyResources(this.tbSourceSerial, "tbSourceSerial");
@@ -186,6 +216,9 @@
             // 
             resources.ApplyResources(this.tbDestUdp, "tbDestUdp");
             this.tbDestUdp.Name = "tbDestUdp";
+            this.tbDestUdp.Size = new System.Drawing.Size(196, 20);
+            this.tbDestUdp.TabIndex = 4;
+            this.tbDestUdp.Text = "192.168.1.50:54111";
             // 
             // rbDestinationSerial
             // 
@@ -309,6 +342,7 @@
             // 
             // textBox7
             // 
+            this.textBox7.Location = new System.Drawing.Point(155, 107);
             resources.ApplyResources(this.textBox7, "textBox7");
             this.textBox7.Name = "textBox7";
             // 
@@ -319,11 +353,17 @@
             // 
             // textBox9
             // 
+            this.textBox9.Location = new System.Drawing.Point(249, 107);
             resources.ApplyResources(this.textBox9, "textBox9");
             this.textBox9.Name = "textBox9";
             // 
             // textBox10
             // 
+            this.textBox10.Location = new System.Drawing.Point(155, 129);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(41, 20);
+            this.textBox10.TabIndex = 25;
+            this.textBox10.Text = "700";
             resources.ApplyResources(this.textBox10, "textBox10");
             this.textBox10.Name = "textBox10";
             // 
@@ -331,9 +371,25 @@
             // 
             resources.ApplyResources(this.textBox11, "textBox11");
             this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(41, 20);
+            this.textBox11.TabIndex = 24;
+            this.textBox11.Text = "700";
             // 
             // textBox12
             // 
+            this.textBox12.Location = new System.Drawing.Point(249, 130);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(41, 20);
+            this.textBox12.TabIndex = 23;
+            this.textBox12.Text = "500";
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(155, 153);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(41, 20);
+            this.textBox13.TabIndex = 28;
+            this.textBox13.Text = "0.1";
             resources.ApplyResources(this.textBox12, "textBox12");
             this.textBox12.Name = "textBox12";
             // 
@@ -346,15 +402,23 @@
             // 
             resources.ApplyResources(this.textBox14, "textBox14");
             this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(41, 20);
+            this.textBox14.TabIndex = 27;
+            this.textBox14.Text = "0.1";
             // 
             // textBox15
             // 
+            this.textBox15.Location = new System.Drawing.Point(249, 153);
             resources.ApplyResources(this.textBox15, "textBox15");
             this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(41, 20);
+            this.textBox15.TabIndex = 26;
+            this.textBox15.Text = "0.07";
             // 
             // textBox16
             // 
             resources.ApplyResources(this.textBox16, "textBox16");
+            this.textBox16.Location = new System.Drawing.Point(155, 175);
             this.textBox16.Name = "textBox16";
             // 
             // textBox17
@@ -364,6 +428,7 @@
             // 
             // textBox18
             // 
+            this.textBox18.Location = new System.Drawing.Point(249, 175);
             resources.ApplyResources(this.textBox18, "textBox18");
             this.textBox18.Name = "textBox18";
             // 
@@ -523,6 +588,14 @@
             this.rbSourceMAVLink.UseVisualStyleBackColor = true;
             // 
             // rbSourceUNIBO
+            this.rbSourceUNIBO.AutoSize = true;
+            this.rbSourceUNIBO.Location = new System.Drawing.Point(6, 19);
+            this.rbSourceUNIBO.Name = "rbSourceUNIBO";
+            this.rbSourceUNIBO.Size = new System.Drawing.Size(91, 17);
+            this.rbSourceUNIBO.TabIndex = 0;
+            this.rbSourceUNIBO.TabStop = true;
+            this.rbSourceUNIBO.Text = "sourceUNIBO";
+            this.rbSourceUNIBO.UseVisualStyleBackColor = true;
             // 
             resources.ApplyResources(this.rbSourceUNIBO, "rbSourceUNIBO");
             this.rbSourceUNIBO.Name = "rbSourceUNIBO";

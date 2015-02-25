@@ -16,6 +16,7 @@ namespace MavlinkBridge
             Application.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
             Application.Run(new MainForm());
         }
     }

@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cbMini.Location" type="System.Drawing.Point, System.Drawing">
-    <value>305, 46</value>
+    <value>299, 46</value>
   </data>
   <data name="cbMini.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 17</value>
@@ -150,7 +150,7 @@
     <value>True</value>
   </data>
   <data name="cbUseMavlink.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 46</value>
+    <value>6, 46</value>
   </data>
   <data name="cbUseMavlink.Size" type="System.Drawing.Size, System.Drawing">
     <value>80, 17</value>
@@ -174,7 +174,7 @@
     <value>1</value>
   </data>
   <data name="tbSourceMavlinkUdp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>103, 44</value>
+    <value>97, 44</value>
   </data>
   <data name="tbSourceMavlinkUdp.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 20</value>
@@ -183,7 +183,7 @@
     <value>5</value>
   </data>
   <data name="tbSourceMavlinkUdp.Text" xml:space="preserve">
-    <value>127.0.0.1:6644</value>
+    <value>127.0.0.1:9090</value>
   </data>
   <data name="&gt;&gt;tbSourceMavlinkUdp.Name" xml:space="preserve">
     <value>tbSourceMavlinkUdp</value>
@@ -360,7 +360,7 @@
     <value>4</value>
   </data>
   <data name="tbDestUdp.Text" xml:space="preserve">
-    <value>192.168.1.155:54321</value>
+    <value>192.168.1.50:54111</value>
   </data>
   <data name="&gt;&gt;tbDestUdp.Name" xml:space="preserve">
     <value>tbDestUdp</value>
@@ -913,7 +913,7 @@
     <value>19</value>
   </data>
   <data name="textBox7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 107</value>
+    <value>81, 107</value>
   </data>
   <data name="textBox7.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -961,7 +961,7 @@
     <value>23</value>
   </data>
   <data name="textBox9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 107</value>
+    <value>175, 107</value>
   </data>
   <data name="textBox9.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -985,7 +985,7 @@
     <value>21</value>
   </data>
   <data name="textBox10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 130</value>
+    <value>81, 130</value>
   </data>
   <data name="textBox10.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -994,7 +994,7 @@
     <value>25</value>
   </data>
   <data name="textBox10.Text" xml:space="preserve">
-    <value>2.4</value>
+    <value>700</value>
   </data>
   <data name="&gt;&gt;textBox10.Name" xml:space="preserve">
     <value>textBox10</value>
@@ -1018,7 +1018,7 @@
     <value>24</value>
   </data>
   <data name="textBox11.Text" xml:space="preserve">
-    <value>2.3</value>
+    <value>700</value>
   </data>
   <data name="&gt;&gt;textBox11.Name" xml:space="preserve">
     <value>textBox11</value>
@@ -1033,7 +1033,7 @@
     <value>29</value>
   </data>
   <data name="textBox12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 130</value>
+    <value>175, 129</value>
   </data>
   <data name="textBox12.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1042,7 +1042,7 @@
     <value>23</value>
   </data>
   <data name="textBox12.Text" xml:space="preserve">
-    <value>2</value>
+    <value>500</value>
   </data>
   <data name="&gt;&gt;textBox12.Name" xml:space="preserve">
     <value>textBox12</value>
@@ -1057,7 +1057,7 @@
     <value>27</value>
   </data>
   <data name="textBox13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 153</value>
+    <value>81, 153</value>
   </data>
   <data name="textBox13.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1066,7 +1066,7 @@
     <value>28</value>
   </data>
   <data name="textBox13.Text" xml:space="preserve">
-    <value>0.19</value>
+    <value>0.1</value>
   </data>
   <data name="&gt;&gt;textBox13.Name" xml:space="preserve">
     <value>textBox13</value>
@@ -1090,7 +1090,7 @@
     <value>27</value>
   </data>
   <data name="textBox14.Text" xml:space="preserve">
-    <value>0.19</value>
+    <value>0.1</value>
   </data>
   <data name="&gt;&gt;textBox14.Name" xml:space="preserve">
     <value>textBox14</value>
@@ -1105,7 +1105,7 @@
     <value>35</value>
   </data>
   <data name="textBox15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 153</value>
+    <value>175, 153</value>
   </data>
   <data name="textBox15.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1114,7 +1114,7 @@
     <value>26</value>
   </data>
   <data name="textBox15.Text" xml:space="preserve">
-    <value>0.19</value>
+    <value>0.07</value>
   </data>
   <data name="&gt;&gt;textBox15.Name" xml:space="preserve">
     <value>textBox15</value>
@@ -1129,7 +1129,7 @@
     <value>33</value>
   </data>
   <data name="textBox16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 175</value>
+    <value>81, 175</value>
   </data>
   <data name="textBox16.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>
@@ -1177,7 +1177,7 @@
     <value>36</value>
   </data>
   <data name="textBox18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>81, 175</value>
+    <value>175, 175</value>
   </data>
   <data name="textBox18.Size" type="System.Drawing.Size, System.Drawing">
     <value>41, 20</value>

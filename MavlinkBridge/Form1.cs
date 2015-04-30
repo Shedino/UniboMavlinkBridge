@@ -50,11 +50,15 @@ namespace MavlinkBridge
         private int _rcvPars = 0;
         private int _rcvRefs = 0;
         private int _rcvJoy = 0;
+        private int _rcvRCOverr = 0;
+        private int _rcvPosTargGI = 0;
         private int counter = 0;
         byte seqOpti = 0;
         byte seqPars = 0;
         byte seqRefs = 0;
         byte seqJoy = 0;
+        byte seqRCOverr = 0;
+        byte seqPosTargGI = 0;
         //parameters
         SendParams parsObj = new SendParams();
 
@@ -368,6 +372,49 @@ namespace MavlinkBridge
                                 mprc.SystemId = 0;
                                 mprc.TimeStamp = DateTime.Now;
                                 toSend = mav.Send(mprc);
+                                break;
+                            case 11:
+                                //RC_CHANNELS_OVERRIDE
+                                Msg_rc_channels_override RCOverr = new Msg_rc_channels_override();
+                                _rcvRCOverr++;
+                                RCOverr.chan1_raw = (ushort)ushort.Parse(pspl[2]);
+                                RCOverr.chan2_raw = (ushort)ushort.Parse(pspl[3]);
+                                RCOverr.chan3_raw = (ushort)ushort.Parse(pspl[4]);
+                                RCOverr.chan4_raw = (ushort)ushort.Parse(pspl[5]);
+                                RCOverr.chan5_raw = (ushort)ushort.Parse(pspl[6]);
+                                RCOverr.chan6_raw = (ushort)ushort.Parse(pspl[7]);
+                                RCOverr.chan7_raw = (ushort)ushort.Parse(pspl[8]);
+                                RCOverr.chan8_raw = (ushort)ushort.Parse(pspl[9]);
+                                MavlinkPacket mpRCO = new MavlinkPacket();
+                                mpRCO.Message = RCOverr;
+                                mpRCO.ComponentId = 0;
+                                mpRCO.SequenceNumber = ++seqRCOverr;
+                                mpRCO.SystemId = 0;
+                                mpRCO.TimeStamp = DateTime.Now;
+                                toSend = mav.Send(mpRCO);
+                                break;
+                            case 12:
+                                //POSITION_TARGET_GLOBAL_INT
+                                Msg_position_target_global_int PosTargGI = new Msg_position_target_global_int();
+                                _rcvPosTargGI++;
+                                PosTargGI.lat_int = int.Parse(pspl[2]);
+                                PosTargGI.lon_int = int.Parse(pspl[3]);
+                                PosTargGI.alt = float.Parse(pspl[4]) / 1000.0f;
+                                PosTargGI.yaw = float.Parse(pspl[5]) / 1000.0f;
+                                PosTargGI.afx = 0;                                   //NOT USED UNIBO
+                                PosTargGI.afy = 0;                                   //NOT USED UNIBO
+                                PosTargGI.afz = 0;                                   //NOT USED UNIBO
+                                PosTargGI.vx = 0;                                    //NOT USED UNIBO
+                                PosTargGI.vy = 0;                                    //NOT USED UNIBO
+                                PosTargGI.vz = 0;                                    //NOT USED UNIBO
+                                PosTargGI.yaw_rate = 0;                              //NOT USED UNIBO
+                                MavlinkPacket mpPosTargGI = new MavlinkPacket();
+                                mpPosTargGI.Message = PosTargGI;
+                                mpPosTargGI.ComponentId = 0;
+                                mpPosTargGI.SequenceNumber = ++seqPosTargGI;
+                                mpPosTargGI.SystemId = 0;
+                                mpPosTargGI.TimeStamp = DateTime.Now;
+                                toSend = mav.Send(mpPosTargGI);
                                 break;
                         }
 
